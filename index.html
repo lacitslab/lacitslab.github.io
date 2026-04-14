@@ -386,7 +386,50 @@
       opacity: 1;
       transform: translateY(0);
     }
+.team-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 18px;
+}
 
+/* PUT THE GALLERY CSS HERE */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.gallery-item {
+  background: rgba(255,255,255,0.96);
+  border: 1px solid #eadfdd;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.04);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-caption {
+  padding: 12px 14px;
+  font-size: 0.95rem;
+  color: #6b5e5b;
+}
+
+.footer {
+  margin-top: 44px;
+  padding-top: 18px;
+  border-top: 1px solid #e5dad8;
+  color: #7b6c69;
+  font-size: 0.92rem;
+  text-align: center;
+}
     .footer {
       margin-top: 44px;
       padding-top: 18px;
@@ -448,6 +491,7 @@
           <li><a href="#publications">Publications</a></li>
           <li><a href="#teaching">Teaching</a></li>
           <li><a href="#team">Team</a></li>
+          <li><a href="#gallery">Gallery</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
@@ -769,7 +813,20 @@
         </div>
       </div>
     </section>
+<section id="gallery">
+  <h2>Gallery</h2>
+  <div class="gallery-grid">
+    <div class="gallery-item reveal">
+      <img src="group-lunch-1.jpg" alt="LACITS group lunch">
+      <div class="gallery-caption">LACITS group lunch.</div>
+    </div>
 
+    <div class="gallery-item reveal">
+      <img src="group-lunch-2.jpg" alt="LACITS group lunch">
+      <div class="gallery-caption">Another moment from the group lunch.</div>
+    </div>
+  </div>
+</section>
 <section id="contact">
   <h2>Contact</h2>
   <p>
