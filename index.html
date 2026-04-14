@@ -6,14 +6,14 @@
   <title>LACITS | Laboratory for Autonomy and Control in Intelligent Transportation Systems</title>
   <style>
     :root {
-      --bg: #f7f7f7;
-      --text: #202124;
-      --muted: #616161;
-      --line: #d9d9d9;
-      --accent: #2b78e4;
-      --accent-dark: #1d5fc2;
-      --pill: #efefef;
-      --maxw: 1080px;
+      --bg: #f8f6f4;
+      --text: #222222;
+      --muted: #66605c;
+      --line: #e6ddda;
+      --accent: #7a1f2b;
+      --accent-dark: #5f1721;
+      --pill: #f3ece9;
+      --maxw: 1100px;
     }
 
     * { box-sizing: border-box; }
@@ -22,8 +22,11 @@
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
       color: var(--text);
-      background: var(--bg);
-      line-height: 1.42;
+      background:
+        radial-gradient(circle at 10% 14%, rgba(122,31,43,0.05), transparent 20%),
+        radial-gradient(circle at 86% 78%, rgba(122,31,43,0.04), transparent 18%),
+        var(--bg);
+      line-height: 1.45;
       overflow-x: hidden;
       position: relative;
     }
@@ -36,7 +39,7 @@
       inset: 0;
       z-index: -1;
       pointer-events: none;
-      opacity: 0.28;
+      opacity: 0.26;
       width: 100%;
       height: 100%;
     }
@@ -45,16 +48,17 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(250,250,250,0.97);
-      border-bottom: 1px solid #dcdcdc;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      background: rgba(250,248,247,0.92);
+      border-bottom: 1px solid var(--line);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+      backdrop-filter: blur(8px);
     }
 
     .topbar-inner {
-      max-width: 1200px;
+      max-width: 1220px;
       margin: 0 auto;
       padding: 0 16px;
-      min-height: 52px;
+      min-height: 58px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -64,9 +68,14 @@
     .brand {
       position: absolute;
       left: 18px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #4f4f4f;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: white;
+      background: linear-gradient(135deg, var(--accent), #a34758);
+      padding: 8px 13px;
+      border-radius: 999px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 8px 18px rgba(122,31,43,0.16);
     }
 
     nav ul {
@@ -81,10 +90,10 @@
 
     nav a {
       display: inline-block;
-      padding: 15px 0 11px;
-      color: #555;
+      padding: 17px 0 13px;
+      color: #5a5857;
       border-bottom: 2px solid transparent;
-      font-size: 0.96rem;
+      font-size: 0.95rem;
     }
 
     nav a:hover,
@@ -96,25 +105,34 @@
     .wrap {
       max-width: var(--maxw);
       margin: 0 auto;
-      padding: 46px 22px 70px;
+      padding: 54px 24px 74px;
     }
 
     .hero {
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 26px;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 34px;
       align-items: center;
     }
 
+    .hero-eyebrow {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1.8px;
+      color: #8a6d74;
+      margin-bottom: 8px;
+    }
+
     .hero h1 {
-      margin: 0 0 14px;
-      font-size: 2.15rem;
-      font-weight: 700;
-      text-align: center;
+      margin: 0 0 12px;
+      font-size: 2.38rem;
+      font-weight: 800;
+      text-align: left;
+      letter-spacing: 0.15px;
     }
 
     .hero-left {
-      max-width: 560px;
+      max-width: 600px;
       margin-left: auto;
     }
 
@@ -130,17 +148,19 @@
     }
 
     .portrait {
-      width: 280px;
-      height: 280px;
-      border-radius: 50%;
+      width: 320px;
+      height: 365px;
+      border-radius: 28px;
       overflow: hidden;
-      background: linear-gradient(135deg, #d8e2f1, #eef2f8);
+      background: linear-gradient(135deg, #eadfe2, #f8f2f3);
       display: grid;
       place-items: center;
-      color: #5b6880;
+      color: #6d4a52;
       font-weight: 700;
       text-align: center;
-      border: 1px solid #d7dfea;
+      border: 1px solid #e5d6d9;
+      box-shadow: 0 18px 38px rgba(0,0,0,0.06);
+      transform: rotate(1.5deg);
     }
 
     .portrait img {
@@ -151,36 +171,46 @@
     }
 
     .icon-links {
-      margin-top: 12px;
-      text-align: center;
+      margin-top: 14px;
       font-size: 0.98rem;
     }
 
     .icon-links a {
-      margin: 0 3px;
+      margin-right: 8px;
       white-space: nowrap;
     }
 
     .tagline {
       text-align: center;
-      color: #666;
+      color: #7a666b;
       font-style: italic;
-      margin: 28px 0 18px;
+      margin: 34px 0 26px;
+      padding: 12px 18px;
+      border-top: 1px solid #eadedf;
+      border-bottom: 1px solid #eadedf;
+      background: rgba(255,255,255,0.42);
+      border-radius: 12px;
     }
 
     section {
-      margin-top: 28px;
+      margin-top: 34px;
     }
 
     h2 {
-      font-size: 1.2rem;
-      margin: 0 0 12px;
+      font-size: 0.98rem;
+      margin: 0 0 14px;
+      text-transform: uppercase;
+      letter-spacing: 1.25px;
+      color: #5a3a42;
     }
 
     .news {
-      max-height: 340px;
+      max-height: 350px;
       overflow-y: auto;
-      padding-right: 10px;
+      padding: 16px 14px 16px 8px;
+      background: rgba(255,255,255,0.48);
+      border: 1px solid #ece3e1;
+      border-radius: 16px;
     }
 
     .news ul {
@@ -195,11 +225,11 @@
 
     .date {
       display: inline-block;
-      padding: 1px 6px;
-      border-radius: 4px;
-      background: #4f8ef7;
+      padding: 2px 7px;
+      border-radius: 5px;
+      background: var(--accent);
       color: white;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       margin-right: 7px;
       vertical-align: 1px;
     }
@@ -207,22 +237,24 @@
     .project,
     .pub {
       display: grid;
-      grid-template-columns: 325px 1fr;
-      gap: 22px;
+      grid-template-columns: 330px 1fr;
+      gap: 24px;
       align-items: start;
-      margin-bottom: 26px;
+      margin-bottom: 28px;
     }
 
     .thumb {
       width: 100%;
-      min-height: 215px;
+      min-height: 220px;
       background: white;
-      border: 1px solid #d6d6d6;
+      border: 1px solid #e7dcda;
       display: grid;
       place-items: center;
-      color: #6d6d6d;
+      color: #6f6b68;
       text-align: center;
       overflow: hidden;
+      border-radius: 18px;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.045);
     }
 
     .thumb img {
@@ -233,15 +265,17 @@
     }
 
     h3 {
-      margin: 0 0 4px;
-      font-size: 1rem;
+      margin: 0 0 6px;
+      font-size: 1.08rem;
       font-weight: 700;
       color: var(--accent);
+      line-height: 1.35;
     }
 
     .small-links {
       margin: 0 0 10px;
       font-size: 0.97rem;
+      color: var(--muted);
     }
 
     .small-links a { margin-right: 6px; }
@@ -254,13 +288,14 @@
     }
 
     .filters button {
-      border: 1px solid #cfcfcf;
+      border: 1px solid #dfd2d0;
       background: var(--pill);
-      color: #4e4e4e;
-      border-radius: 6px;
+      color: #5b4b4c;
+      border-radius: 999px;
       padding: 8px 18px;
-      font-size: 0.96rem;
+      font-size: 0.95rem;
       cursor: pointer;
+      transition: 0.2s ease;
     }
 
     .filters button.active,
@@ -273,10 +308,10 @@
     .muted { color: var(--muted); }
 
     .footer {
-      margin-top: 40px;
-      padding-top: 14px;
-      border-top: 1px solid #ddd;
-      color: #666;
+      margin-top: 44px;
+      padding-top: 18px;
+      border-top: 1px solid #e5dad8;
+      color: #7b6c69;
       font-size: 0.92rem;
       text-align: center;
     }
@@ -302,13 +337,10 @@
         max-width: none;
       }
 
-      .hero h1 {
-        text-align: left;
-      }
-
       .portrait {
-        width: 230px;
-        height: 230px;
+        width: 240px;
+        height: 285px;
+        transform: none;
       }
     }
   </style>
@@ -335,6 +367,7 @@
   <main class="wrap">
     <section class="hero" id="home">
       <div class="hero-left">
+        <div class="hero-eyebrow">Concordia University Research Lab</div>
         <h1>LACITS</h1>
         <p>
           I am currently the director of the <a href="#">Laboratory for Autonomy and Control in Intelligent Transportation Systems</a> at Concordia University. This homepage is arranged in a style similar to the academic page you referenced, but adapted for a lab rather than a single researcher.
@@ -354,7 +387,7 @@
       </div>
     </section>
 
-    <div class="tagline">Add a concise lab motto, short announcement, or one-line identity statement here.</div>
+    <div class="tagline">Safe, intelligent, and human-aware autonomy for transportation and robotic systems.</div>
 
     <section id="news">
       <h2>News</h2>
@@ -379,7 +412,7 @@
           <h3>Project Title 1</h3>
           <div class="small-links">[ <a href="#">Paper</a> / <a href="#">Webpage</a> / <a href="#">Video</a> ]</div>
           <p>
-            Replace this with a concise project description. This layout is intentionally close to the visual rhythm of the reference page, with an image on the left and text on the right.
+            Replace this with a concise project description. This layout keeps the structure you liked, while the overall visual language is now more distinct from the original inspiration.
           </p>
         </div>
       </article>
@@ -486,8 +519,8 @@
     const canvas = document.getElementById('bgNetwork');
     const ctx = canvas.getContext('2d');
     let points = [];
-    const pointCount = 34;
-    const maxDist = 190;
+    const pointCount = 72;
+    const maxDist = 170;
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;
@@ -501,9 +534,9 @@
         points.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 0.28,
-          vy: (Math.random() - 0.5) * 0.28,
-          r: Math.random() * 1.8 + 1.1
+          vx: (Math.random() - 0.5) * 0.38,
+          vy: (Math.random() - 0.5) * 0.38,
+          r: Math.random() * 1.8 + 1
         });
       }
     }
@@ -516,8 +549,8 @@
         p.x += p.vx;
         p.y += p.vy;
 
-        if (p.x < -20 || p.x > canvas.width + 20) p.vx *= -1;
-        if (p.y < -20 || p.y > canvas.height + 20) p.vy *= -1;
+        if (p.x < -30 || p.x > canvas.width + 30) p.vx *= -1;
+        if (p.y < -30 || p.y > canvas.height + 30) p.vy *= -1;
       }
 
       for (let i = 0; i < points.length; i++) {
@@ -529,11 +562,11 @@
           const d = Math.sqrt(dx * dx + dy * dy);
 
           if (d < maxDist) {
-            const alpha = (1 - d / maxDist) * 0.28;
+            const alpha = (1 - d / maxDist) * 0.34;
             ctx.beginPath();
             ctx.moveTo(p1.x, p1.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(120,120,120,${alpha})`;
+            ctx.strokeStyle = `rgba(124,100,106,${alpha})`;
             ctx.lineWidth = 1;
             ctx.stroke();
           }
@@ -543,7 +576,7 @@
       for (const p of points) {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(145,145,145,0.32)';
+        ctx.fillStyle = 'rgba(122,95,102,0.38)';
         ctx.fill();
       }
 
@@ -551,7 +584,9 @@
     }
 
     resizeCanvas();
+    initPoints();
     animateNetwork();
+
     window.addEventListener('resize', () => {
       resizeCanvas();
       initPoints();
