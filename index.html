@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LACITS | Laboratory for Autonomy and Control in Intelligent Transportation Systems</title>
+  <style>
+    :root {
+      --bg: #f7f7f7;
+      --text: #202124;
+      --muted: #616161;
+      --line: #d9d9d9;
+      --accent: #2b78e4;
+      --accent-dark: #1d5fc2;
+      --pill: #efefef;
+      --maxw: 1080px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.42;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: var(--accent-dark); }
+
+    .bg-network {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.18;
+      background-image:
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1600' height='1200' viewBox='0 0 1600 1200'><g stroke='%23999999' stroke-width='1' fill='none' opacity='0.8'><path d='M70 120 L160 60 L250 160 L145 250 Z'/><path d='M320 90 L440 150 L410 290 L280 220 Z'/><path d='M1120 130 L1250 90 L1325 185 L1200 250 Z'/><path d='M1320 760 L1450 690 L1510 820 L1385 900 Z'/><path d='M160 840 L285 780 L350 910 L225 980 Z'/><path d='M730 1010 L840 930 L965 1020 L845 1120 Z'/><path d='M1010 480 L1100 420 L1180 510 L1090 585 Z'/><path d='M560 610 L660 550 L755 635 L650 720 Z'/></g><g fill='%23999999'><circle cx='70' cy='120' r='3'/><circle cx='160' cy='60' r='3'/><circle cx='250' cy='160' r='3'/><circle cx='145' cy='250' r='3'/><circle cx='320' cy='90' r='3'/><circle cx='440' cy='150' r='3'/><circle cx='410' cy='290' r='3'/><circle cx='280' cy='220' r='3'/><circle cx='1120' cy='130' r='3'/><circle cx='1250' cy='90' r='3'/><circle cx='1325' cy='185' r='3'/><circle cx='1200' cy='250' r='3'/><circle cx='1320' cy='760' r='3'/><circle cx='1450' cy='690' r='3'/><circle cx='1510' cy='820' r='3'/><circle cx='1385' cy='900' r='3'/><circle cx='160' cy='840' r='3'/><circle cx='285' cy='780' r='3'/><circle cx='350' cy='910' r='3'/><circle cx='225' cy='980' r='3'/><circle cx='730' cy='1010' r='3'/><circle cx='840' cy='930' r='3'/><circle cx='965' cy='1020' r='3'/><circle cx='845' cy='1120' r='3'/><circle cx='1010' cy='480' r='3'/><circle cx='1100' cy='420' r='3'/><circle cx='1180' cy='510' r='3'/><circle cx='1090' cy='585' r='3'/><circle cx='560' cy='610' r='3'/><circle cx='660' cy='550' r='3'/><circle cx='755' cy='635' r='3'/><circle cx='650' cy='720' r='3'/></g></svg>");
+      background-size: cover;
+      background-position: center top;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(250,250,250,0.97);
+      border-bottom: 1px solid #dcdcdc;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+
+    .topbar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px;
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .brand {
+      position: absolute;
+      left: 18px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #4f4f4f;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+      margin: 0;
+      padding: 0;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    nav a {
+      display: inline-block;
+      padding: 15px 0 11px;
+      color: #555;
+      border-bottom: 2px solid transparent;
+      font-size: 0.96rem;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .wrap {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 46px 22px 70px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 26px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      margin: 0 0 14px;
+      font-size: 2.15rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .hero-left {
+      max-width: 560px;
+      margin-left: auto;
+    }
+
+    .hero-left p {
+      margin: 0 0 14px;
+      font-size: 1.03rem;
+    }
+
+    .hero-right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .portrait {
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: linear-gradient(135deg, #d8e2f1, #eef2f8);
+      display: grid;
+      place-items: center;
+      color: #5b6880;
+      font-weight: 700;
+      text-align: center;
+      border: 1px solid #d7dfea;
+    }
+
+    .portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .icon-links {
+      margin-top: 12px;
+      text-align: center;
+      font-size: 0.98rem;
+    }
+
+    .icon-links a {
+      margin: 0 3px;
+      white-space: nowrap;
+    }
+
+    .tagline {
+      text-align: center;
+      color: #666;
+      font-style: italic;
+      margin: 28px 0 18px;
+    }
+
+    section {
+      margin-top: 28px;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      margin: 0 0 12px;
+    }
+
+    .news {
+      max-height: 340px;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+
+    .news ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .news li {
+      margin-bottom: 10px;
+      font-size: 0.98rem;
+    }
+
+    .date {
+      display: inline-block;
+      padding: 1px 6px;
+      border-radius: 4px;
+      background: #4f8ef7;
+      color: white;
+      font-size: 0.78rem;
+      margin-right: 7px;
+      vertical-align: 1px;
+    }
+
+    .project,
+    .pub {
+      display: grid;
+      grid-template-columns: 325px 1fr;
+      gap: 22px;
+      align-items: start;
+      margin-bottom: 26px;
+    }
+
+    .thumb {
+      width: 100%;
+      min-height: 215px;
+      background: white;
+      border: 1px solid #d6d6d6;
+      display: grid;
+      place-items: center;
+      color: #6d6d6d;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    h3 {
+      margin: 0 0 4px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .small-links {
+      margin: 0 0 10px;
+      font-size: 0.97rem;
+    }
+
+    .small-links a { margin-right: 6px; }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 10px 0 18px;
+    }
+
+    .filters button {
+      border: 1px solid #cfcfcf;
+      background: var(--pill);
+      color: #4e4e4e;
+      border-radius: 6px;
+      padding: 8px 18px;
+      font-size: 0.96rem;
+      cursor: pointer;
+    }
+
+    .filters button.active,
+    .filters button:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    .muted { color: var(--muted); }
+
+    .footer {
+      margin-top: 40px;
+      padding-top: 14px;
+      border-top: 1px solid #ddd;
+      color: #666;
+      font-size: 0.92rem;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .brand {
+        position: static;
+      }
+
+      .topbar-inner {
+        flex-direction: column;
+        padding: 8px 14px;
+        gap: 6px;
+      }
+
+      .hero,
+      .project,
+      .pub {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-left {
+        max-width: none;
+      }
+
+      .hero h1 {
+        text-align: left;
+      }
+
+      .portrait {
+        width: 230px;
+        height: 230px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-network"></div>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">LACITS</div>
+      <nav>
+        <ul>
+          <li><a class="active" href="#home">Home</a></li>
+          <li><a href="#news">News</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#publications">Publications</a></li>
+          <li><a href="#team">Team</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero" id="home">
+      <div class="hero-left">
+        <h1>LACITS</h1>
+        <p>
+          I am currently the director of the <a href="#">Laboratory for Autonomy and Control in Intelligent Transportation Systems</a> at Concordia University. This homepage is arranged in a style similar to the academic page you referenced, but adapted for a lab rather than a single researcher.
+        </p>
+        <p>
+          Replace this area with your real lab introduction. You can describe the vision of LACITS, your research in <a href="#">autonomous vehicles</a>, <a href="#">robotics</a>, <a href="#">reinforcement learning</a>, <a href="#">advanced control</a>, <a href="#">state estimation</a>, and <a href="#">human-centered autonomy</a>.
+        </p>
+        <p>
+          You may also mention platforms such as the driving simulator, Speedgoat HIL system, quadruped robots, and experimental intelligent transportation systems.
+        </p>
+        <div class="icon-links">
+          [ <a href="mailto:your.email@concordia.ca">✉ Email</a> / <a href="#">🎓 Google Scholar</a> / <a href="#">in LinkedIn</a> / <a href="#">💻 GitHub</a> / <a href="#">📄 CV</a> ]
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="portrait">LAB DIRECTOR<br>OR LAB PHOTO</div>
+      </div>
+    </section>
+
+    <div class="tagline">Add a concise lab motto, short announcement, or one-line identity statement here.</div>
+
+    <section id="news">
+      <h2>News</h2>
+      <div class="news">
+        <ul>
+          <li><span class="date">Apr 2026</span> Add a recent research announcement, student success, invited talk, robot acquisition, or grant update here.</li>
+          <li><span class="date">Mar 2026</span> Add another short lab activity entry with an optional <a href="#">link</a>.</li>
+          <li><span class="date">Feb 2026</span> This section is intentionally scrollable, similar to the reference site.</li>
+          <li><span class="date">Jan 2026</span> Add one more highlight here.</li>
+          <li><span class="date">Dec 2025</span> Add another item here for a fuller archive-like appearance.</li>
+          <li><span class="date">Nov 2025</span> Placeholder entry for earlier news.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2>Featured Projects</h2>
+
+      <article class="project">
+        <div class="thumb">Project image or experiment figure</div>
+        <div>
+          <h3>Project Title 1</h3>
+          <div class="small-links">[ <a href="#">Paper</a> / <a href="#">Webpage</a> / <a href="#">Video</a> ]</div>
+          <p>
+            Replace this with a concise project description. This layout is intentionally close to the visual rhythm of the reference page, with an image on the left and text on the right.
+          </p>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="thumb">Project image or platform image</div>
+        <div>
+          <h3>Project Title 2</h3>
+          <div class="small-links">[ <a href="#">Paper</a> / <a href="#">Webpage</a> / <a href="#">Video</a> ]</div>
+          <p>
+            Replace this with another featured project, platform, or demonstration summary.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section id="publications">
+      <h2>Selected Publications</h2>
+      <div class="filters">
+        <button class="active" data-filter="all">All</button>
+        <button data-filter="autonomy">Autonomy</button>
+        <button data-filter="control">Control</button>
+        <button data-filter="rl">Reinforcement Learning</button>
+        <button data-filter="robotics">Robotics</button>
+      </div>
+
+      <article class="pub" data-category="autonomy control">
+        <div class="thumb">Paper teaser figure</div>
+        <div>
+          <h3>Publication Title 1</h3>
+          <div class="muted">Author 1, Author 2, <strong>Your Name</strong><br>Journal / Conference, Year</div>
+          <div class="small-links">[ <a href="#">Paper</a> / <a href="#">Code</a> / <a href="#">Project</a> ]</div>
+          <p>Replace this with a short summary of the contribution.</p>
+        </div>
+      </article>
+
+      <article class="pub" data-category="rl robotics">
+        <div class="thumb">Paper teaser figure</div>
+        <div>
+          <h3>Publication Title 2</h3>
+          <div class="muted">Author 1, Author 2, <strong>Your Name</strong><br>Journal / Conference, Year</div>
+          <div class="small-links">[ <a href="#">Paper</a> / <a href="#">Code</a> / <a href="#">Project</a> ]</div>
+          <p>Replace this with a short summary of the contribution.</p>
+        </div>
+      </article>
+
+      <article class="pub" data-category="robotics control">
+        <div class="thumb">Paper teaser figure</div>
+        <div>
+          <h3>Publication Title 3</h3>
+          <div class="muted">Author 1, Author 2, <strong>Your Name</strong><br>Journal / Conference, Year</div>
+          <div class="small-links">[ <a href="#">Paper</a> / <a href="#">Code</a> / <a href="#">Project</a> ]</div>
+          <p>Replace this with a short summary of the contribution.</p>
+        </div>
+      </article>
+    </section>
+
+    <section id="team">
+      <h2>Team</h2>
+      <p>This can later be expanded into director, PhD students, MSc students, collaborators, and alumni.</p>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>
+        LACITS – Laboratory for Autonomy and Control in Intelligent Transportation Systems<br>
+        Concordia University, Montréal, Québec, Canada
+      </p>
+      <p>Email: <a href="mailto:your.email@concordia.ca">your.email@concordia.ca</a></p>
+    </section>
+
+    <div class="footer">
+      © 2026 LACITS Lab. Ready for GitHub Pages deployment.
+    </div>
+  </main>
+
+  <script>
+    const filterButtons = document.querySelectorAll('.filters button');
+    const pubs = document.querySelectorAll('.pub');
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        pubs.forEach(pub => {
+          const cats = pub.dataset.category || '';
+          pub.style.display = filter === 'all' || cats.includes(filter) ? 'grid' : 'none';
+        });
+      });
+    });
+
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('nav a');
+    window.addEventListener('scroll', () => {
+      let current = 'home';
+      sections.forEach(section => {
+        if (window.scrollY >= section.offsetTop - 100) current = section.id;
+      });
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+      });
+    });
+  </script>
+</body>
+</html>
