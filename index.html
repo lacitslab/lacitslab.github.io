@@ -36,7 +36,7 @@
       inset: 0;
       z-index: -1;
       pointer-events: none;
-      opacity: 0.28;
+      opacity: 0.32;
       width: 100%;
       height: 100%;
     }
@@ -486,8 +486,8 @@
     const canvas = document.getElementById('bgNetwork');
     const ctx = canvas.getContext('2d');
     let points = [];
-    const pointCount = 34;
-    const maxDist = 190;
+    const pointCount = 55;
+    const maxDist = 220;
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;
@@ -501,9 +501,9 @@
         points.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 0.28,
-          vy: (Math.random() - 0.5) * 0.28,
-          r: Math.random() * 1.8 + 1.1
+          vx: (Math.random() - 0.5) * 0.45,
+          vy: (Math.random() - 0.5) * 0.45,
+          r: Math.random() * 1.8 + 1
         });
       }
     }
@@ -516,8 +516,8 @@
         p.x += p.vx;
         p.y += p.vy;
 
-        if (p.x < -20 || p.x > canvas.width + 20) p.vx *= -1;
-        if (p.y < -20 || p.y > canvas.height + 20) p.vy *= -1;
+        if (p.x < -30 || p.x > canvas.width + 30) p.vx *= -1;
+        if (p.y < -30 || p.y > canvas.height + 30) p.vy *= -1;
       }
 
       for (let i = 0; i < points.length; i++) {
@@ -529,11 +529,11 @@
           const d = Math.sqrt(dx * dx + dy * dy);
 
           if (d < maxDist) {
-            const alpha = (1 - d / maxDist) * 0.28;
+            const alpha = (1 - d / maxDist) * 0.32;
             ctx.beginPath();
             ctx.moveTo(p1.x, p1.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(120,120,120,${alpha})`;
+            ctx.strokeStyle = `rgba(135,135,135,${alpha})`;
             ctx.lineWidth = 1;
             ctx.stroke();
           }
@@ -543,7 +543,7 @@
       for (const p of points) {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(145,145,145,0.32)';
+        ctx.fillStyle = 'rgba(130,130,130,0.35)';
         ctx.fill();
       }
 
@@ -551,7 +551,9 @@
     }
 
     resizeCanvas();
+    initPoints();
     animateNetwork();
+
     window.addEventListener('resize', () => {
       resizeCanvas();
       initPoints();
