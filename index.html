@@ -18,6 +18,7 @@
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
@@ -275,7 +276,9 @@
       color: var(--muted);
     }
 
-    .small-links a { margin-right: 6px; }
+    .small-links a {
+      margin-right: 6px;
+    }
 
     .filters {
       display: flex;
@@ -302,7 +305,82 @@
       color: white;
     }
 
-    .muted { color: var(--muted); }
+    .muted {
+      color: var(--muted);
+    }
+
+    .team-group {
+      margin-bottom: 34px;
+    }
+
+    .team-group-title {
+      font-size: 0.92rem;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: #7a1f2b;
+      margin-bottom: 14px;
+      font-weight: 700;
+    }
+
+    .team-card {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 18px;
+      align-items: start;
+      padding: 18px;
+      margin-bottom: 16px;
+      background: rgba(255,255,255,0.96);
+      border: 1px solid #eadfdd;
+      border-radius: 18px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.04);
+    }
+
+    .team-photo {
+      width: 120px;
+      height: 120px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #efe3e6, #f8f4f5);
+      border: 1px solid #e5d8db;
+      display: grid;
+      place-items: center;
+      color: #8a6d74;
+      font-size: 0.92rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .team-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 18px;
+    }
+
+    .team-info h3 {
+      margin: 0 0 8px;
+    }
+
+    .team-role {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #7b6c69;
+    }
+
+    .team-info p {
+      margin: 0 0 7px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     .footer {
       margin-top: 44px;
@@ -312,89 +390,10 @@
       font-size: 0.92rem;
       text-align: center;
     }
-.team-group {
-  margin-bottom: 34px;
-}
 
-.team-group-title {
-  font-size: 0.92rem;
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
-  color: #7a1f2b;
-  margin-bottom: 14px;
-  font-weight: 700;
-}
-
-.team-card {
-  display: grid;
-  grid-template-columns: 120px 1fr;
-  gap: 18px;
-  align-items: start;
-  padding: 18px;
-  margin-bottom: 16px;
-  background: rgba(255,255,255,0.96);
-  border: 1px solid #eadfdd;
-  border-radius: 18px;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.04);
-}
-
-.team-photo {
-  width: 120px;
-  height: 120px;
-  border-radius: 18px;
-  background: linear-gradient(135deg, #efe3e6, #f8f4f5);
-  border: 1px solid #e5d8db;
-  display: grid;
-  place-items: center;
-  color: #8a6d74;
-  font-size: 0.92rem;
-  font-weight: 700;
-  text-align: center;
-}
-
-.team-photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  border-radius: 18px;
-}
-
-.team-info h3 {
-  margin: 0 0 8px;
-}
-
-.team-role {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #7b6c69;
-}
-
-.team-info p {
-  margin: 0 0 7px;
-}
-
-.reveal {
-  opacity: 0;
-  transform: translateY(26px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
     @media (max-width: 900px) {
       .brand {
         position: static;
-        .team-card {
-  grid-template-columns: 1fr;
-}
-
-.team-photo {
-  width: 110px;
-  height: 110px;
-}
       }
 
       .topbar-inner {
@@ -417,6 +416,15 @@
         width: 240px;
         height: 285px;
         transform: none;
+      }
+
+      .team-card {
+        grid-template-columns: 1fr;
+      }
+
+      .team-photo {
+        width: 110px;
+        height: 110px;
       }
     }
   </style>
@@ -546,169 +554,169 @@
       </article>
     </section>
 
-<section id="team">
-  <h2>Team</h2>
+    <section id="team">
+      <h2>Team</h2>
 
-  <div class="team-group">
-    <div class="team-group-title">Director</div>
+      <div class="team-group">
+        <div class="team-group-title">Director</div>
 
-    <div class="team-card reveal">
-      <div class="team-photo">Photo</div>
-      <div class="team-info">
-        <h3>Dr. Hamid Taghavifar <span class="team-role">(Ph.D., P.Eng., FHEA, Senior Member IEEE)</span></h3>
-        <p>
-          Dr. Taghavifar is the LACITS lab director and an Assistant Professor with the Department of Mechanical, Industrial and Aerospace Engineering (MIAE) at Concordia University, Montreal, Canada.
-        </p>
-        <p><strong>Email:</strong> hamid[dot]taghavifar[at]concordia[dot]ca</p>
+        <div class="team-card reveal">
+          <div class="team-photo">Photo</div>
+          <div class="team-info">
+            <h3>Dr. Hamid Taghavifar <span class="team-role">(Ph.D., P.Eng., FHEA, Senior Member IEEE)</span></h3>
+            <p>
+              Dr. Taghavifar is the LACITS lab director and an Assistant Professor with the Department of Mechanical, Industrial and Aerospace Engineering (MIAE) at Concordia University, Montreal, Canada.
+            </p>
+            <p><strong>Email:</strong> hamid[dot]taghavifar[at]concordia[dot]ca</p>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <div class="team-group">
-    <div class="team-group-title">Graduate Students – Ph.D.</div>
+      <div class="team-group">
+        <div class="team-group-title">Graduate Students – Ph.D.</div>
 
-    <div class="team-card reveal">
-      <div class="team-photo">Photo</div>
-      <div class="team-info">
-        <h3>Neda Shamaeian</h3>
-        <p><strong>Background:</strong> M.Sc. from KNTU University</p>
-        <p><strong>Co-supervisor:</strong> Prof. Youmin Zhang</p>
-        <p><strong>Project:</strong> TBD</p>
+        <div class="team-card reveal">
+          <div class="team-photo">Photo</div>
+          <div class="team-info">
+            <h3>Neda Shamaeian</h3>
+            <p><strong>Background:</strong> M.Sc. from KNTU University</p>
+            <p><strong>Co-supervisor:</strong> Prof. Youmin Zhang</p>
+            <p><strong>Project:</strong> TBD</p>
+          </div>
+        </div>
+
+        <div class="team-card reveal">
+          <div class="team-photo">Photo</div>
+          <div class="team-info">
+            <h3>Zhizhong Guo</h3>
+            <p><strong>Background:</strong> M.Sc. from Shanghai University of Engineering Science</p>
+            <p><strong>Co-supervisor:</strong> Prof. Wen-Fang Xie</p>
+            <p><strong>Project:</strong> Integrative Human-Centric Predictive Control and Motion Planning of Autonomous Vehicles</p>
+          </div>
+        </div>
+
+        <div class="team-card reveal">
+          <div class="team-photo">Photo</div>
+          <div class="team-info">
+            <h3>Jules Karangwa</h3>
+            <p><strong>Background:</strong> M.Sc. from Fujian University of Technology</p>
+            <p><strong>Co-supervisor:</strong> Prof. Subhash Rakheja</p>
+            <p><strong>Project:</strong> TBD</p>
+          </div>
+        </div>
+
+        <div class="team-card reveal">
+          <div class="team-photo">Photo</div>
+          <div class="team-info">
+            <h3>Brian Delgado Aguilar</h3>
+            <p><strong>Background:</strong> M.Sc. from Morelia Institute of Technology</p>
+            <p><strong>Co-supervisor:</strong> Prof. Anh-Tu Nguyen</p>
+            <p><strong>Project:</strong> TBD</p>
+          </div>
+        </div>
+
+        <div class="team-card reveal">
+          <div class="team-photo">Photo</div>
+          <div class="team-info">
+            <h3>Bao Ma</h3>
+            <p><strong>Background:</strong> M.Sc. from Concordia University</p>
+            <p><strong>Co-supervisor:</strong> Prof. Subhash Rakheja</p>
+            <p><strong>Project:</strong> TBD</p>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="team-card reveal">
-      <div class="team-photo">Photo</div>
-      <div class="team-info">
-        <h3>Zhizhong Guo</h3>
-        <p><strong>Background:</strong> M.Sc. from Shanghai University of Engineering Science</p>
-        <p><strong>Co-supervisor:</strong> Prof. Wen-Fang Xie</p>
-        <p><strong>Project:</strong> Integrative Human-Centric Predictive Control and Motion Planning of Autonomous Vehicles</p>
+      <div class="team-group">
+        <div class="team-group-title">Graduate Students – M.Sc.</div>
+
+        <div class="team-card reveal">
+          <div class="team-photo">Photo</div>
+          <div class="team-info">
+            <h3>Alexander Oman</h3>
+            <p><strong>Background:</strong> B.Sc. from Concordia University</p>
+            <p><strong>Project:</strong> TBD</p>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="team-card reveal">
-      <div class="team-photo">Photo</div>
-      <div class="team-info">
-        <h3>Jules Karangwa</h3>
-        <p><strong>Background:</strong> M.Sc. from Fujian University of Technology</p>
-        <p><strong>Co-supervisor:</strong> Prof. Subhash Rakheja</p>
-        <p><strong>Project:</strong> TBD</p>
+      <div class="team-group">
+        <div class="team-group-title">Alumni – Ph.D.</div>
+
+        <div class="team-card reveal">
+          <div class="team-photo">Photo</div>
+          <div class="team-info">
+            <h3>Felix Josef Batsch</h3>
+            <p><strong>Graduated:</strong> Coventry University, May 2022</p>
+            <p><strong>Project:</strong> Active Learning with Gaussian Processes for the Investigation of Critical Scenarios in Autonomous Driving</p>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="team-card reveal">
-      <div class="team-photo">Photo</div>
-      <div class="team-info">
-        <h3>Brian Delgado Aguilar</h3>
-        <p><strong>Background:</strong> M.Sc. from Morelia Institute of Technology</p>
-        <p><strong>Co-supervisor:</strong> Prof. Anh-Tu Nguyen</p>
-        <p><strong>Project:</strong> TBD</p>
+      <div class="team-group">
+        <div class="team-group-title">Alumni – MASc.</div>
+
+        <div class="team-card reveal">
+          <div class="team-photo">Photo</div>
+          <div class="team-info">
+            <h3>Amir Afsharinejad</h3>
+            <p><strong>Co-supervisor:</strong> Prof. Anh-Tu Nguyen</p>
+            <p><strong>Graduated:</strong> October 2025</p>
+            <p><strong>Project:</strong> Robust LPV Path-Tracking Control for Autonomous Ground Vehicles</p>
+          </div>
+        </div>
+
+        <div class="team-card reveal">
+          <div class="team-photo">Photo</div>
+          <div class="team-info">
+            <h3>Bao Ma</h3>
+            <p><strong>Co-supervisor:</strong> Prof. Subhash Rakheja</p>
+            <p><strong>Graduated:</strong> June 2025</p>
+            <p><strong>Project:</strong> Detection of Dangerous Driving Behaviors using Multi-Dimensional Data-Driven Methodology</p>
+          </div>
+        </div>
+
+        <div class="team-card reveal">
+          <div class="team-photo">Photo</div>
+          <div class="team-info">
+            <h3>Erfan Doroudian</h3>
+            <p><strong>Graduated:</strong> December 2024</p>
+            <p><strong>Project:</strong> Integrating Vision-Language Models with Reinforcement Learning for Human-Aligned Decision-Making of Autonomous Vehicles</p>
+          </div>
+        </div>
+
+        <div class="team-card reveal">
+          <div class="team-photo">Photo</div>
+          <div class="team-info">
+            <h3>Victor Rasidescu</h3>
+            <p><strong>Graduated:</strong> July 2024</p>
+            <p><strong>Project:</strong> Socially Aware Path Planning for Autonomous Road Vehicles</p>
+            <p><strong>Project Files:</strong> <a href="https://github.com/LACITS-CONCORDIA/Victor-Rasidescu-MASC-Thesis" target="_blank">GitHub Repository</a></p>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="team-card reveal">
-      <div class="team-photo">Photo</div>
-      <div class="team-info">
-        <h3>Bao Ma</h3>
-        <p><strong>Background:</strong> M.Sc. from Concordia University</p>
-        <p><strong>Co-supervisor:</strong> Prof. Subhash Rakheja</p>
-        <p><strong>Project:</strong> TBD</p>
+      <div class="team-group">
+        <div class="team-group-title">Visiting Students – Ph.D.</div>
+
+        <div class="team-card reveal">
+          <div class="team-photo">Photo</div>
+          <div class="team-info">
+            <h3>Angelo Ugenti</h3>
+            <p><strong>Affiliation:</strong> Polytechnic University of Bari</p>
+            <p><strong>Visit:</strong> May–August 2023</p>
+          </div>
+        </div>
+
+        <div class="team-card reveal">
+          <div class="team-photo">Photo</div>
+          <div class="team-info">
+            <h3>Kimlong Ngin</h3>
+            <p><strong>Affiliation:</strong> Institute of Technology of Cambodia</p>
+            <p><strong>Visit:</strong> September–December 2025</p>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-
-  <div class="team-group">
-    <div class="team-group-title">Graduate Students – M.Sc.</div>
-
-    <div class="team-card reveal">
-      <div class="team-photo">Photo</div>
-      <div class="team-info">
-        <h3>Alexander Oman</h3>
-        <p><strong>Background:</strong> B.Sc. from Concordia University</p>
-        <p><strong>Project:</strong> TBD</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="team-group">
-    <div class="team-group-title">Alumni – Ph.D.</div>
-
-    <div class="team-card reveal">
-      <div class="team-photo">Photo</div>
-      <div class="team-info">
-        <h3>Felix Josef Batsch</h3>
-        <p><strong>Graduated:</strong> Coventry University, May 2022</p>
-        <p><strong>Project:</strong> Active Learning with Gaussian Processes for the Investigation of Critical Scenarios in Autonomous Driving</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="team-group">
-    <div class="team-group-title">Alumni – MASc.</div>
-
-    <div class="team-card reveal">
-      <div class="team-photo">Photo</div>
-      <div class="team-info">
-        <h3>Amir Afsharinejad</h3>
-        <p><strong>Co-supervisor:</strong> Prof. Anh-Tu Nguyen</p>
-        <p><strong>Graduated:</strong> October 2025</p>
-        <p><strong>Project:</strong> Robust LPV Path-Tracking Control for Autonomous Ground Vehicles</p>
-      </div>
-    </div>
-
-    <div class="team-card reveal">
-      <div class="team-photo">Photo</div>
-      <div class="team-info">
-        <h3>Bao Ma</h3>
-        <p><strong>Co-supervisor:</strong> Prof. Subhash Rakheja</p>
-        <p><strong>Graduated:</strong> June 2025</p>
-        <p><strong>Project:</strong> Detection of Dangerous Driving Behaviors using Multi-Dimensional Data-Driven Methodology</p>
-      </div>
-    </div>
-
-    <div class="team-card reveal">
-      <div class="team-photo">Photo</div>
-      <div class="team-info">
-        <h3>Erfan Doroudian</h3>
-        <p><strong>Graduated:</strong> December 2024</p>
-        <p><strong>Project:</strong> Integrating Vision-Language Models with Reinforcement Learning for Human-Aligned Decision-Making of Autonomous Vehicles</p>
-      </div>
-    </div>
-
-    <div class="team-card reveal">
-      <div class="team-photo">Photo</div>
-      <div class="team-info">
-        <h3>Victor Rasidescu</h3>
-        <p><strong>Graduated:</strong> July 2024</p>
-        <p><strong>Project:</strong> Socially Aware Path Planning for Autonomous Road Vehicles</p>
-        <p><strong>Project Files:</strong> <a href="https://github.com/LACITS-CONCORDIA/Victor-Rasidescu-MASC-Thesis" target="_blank">GitHub Repository</a></p>
-      </div>
-    </div>
-  </div>
-
-  <div class="team-group">
-    <div class="team-group-title">Visiting Students – Ph.D.</div>
-
-    <div class="team-card reveal">
-      <div class="team-photo">Photo</div>
-      <div class="team-info">
-        <h3>Angelo Ugenti</h3>
-        <p><strong>Affiliation:</strong> Polytechnic University of Bari</p>
-        <p><strong>Visit:</strong> May–August 2023</p>
-      </div>
-    </div>
-
-    <div class="team-card reveal">
-      <div class="team-photo">Photo</div>
-      <div class="team-info">
-        <h3>Kimlong Ngin</h3>
-        <p><strong>Affiliation:</strong> Institute of Technology of Cambodia</p>
-        <p><strong>Visit:</strong> September–December 2025</p>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
     <section id="contact">
       <h2>Contact</h2>
@@ -716,7 +724,7 @@
         LACITS – Laboratory for Autonomy and Control in Intelligent Transportation Systems<br>
         Concordia University, Montréal, Québec, Canada
       </p>
-      <p>Email: <a href="mailto:your.email@concordia.ca">your.email@concordia.ca</a></p>
+      <p>Email: <a href="mailto:hamid.taghavifar@concordia.ca">hamid.taghavifar@concordia.ca</a></p>
     </section>
 
     <div class="footer">
@@ -818,6 +826,22 @@
       requestAnimationFrame(animateNetwork);
     }
 
+    const revealItems = document.querySelectorAll('.reveal');
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.15
+    });
+
+    revealItems.forEach(item => {
+      revealObserver.observe(item);
+    });
+
     resizeCanvas();
     initPoints();
     animateNetwork();
@@ -827,20 +851,5 @@
       initPoints();
     });
   </script>
-  const revealItems = document.querySelectorAll('.reveal');
-
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-}, {
-  threshold: 0.15
-});
-
-revealItems.forEach(item => {
-  revealObserver.observe(item);
-});
 </body>
 </html>
