@@ -37,7 +37,7 @@
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  opacity: 0.42;
+  opacity: 0.46;
   width: 100%;
   height: 100%;
 }
@@ -877,9 +877,9 @@ const canvas = document.getElementById('bgNetwork');
 const ctx = canvas.getContext('2d');
 
 let agents = [];
-let trails = [];
-const agentCount = 22;
-const linkDist = 185;
+const agentCount = 28;
+const connectDist = 190;
+let pulse = 0;
 
 function resizeCanvas() {
   canvas.width = window.innerWidth;
@@ -889,15 +889,14 @@ function resizeCanvas() {
 
 function initAgents() {
   agents = [];
-  trails = [];
   for (let i = 0; i < agentCount; i++) {
     agents.push({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.55,
-      vy: (Math.random() - 0.5) * 0.55,
-      r: Math.random() * 2.2 + 2.2,
-      history: []
+      vx: (Math.random() - 0.5) * 0.42,
+      vy: (Math.random() - 0.5) * 0.42,
+      r: Math.random() * 2.4 + 2.2,
+      trail: []
     });
   }
 }
@@ -907,21 +906,22 @@ function updateAgents() {
     a.x += a.vx;
     a.y += a.vy;
 
-    if (a.x < 20 || a.x > canvas.width - 20) a.vx *= -1;
-    if (a.y < 20 || a.y > canvas.height - 20) a.vy *= -1;
+    if (a.x < 30 || a.x > canvas.width - 30) a.vx *= -1;
+    if (a.y < 30 || a.y > canvas.height - 30) a.vy *= -1;
 
-    a.history.push({ x: a.x, y: a.y });
-    if (a.history.length > 18) a.history.shift();
+    a.trail.push({ x: a.x, y: a.y });
+    if (a.trail.length > 20) a.trail.shift();
   }
 }
 
 function drawTrails() {
   for (const a of agents) {
-    if (a.history.length < 2) continue;
+    if (a.trail.length < 2) continue;
+
     ctx.beginPath();
-    ctx.moveTo(a.history[0].x, a.history[0].y);
-    for (let i = 1; i < a.history.length; i++) {
-      ctx.lineTo(a.history[i].x, a.history[i].y);
+    ctx.moveTo(a.trail[0].x, a.trail[0].y);
+    for (let i = 1; i < a.trail.length; i++) {
+      ctx.lineTo(a.trail[i].x, a.trail[i].y);
     }
     ctx.strokeStyle = 'rgba(130, 102, 110, 0.10)';
     ctx.lineWidth = 1.2;
@@ -938,14 +938,24 @@ function drawLinks() {
       const dy = b.y - a.y;
       const d = Math.sqrt(dx * dx + dy * dy);
 
-      if (d < linkDist) {
-        const alpha = (1 - d / linkDist) * 0.42;
+      if (d < connectDist) {
+        const alpha = (1 - d / connectDist) * 0.34;
+
         ctx.beginPath();
         ctx.moveTo(a.x, a.y);
         ctx.lineTo(b.x, b.y);
         ctx.strokeStyle = `rgba(103, 77, 85, ${alpha})`;
-        ctx.lineWidth = 1.8;
+        ctx.lineWidth = 1.9;
         ctx.stroke();
+
+        const mx = (a.x + b.x) / 2;
+        const my = (a.y + b.y) / 2;
+        const pulseRadius = 1.2 + 0.8 * Math.sin(pulse + (i + j) * 0.35);
+
+        ctx.beginPath();
+        ctx.arc(mx, my, pulseRadius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(122, 95, 102, ${alpha * 0.75})`;
+        ctx.fill();
       }
     }
   }
@@ -954,8 +964,8 @@ function drawLinks() {
 function drawAgents() {
   for (const a of agents) {
     ctx.beginPath();
-    ctx.arc(a.x, a.y, a.r + 3.5, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(122, 95, 102, 0.10)';
+    ctx.arc(a.x, a.y, a.r + 4.2, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(122, 95, 102, 0.08)';
     ctx.fill();
 
     ctx.beginPath();
@@ -965,12 +975,35 @@ function drawAgents() {
   }
 }
 
+function drawSoftOrbits() {
+  ctx.save();
+  ctx.strokeStyle = 'rgba(140, 112, 118, 0.06)';
+  ctx.lineWidth = 1;
+
+  for (let k = 0; k < 4; k++) {
+    const cx = canvas.width * (0.18 + 0.2 * k);
+    const cy = canvas.height * (0.22 + 0.12 * (k % 2));
+    const rx = 120 + 20 * k;
+    const ry = 60 + 12 * k;
+
+    ctx.beginPath();
+    ctx.ellipse(cx, cy, rx, ry, 0.35 * k, 0, Math.PI * 2);
+    ctx.stroke();
+  }
+
+  ctx.restore();
+}
+
 function animateNetwork() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  pulse += 0.03;
+
+  drawSoftOrbits();
   updateAgents();
   drawTrails();
   drawLinks();
   drawAgents();
+
   requestAnimationFrame(animateNetwork);
 }
 
