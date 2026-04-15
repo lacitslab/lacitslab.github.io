@@ -13,87 +13,23 @@
       --accent: #2b78e4;
       --accent-dark: #1d5fc4;
       --pill: #eef4ff;
+      --card-bg: rgba(255,255,255,0.96);
+      --shadow: 0 10px 24px rgba(0,0,0,0.04);
       --maxw: 1100px;
     }
-body.dark-mode {
-  --bg: #07111f;
-  --text: #eaf1ff;
-  --muted: #aebbd6;
-  --line: #1d2b42;
-  --accent: #66b3ff;
-  --accent-dark: #8ac5ff;
-  --pill: #10233d;
-}
 
-body {
-  background: var(--bg);
-  color: var(--text);
-}
+    body.dark-mode {
+      --bg: #07111f;
+      --text: #eaf1ff;
+      --muted: #aebbd6;
+      --line: #1d2b42;
+      --accent: #66b3ff;
+      --accent-dark: #8ac5ff;
+      --pill: #10233d;
+      --card-bg: rgba(12, 24, 42, 0.92);
+      --shadow: 0 12px 26px rgba(0,0,0,0.22);
+    }
 
-body.dark-mode .topbar {
-  background: rgba(7, 17, 31, 0.92);
-}
-
-body.dark-mode .news,
-body.dark-mode .team-card,
-body.dark-mode .gallery-item,
-body.dark-mode .thumb,
-body.dark-mode .tagline,
-body.dark-mode .portrait {
-  background: rgba(12, 24, 42, 0.92);
-  border-color: #23344f;
-  color: var(--text);
-}
-
-body.dark-mode .team-photo {
-  background: linear-gradient(135deg, #16253c, #1b2f4d);
-  border-color: #2b3f60;
-  color: #dbe7ff;
-}
-
-body.dark-mode .small-links,
-body.dark-mode .muted,
-body.dark-mode .team-role,
-body.dark-mode .gallery-caption,
-body.dark-mode .footer {
-  color: var(--muted);
-}
-
-body.dark-mode h2,
-body.dark-mode .team-group-title,
-body.dark-mode .hero-eyebrow {
-  color: #b9ccf0;
-}
-
-body.dark-mode nav a {
-  color: #c7d6f2;
-}
-
-body.dark-mode nav a:hover,
-body.dark-mode nav a.active {
-  color: var(--accent);
-}
-
-.theme-toggle {
-  position: fixed;
-  right: 22px;
-  top: 76px;
-  z-index: 60;
-  width: 46px;
-  height: 46px;
-  border: 1px solid #d9dfe8;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.95);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-  cursor: pointer;
-  font-size: 20px;
-}
-
-body.dark-mode .theme-toggle {
-  background: rgba(16, 30, 50, 0.96);
-  border-color: #334866;
-  color: #ffd35f;
-}
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
 
@@ -101,24 +37,25 @@ body.dark-mode .theme-toggle {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
       color: var(--text);
-      background: #ffffff;
+      background: var(--bg);
       line-height: 1.45;
       overflow-x: hidden;
       position: relative;
+      transition: background 0.25s ease, color 0.25s ease;
     }
 
     a { color: var(--accent); text-decoration: none; }
     a:hover { color: var(--accent-dark); }
 
-.bg-network {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  opacity: 0.34;
-  width: 100%;
-  height: 100%;
-}
+    .bg-network {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.34;
+      width: 100%;
+      height: 100%;
+    }
 
     .topbar {
       position: sticky;
@@ -128,6 +65,11 @@ body.dark-mode .theme-toggle {
       border-bottom: 1px solid var(--line);
       box-shadow: 0 4px 16px rgba(0,0,0,0.04);
       backdrop-filter: blur(8px);
+      transition: background 0.25s ease, border-color 0.25s ease;
+    }
+
+    body.dark-mode .topbar {
+      background: rgba(7, 17, 31, 0.92);
     }
 
     .topbar-inner {
@@ -151,7 +93,7 @@ body.dark-mode .theme-toggle {
       padding: 8px 13px;
       border-radius: 999px;
       letter-spacing: 0.5px;
-      box-shadow: 0 8px 18px rgba(122,31,43,0.16);
+      box-shadow: 0 8px 18px rgba(43,120,228,0.18);
     }
 
     nav ul {
@@ -170,12 +112,39 @@ body.dark-mode .theme-toggle {
       color: #5a5857;
       border-bottom: 2px solid transparent;
       font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+
+    body.dark-mode nav a {
+      color: #c7d6f2;
     }
 
     nav a:hover,
     nav a.active {
       color: var(--accent);
       border-bottom-color: var(--accent);
+    }
+
+    .theme-toggle {
+      position: fixed;
+      right: 22px;
+      top: 76px;
+      z-index: 60;
+      width: 46px;
+      height: 46px;
+      border: 1px solid #d9dfe8;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.95);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      cursor: pointer;
+      font-size: 20px;
+      transition: all 0.25s ease;
+    }
+
+    body.dark-mode .theme-toggle {
+      background: rgba(16, 30, 50, 0.96);
+      border-color: #334866;
+      color: #ffd35f;
     }
 
     .wrap {
@@ -197,6 +166,12 @@ body.dark-mode .theme-toggle {
       letter-spacing: 1.8px;
       color: #6b7ea6;
       margin-bottom: 8px;
+    }
+
+    body.dark-mode .hero-eyebrow,
+    body.dark-mode h2,
+    body.dark-mode .team-group-title {
+      color: #b9ccf0;
     }
 
     .hero h1 {
@@ -224,29 +199,35 @@ body.dark-mode .theme-toggle {
       padding-top: 4px;
     }
 
- .portrait {
-  width: 320px;
-  height: 365px;
-  border-radius: 28px;
-  overflow: hidden;
-  background: #ffffff;
-  display: grid;
-  place-items: center;
-  color: #6d4a52;
-  font-weight: 700;
-  text-align: center;
-  border: 1px solid #e5d6d9;
-  box-shadow: 0 18px 38px rgba(0,0,0,0.06);
-  transform: rotate(1.5deg);
-  padding: 28px;
-}
+    .portrait {
+      width: 320px;
+      height: 365px;
+      border-radius: 28px;
+      overflow: hidden;
+      background: var(--card-bg);
+      display: grid;
+      place-items: center;
+      color: #6d4a52;
+      font-weight: 700;
+      text-align: center;
+      border: 1px solid #e5d6d9;
+      box-shadow: 0 18px 38px rgba(0,0,0,0.06);
+      transform: rotate(1.5deg);
+      padding: 28px;
+      transition: background 0.25s ease, border-color 0.25s ease;
+    }
 
-   .portrait img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-}
+    body.dark-mode .portrait {
+      border-color: #23344f;
+      box-shadow: 0 18px 38px rgba(0,0,0,0.20);
+    }
+
+    .portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
 
     .icon-links {
       margin-top: 14px;
@@ -268,6 +249,13 @@ body.dark-mode .theme-toggle {
       border-bottom: 1px solid #eadedf;
       background: rgba(255,255,255,0.82);
       border-radius: 12px;
+      transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+    }
+
+    body.dark-mode .tagline {
+      background: var(--card-bg);
+      border-color: #23344f;
+      color: var(--muted);
     }
 
     section {
@@ -286,9 +274,14 @@ body.dark-mode .theme-toggle {
       max-height: 350px;
       overflow-y: auto;
       padding: 16px 14px 16px 8px;
-      background: rgba(255,255,255,0.92);
+      background: var(--card-bg);
       border: 1px solid #ece3e1;
       border-radius: 16px;
+      transition: background 0.25s ease, border-color 0.25s ease;
+    }
+
+    body.dark-mode .news {
+      border-color: #23344f;
     }
 
     .news ul {
@@ -324,7 +317,7 @@ body.dark-mode .theme-toggle {
     .thumb {
       width: 100%;
       min-height: 220px;
-      background: white;
+      background: var(--card-bg);
       border: 1px solid #e7dcda;
       display: grid;
       place-items: center;
@@ -332,7 +325,13 @@ body.dark-mode .theme-toggle {
       text-align: center;
       overflow: hidden;
       border-radius: 18px;
-      box-shadow: 0 10px 26px rgba(0,0,0,0.045);
+      box-shadow: var(--shadow);
+      transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+    }
+
+    body.dark-mode .thumb {
+      border-color: #23344f;
+      color: var(--muted);
     }
 
     .thumb img {
@@ -350,10 +349,17 @@ body.dark-mode .theme-toggle {
       line-height: 1.35;
     }
 
+    .small-links,
+    .muted,
+    .team-role,
+    .gallery-caption,
+    .footer {
+      color: var(--muted);
+    }
+
     .small-links {
       margin: 0 0 10px;
       font-size: 0.97rem;
-      color: var(--muted);
     }
 
     .small-links a {
@@ -378,15 +384,16 @@ body.dark-mode .theme-toggle {
       transition: 0.2s ease;
     }
 
+    body.dark-mode .filters button {
+      color: #d8e5ff;
+      border-color: #29405e;
+    }
+
     .filters button.active,
     .filters button:hover {
       background: var(--accent);
       border-color: var(--accent);
       color: white;
-    }
-
-    .muted {
-      color: var(--muted);
     }
 
     .team-group {
@@ -397,7 +404,7 @@ body.dark-mode .theme-toggle {
       font-size: 0.92rem;
       text-transform: uppercase;
       letter-spacing: 1.2px;
-      color: #7a1f2b;
+      color: #2b78e4;
       margin-bottom: 14px;
       font-weight: 700;
     }
@@ -409,14 +416,20 @@ body.dark-mode .theme-toggle {
       align-items: start;
       padding: 18px;
       margin-bottom: 16px;
-      background: rgba(255,255,255,0.96);
+      background: var(--card-bg);
       border: 1px solid #eadfdd;
       border-radius: 18px;
-      box-shadow: 0 10px 24px rgba(0,0,0,0.04);
+      box-shadow: var(--shadow);
+      transition: background 0.25s ease, border-color 0.25s ease;
     }
+
+    body.dark-mode .team-card {
+      border-color: #23344f;
+    }
+
     .teaching-card {
-  grid-template-columns: 1fr;
-}
+      grid-template-columns: 1fr;
+    }
 
     .team-photo {
       width: 120px;
@@ -430,6 +443,13 @@ body.dark-mode .theme-toggle {
       font-size: 0.92rem;
       font-weight: 700;
       text-align: center;
+      transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+    }
+
+    body.dark-mode .team-photo {
+      background: linear-gradient(135deg, #16253c, #1b2f4d);
+      border-color: #2b3f60;
+      color: #dbe7ff;
     }
 
     .team-photo img {
@@ -442,12 +462,6 @@ body.dark-mode .theme-toggle {
 
     .team-info h3 {
       margin: 0 0 8px;
-    }
-
-    .team-role {
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: #7b6c69;
     }
 
     .team-info p {
@@ -464,57 +478,49 @@ body.dark-mode .theme-toggle {
       opacity: 1;
       transform: translateY(0);
     }
-.team-photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  border-radius: 18px;
-}
 
-/* PUT THE GALLERY CSS HERE */
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
-}
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
 
-.gallery-item {
-  background: rgba(255,255,255,0.96);
-  border: 1px solid #eadfdd;
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.04);
-}
+    .gallery-item {
+      background: var(--card-bg);
+      border: 1px solid #eadfdd;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: background 0.25s ease, border-color 0.25s ease;
+    }
 
-.gallery-item img {
-  width: 100%;
-  height: 320px;
-  object-fit: cover;
-  display: block;
-}
+    body.dark-mode .gallery-item {
+      border-color: #23344f;
+    }
 
-.gallery-caption {
-  padding: 12px 14px;
-  font-size: 0.95rem;
-  color: #6b5e5b;
-}
+    .gallery-item img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      display: block;
+    }
 
-.footer {
-  margin-top: 44px;
-  padding-top: 18px;
-  border-top: 1px solid #e5dad8;
-  color: #7b6c69;
-  font-size: 0.92rem;
-  text-align: center;
-}
+    .gallery-caption {
+      padding: 12px 14px;
+      font-size: 0.95rem;
+    }
+
     .footer {
       margin-top: 44px;
       padding-top: 18px;
       border-top: 1px solid #e5dad8;
-      color: #7b6c69;
       font-size: 0.92rem;
       text-align: center;
+      transition: border-color 0.25s ease;
+    }
+
+    body.dark-mode .footer {
+      border-color: #23344f;
     }
 
     @media (max-width: 900px) {
@@ -552,12 +558,26 @@ body.dark-mode .theme-toggle {
         width: 110px;
         height: 110px;
       }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-item img {
+        height: 240px;
+      }
+
+      .theme-toggle {
+        top: 12px;
+        right: 14px;
+      }
     }
   </style>
 </head>
 <body>
   <canvas class="bg-network" id="bgNetwork"></canvas>
-<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☾</button>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☾</button>
+
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand">LACITS</div>
@@ -576,49 +596,60 @@ body.dark-mode .theme-toggle {
     </div>
   </header>
 
-<main class="wrap">
-  <section class="hero" id="home">
-    <div class="hero-left">
-      <div class="hero-eyebrow">Concordia University Research Lab</div>
-      <h1>LACITS</h1>
-      <p>
-        LACITS, the <a href="#">Laboratory for Autonomy and Control in Intelligent Transportation Systems</a>, is a research lab at Concordia University focusing on <strong>safe, trustworthy, and human-centered autonomy</strong> for autonomous vehicles, robotics, and AI-enabled mechatronic systems.
-      </p>
-      <p>
-        The lab develops complex and advanced frameworks that connect <strong>perception, state estimation, planning, control, decision-making and learning</strong> so that autonomous systems can perform multi-layered tasks reliably in uncertain, dynamic, and safety-critical environments. A pivotal theme of our work is that autonomy must go beyond performance alone: it must also be resilient, interpretable, and aligned with human expectations and safety requirements.
-      </p>
-      <p>
-        Our research spans <a href="#">autonomous driving</a>, <a href="#">robotics</a>, <a href="#">reinforcement learning</a>, <a href="#">advanced control</a>, <a href="#">fault-tolerant and adaptive systems</a>, and <a href="#">human-aware decision-making</a>. We combine rigorous control-theoretic foundations with modern AI methods to design algorithms that are both computationally practical and supported by strong safety and performance guarantees.
-      </p>
-      <p>
-        LACITS also emphasizes <strong>real-world validation</strong>. Our experimental ecosystem includes driving simulation, human-in-the-loop and hardware-in-the-loop platforms, and emerging robotic testbeds such as the <a href="#">Unitree Go2</a> for safety-critical legged autonomy and sim-to-real research. Through this combination of theory, computation, and experimentation, the lab aims to contribute to the next generation of intelligent systems that people can confidently trust.
-      </p>
-      <div class="icon-links">
-        [ <a href="mailto:hamid.taghavifar@concordia.ca">✉ Email</a> / <a href="https://scholar.google.com/citations?user=tCYbMgsAAAAJ&hl=en&oi=ao" target="_blank" style="white-space:nowrap;"><img src="google-scholar.png" alt="Google Scholar" style="width:14px; height:14px; vertical-align:-2px; margin-right:4px;">Google Scholar</a> / <a href="https://ca.linkedin.com/in/hamid-taghavifar-ph-d-p-eng-3b68294b" target="_blank"><span style="display:inline-block; width:16px; height:16px; line-height:16px; text-align:center; font-size:12px; font-weight:700; color:white; background:#0A66C2; border-radius:3px; margin-right:4px;">in</span>LinkedIn</a> / <a href="https://github.com/LACITS-CONCORDIA" target="_blank" style="white-space:nowrap;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" style="vertical-align:-2px; margin-right:4px; fill:currentColor;"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38v-1.34c-2.23.48-2.7-.95-2.7-.95-.36-.92-.89-1.16-.89-1.16-.73-.5.06-.49.06-.49.81.06 1.23.83 1.23.83.72 1.24 1.88.88 2.34.67.07-.52.28-.88.5-1.08-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.58.82-2.14-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.6 7.6 0 0 1 8 4.77c.68 0 1.37.09 2.01.26 1.53-1.03 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.14 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.19c0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>GitHub</a> ]
+  <main class="wrap">
+    <section class="hero" id="home">
+      <div class="hero-left">
+        <div class="hero-eyebrow">Concordia University Research Lab</div>
+        <h1>LACITS</h1>
+        <p>
+          LACITS, the <a href="#">Laboratory for Autonomy and Control in Intelligent Transportation Systems</a>, is a research lab at Concordia University focusing on <strong>safe, trustworthy, and human-centered autonomy</strong> for autonomous vehicles, robotics, and AI-enabled mechatronic systems.
+        </p>
+        <p>
+          The lab develops complex and advanced frameworks that connect <strong>perception, state estimation, planning, control, decision-making and learning</strong> so that autonomous systems can perform multi-layered tasks reliably in uncertain, dynamic, and safety-critical environments. A pivotal theme of our work is that autonomy must go beyond performance alone: it must also be resilient, interpretable, and aligned with human expectations and safety requirements.
+        </p>
+        <p>
+          Our research spans <a href="#">autonomous driving</a>, <a href="#">robotics</a>, <a href="#">reinforcement learning</a>, <a href="#">advanced control</a>, <a href="#">fault-tolerant and adaptive systems</a>, and <a href="#">human-aware decision-making</a>. We combine rigorous control-theoretic foundations with modern AI methods to design algorithms that are both computationally practical and supported by strong safety and performance guarantees.
+        </p>
+        <p>
+          LACITS also emphasizes <strong>real-world validation</strong>. Our experimental ecosystem includes driving simulation, human-in-the-loop and hardware-in-the-loop platforms, and emerging robotic testbeds such as the <a href="#">Unitree Go2</a> for safety-critical legged autonomy and sim-to-real research. Through this combination of theory, computation, and experimentation, the lab aims to contribute to the next generation of intelligent systems that people can confidently trust.
+        </p>
+        <div class="icon-links">
+          [ <a href="mailto:hamid.taghavifar@concordia.ca">✉ Email</a> /
+          <a href="https://scholar.google.com/citations?user=tCYbMgsAAAAJ&hl=en&oi=ao" target="_blank" style="white-space:nowrap;">
+            <img src="google-scholar.png" alt="Google Scholar" style="width:14px; height:14px; vertical-align:-2px; margin-right:4px;">Google Scholar
+          </a> /
+          <a href="https://ca.linkedin.com/in/hamid-taghavifar-ph-d-p-eng-3b68294b" target="_blank">
+            <span style="display:inline-block; width:16px; height:16px; line-height:16px; text-align:center; font-size:12px; font-weight:700; color:white; background:#0A66C2; border-radius:3px; margin-right:4px;">in</span>LinkedIn
+          </a> /
+          <a href="https://github.com/LACITS-CONCORDIA" target="_blank" style="white-space:nowrap;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" style="vertical-align:-2px; margin-right:4px; fill:currentColor;">
+              <path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38v-1.34c-2.23.48-2.7-.95-2.7-.95-.36-.92-.89-1.16-.89-1.16-.73-.5.06-.49.06-.49.81.06 1.23.83 1.23.83.72 1.24 1.88.88 2.34.67.07-.52.28-.88.5-1.08-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.58.82-2.14-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.6 7.6 0 0 1 8 4.77c.68 0 1.37.09 2.01.26 1.53-1.03 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.14 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.19c0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/>
+            </svg>GitHub
+          </a> ]
+        </div>
       </div>
-    </div>
 
-    <div class="hero-right">
-      <div class="portrait">
-        <img src="173662815.png" alt="LACITS logo">
+      <div class="hero-right">
+        <div class="portrait">
+          <img src="173662815.png" alt="LACITS logo">
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <div class="tagline">Safe, trustworthy, and human-centered autonomy for intelligent transportation and robotic systems.</div>
+    <div class="tagline">Safe, trustworthy, and human-centered autonomy for intelligent transportation and robotic systems.</div>
 
-  <section id="news">
-    <h2>News</h2>
-    <div class="news">
-      <ul>
-        <li><span class="date">2026</span> LACITS continues expanding its research in safe reinforcement learning, adaptive robust control, trustworthy perception, and human-centered autonomy.</li>
-        <li><span class="date">2026</span> The lab is growing its experimental ecosystem for simulation, human-in-the-loop evaluation, and safety-critical robotics validation.</li>
-        <li><span class="date">2025</span> Research momentum includes strong journal output, HQP training, and continued development of autonomous driving and robotics platforms.</li>
-        <li><span class="date">2025</span> LACITS research has been recognized through distinctions including Top Cited Article and Top Viewed Article awards.</li>
-        <li><span class="date">2023–28</span> Core research activities are supported through NSERC Discovery Grant funding, Discovery Launch Supplement, and Concordia start-up support.</li>
-      </ul>
-    </div>
-  </section>
+    <section id="news">
+      <h2>News</h2>
+      <div class="news">
+        <ul>
+          <li><span class="date">2026</span> LACITS continues expanding its research in safe reinforcement learning, adaptive robust control, trustworthy perception, and human-centered autonomy.</li>
+          <li><span class="date">2026</span> The lab is growing its experimental ecosystem for simulation, human-in-the-loop evaluation, and safety-critical robotics validation.</li>
+          <li><span class="date">2025</span> Research momentum includes strong journal output, HQP training, and continued development of autonomous driving and robotics platforms.</li>
+          <li><span class="date">2025</span> LACITS research has been recognized through distinctions including Top Cited Article and Top Viewed Article awards.</li>
+          <li><span class="date">2023–28</span> Core research activities are supported through NSERC Discovery Grant funding, Discovery Launch Supplement, and Concordia start-up support.</li>
+        </ul>
+      </div>
+    </section>
 
     <section id="projects">
       <h2>Featured Projects</h2>
@@ -628,9 +659,7 @@ body.dark-mode .theme-toggle {
         <div>
           <h3>Project Title 1</h3>
           <div class="small-links">[ <a href="#">Paper</a> / <a href="#">Webpage</a> / <a href="#">Video</a> ]</div>
-          <p>
-            Replace this with a concise project description. This layout keeps the structure you liked, while the overall visual language is now more distinct from the original inspiration.
-          </p>
+          <p>Replace this with a concise project description. This layout keeps the structure you liked, while the overall visual language is now more distinct from the original inspiration.</p>
         </div>
       </article>
 
@@ -639,9 +668,7 @@ body.dark-mode .theme-toggle {
         <div>
           <h3>Project Title 2</h3>
           <div class="small-links">[ <a href="#">Paper</a> / <a href="#">Webpage</a> / <a href="#">Video</a> ]</div>
-          <p>
-            Replace this with another featured project, platform, or demonstration summary.
-          </p>
+          <p>Replace this with another featured project, platform, or demonstration summary.</p>
         </div>
       </article>
     </section>
@@ -686,61 +713,61 @@ body.dark-mode .theme-toggle {
         </div>
       </article>
     </section>
-<section id="teaching">
-  <h2>Teaching</h2>
 
-  <div class="team-group">
-    <div class="team-group-title">Courses Taught</div>
-    <div class="team-card teaching-card reveal">
-      <div class="team-info">
-        <h3>ENGR 691F: Reinforcement Learning</h3>
-        <p><strong>Description:</strong> Students will be able to explain RL problem formulation including bandits and MDPs, and relate policies, returns, and value functions through Bellman equations. They will derive and apply core model-free RL algorithms including Monte Carlo, TD learning, SARSA, and Q-learning, and understand on-policy versus off-policy learning and exploration-exploitation tradeoffs. The course also emphasizes implementation and evaluation in MATLAB and Python on representative control problems, and connects RL to optimal and feedback control through case studies such as LQR, while discussing discretization, constraints, and safe exploration.</p>
-      </div>
-    </div>
+    <section id="teaching">
+      <h2>Teaching</h2>
+      <div class="team-group">
+        <div class="team-group-title">Courses Taught</div>
 
-    <div class="team-card teaching-card reveal">
-      <div class="team-info">
-        <h3>MECH 6681: Dynamics and Control of Nonholonomic Systems <span class="team-role">(4 credits)</span></h3>
-        <p><strong>Description:</strong> Kinematics and dynamics of nonholonomic systems, including d’Alembert principle, Euler-Lagrange equations, equations of motion with Lagrangian multipliers, reactions of ideal nonholonomic constraints, Chaplygin systems, and bifurcation and stability analysis. The course also covers nonlinear control design of nonholonomic systems, including kinematic, dynamic, and force control, controller design under uncertainty, and applications to wheeled mobile robots and walking robots.</p>
-      </div>
-    </div>
+        <div class="team-card teaching-card reveal">
+          <div class="team-info">
+            <h3>ENGR 691F: Reinforcement Learning</h3>
+            <p><strong>Description:</strong> Students will be able to explain RL problem formulation including bandits and MDPs, and relate policies, returns, and value functions through Bellman equations. They will derive and apply core model-free RL algorithms including Monte Carlo, TD learning, SARSA, and Q-learning, and understand on-policy versus off-policy learning and exploration-exploitation tradeoffs. The course also emphasizes implementation and evaluation in MATLAB and Python on representative control problems, and connects RL to optimal and feedback control through case studies such as LQR, while discussing discretization, constraints, and safe exploration.</p>
+          </div>
+        </div>
 
-    <div class="team-card teaching-card reveal">
-      <div class="team-info">
-        <h3>MECH 373: Instrumentation and Measurements <span class="team-role">(3.5 credits)</span></h3>
-        <p><strong>Description:</strong> This course covers the unified treatment of measurement of physical quantities; static and dynamic characteristics of instruments including calibration, linearity, precision, accuracy, bias, and sensitivity drift; sources of errors; error analysis; experiment planning; data analysis techniques; principles of transducers; signal generation, acquisition and processing; and systems for measuring position, velocity, acceleration, pressure, force, stress, temperature, flow-rate, and proximity detection. The course includes demonstrations of various instruments.</p>
-      </div>
-    </div>
+        <div class="team-card teaching-card reveal">
+          <div class="team-info">
+            <h3>MECH 6681: Dynamics and Control of Nonholonomic Systems <span class="team-role">(4 credits)</span></h3>
+            <p><strong>Description:</strong> Kinematics and dynamics of nonholonomic systems, including d’Alembert principle, Euler-Lagrange equations, equations of motion with Lagrangian multipliers, reactions of ideal nonholonomic constraints, Chaplygin systems, and bifurcation and stability analysis. The course also covers nonlinear control design of nonholonomic systems, including kinematic, dynamic, and force control, controller design under uncertainty, and applications to wheeled mobile robots and walking robots.</p>
+          </div>
+        </div>
 
-    <div class="team-card teaching-card reveal">
-      <div class="team-info">
-        <h3>AERO 482: Avionic Navigation Systems <span class="team-role">(3 credits)</span></h3>
-        <p><strong>Description:</strong> Basics of modern electronic navigation systems, history of air navigation, earth coordinate and mapping systems, theory and analysis of modern navigation instrumentation, communication and radar systems, approach aids, airborne systems, transmitters, antenna coverage, noise and losses, target detection, digital processing, display systems, and demonstrations using a flight simulator.</p>
-      </div>
-    </div>
+        <div class="team-card teaching-card reveal">
+          <div class="team-info">
+            <h3>MECH 373: Instrumentation and Measurements <span class="team-role">(3.5 credits)</span></h3>
+            <p><strong>Description:</strong> This course covers the unified treatment of measurement of physical quantities; static and dynamic characteristics of instruments including calibration, linearity, precision, accuracy, bias, and sensitivity drift; sources of errors; error analysis; experiment planning; data analysis techniques; principles of transducers; signal generation, acquisition and processing; and systems for measuring position, velocity, acceleration, pressure, force, stress, temperature, flow-rate, and proximity detection. The course includes demonstrations of various instruments.</p>
+          </div>
+        </div>
 
-    <div class="team-card teaching-card reveal">
-      <div class="team-info">
-        <h3>MIAE 215: Programming for Mechanical and Industrial Engineers <span class="team-role">(3.5 credits)</span></h3>
-        <p><strong>Description:</strong> This course focuses on writing programs using assignment and sequences; variables and types; operators and expressions; conditional and repetitive statements; input and output; file access; functions; program structure and organization; pointers and dynamic memory allocation; introduction to classes and objects; and mechanical and industrial engineering applications.</p>
+        <div class="team-card teaching-card reveal">
+          <div class="team-info">
+            <h3>AERO 482: Avionic Navigation Systems <span class="team-role">(3 credits)</span></h3>
+            <p><strong>Description:</strong> Basics of modern electronic navigation systems, history of air navigation, earth coordinate and mapping systems, theory and analysis of modern navigation instrumentation, communication and radar systems, approach aids, airborne systems, transmitters, antenna coverage, noise and losses, target detection, digital processing, display systems, and demonstrations using a flight simulator.</p>
+          </div>
+        </div>
+
+        <div class="team-card teaching-card reveal">
+          <div class="team-info">
+            <h3>MIAE 215: Programming for Mechanical and Industrial Engineers <span class="team-role">(3.5 credits)</span></h3>
+            <p><strong>Description:</strong> This course focuses on writing programs using assignment and sequences; variables and types; operators and expressions; conditional and repetitive statements; input and output; file access; functions; program structure and organization; pointers and dynamic memory allocation; introduction to classes and objects; and mechanical and industrial engineering applications.</p>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
+
     <section id="team">
       <h2>Team</h2>
 
       <div class="team-group">
         <div class="team-group-title">Director</div>
-
         <div class="team-card reveal">
-<div class="team-photo">
-  <img src="hamid.jpg" alt="Dr. Hamid Taghavifar">
-</div>          <div class="team-info">
+          <div class="team-photo">
+            <img src="hamid.jpg" alt="Dr. Hamid Taghavifar">
+          </div>
+          <div class="team-info">
             <h3>Dr. Hamid Taghavifar <span class="team-role">(Ph.D., P.Eng., FHEA, Senior Member IEEE)</span></h3>
-            <p>
-              Dr. Taghavifar is the LACITS lab director and an Assistant Professor with the Department of Mechanical, Industrial and Aerospace Engineering (MIAE) at Concordia University, Montreal, Canada.
-            </p>
+            <p>Dr. Taghavifar is the LACITS lab director and an Assistant Professor with the Department of Mechanical, Industrial and Aerospace Engineering (MIAE) at Concordia University, Montreal, Canada.</p>
             <p><strong>Email:</strong> hamid[dot]taghavifar[at]concordia[dot]ca</p>
           </div>
         </div>
@@ -802,7 +829,6 @@ body.dark-mode .theme-toggle {
 
       <div class="team-group">
         <div class="team-group-title">Graduate Students – M.Sc.</div>
-
         <div class="team-card reveal">
           <div class="team-photo">Photo</div>
           <div class="team-info">
@@ -815,7 +841,6 @@ body.dark-mode .theme-toggle {
 
       <div class="team-group">
         <div class="team-group-title">Alumni – Ph.D.</div>
-
         <div class="team-card reveal">
           <div class="team-photo">Photo</div>
           <div class="team-info">
@@ -891,33 +916,35 @@ body.dark-mode .theme-toggle {
         </div>
       </div>
     </section>
-<section id="gallery">
-  <h2>Gallery</h2>
-  <div class="gallery-grid">
-    <div class="gallery-item reveal">
-      <img src="group-lunch-1.jpg" alt="LACITS group lunch">
-      <div class="gallery-caption">LACITS group lunch.</div>
-    </div>
 
-    <div class="gallery-item reveal">
-      <img src="group-lunch-2.jpg" alt="LACITS group lunch">
-      <div class="gallery-caption">Another moment from the group lunch.</div>
-    </div>
-  </div>
-</section>
-<section id="contact">
-  <h2>Contact</h2>
-  <p>
-    LACITS – Laboratory for Autonomy and Control in Intelligent Transportation Systems<br>
-    EV Building, Room EV 11.170<br>
-    Engineering, Computer Science and Visual Arts Integrated Complex<br>
-    Concordia University<br>
-    1515 Ste-Catherine St. W.<br>
-    Montreal, QC H3G 2W1<br>
-    Canada
-  </p>
-  <p>Email: <a href="mailto:hamid.taghavifar@concordia.ca">hamid.taghavifar@concordia.ca</a></p>
-</section>
+    <section id="gallery">
+      <h2>Gallery</h2>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="group-lunch-1.jpg" alt="LACITS group lunch">
+          <div class="gallery-caption">LACITS group lunch.</div>
+        </div>
+
+        <div class="gallery-item reveal">
+          <img src="group-lunch-2.jpg" alt="LACITS group lunch">
+          <div class="gallery-caption">Another moment from the group lunch.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>
+        LACITS – Laboratory for Autonomy and Control in Intelligent Transportation Systems<br>
+        EV Building, Room EV 11.170<br>
+        Engineering, Computer Science and Visual Arts Integrated Complex<br>
+        Concordia University<br>
+        1515 Ste-Catherine St. W.<br>
+        Montreal, QC H3G 2W1<br>
+        Canada
+      </p>
+      <p>Email: <a href="mailto:hamid.taghavifar@concordia.ca">hamid.taghavifar@concordia.ca</a></p>
+    </section>
 
     <div class="footer">
       © 2026 LACITS Lab. Ready for GitHub Pages deployment.
@@ -927,6 +954,7 @@ body.dark-mode .theme-toggle {
   <script>
     const filterButtons = document.querySelectorAll('.filters button');
     const pubs = document.querySelectorAll('.pub');
+
     filterButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         filterButtons.forEach(b => b.classList.remove('active'));
@@ -941,6 +969,7 @@ body.dark-mode .theme-toggle {
 
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('nav a');
+
     window.addEventListener('scroll', () => {
       let current = 'home';
       sections.forEach(section => {
@@ -951,360 +980,346 @@ body.dark-mode .theme-toggle {
       });
     });
 
-const canvas = document.getElementById('bgNetwork');
-const ctx = canvas.getContext('2d');
+    const canvas = document.getElementById('bgNetwork');
+    const ctx = canvas.getContext('2d');
 
-let t = 0;
-const leftCount = 14;
-const rightCount = 16;
-let weakLeft = 4;
-let weakRight = 10;
+    let t = 0;
+    const leftCount = 14;
+    const rightCount = 16;
+    let weakLeft = 4;
+    let weakRight = 10;
 
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
 
-function drawNode(x, y, r, colorA, colorB) {
-  const grad = ctx.createRadialGradient(
-    x - r * 0.35, y - r * 0.35, r * 0.18,
-    x, y, r
-  );
-  grad.addColorStop(0, colorA);
-  grad.addColorStop(1, colorB);
-
-  ctx.beginPath();
-  ctx.arc(x, y, r, 0, Math.PI * 2);
-  ctx.fillStyle = grad;
-  ctx.fill();
-
-  ctx.beginPath();
-  ctx.arc(x - r * 0.28, y - r * 0.28, r * 0.22, 0, Math.PI * 2);
-  ctx.fillStyle = 'rgba(255,255,255,0.18)';
-  ctx.fill();
-}
-
-function drawLeftRing(cx, cy, scale, mobileMode) {
-  const nodes = [];
-  const ringRx = 120 * scale;
-  const ringRy = 170 * scale;
-
-  const lineSpacing = 24 * scale;
-  const lineStartX = cx - 70 * scale;
-  const lineY = cy + 10 * scale;
-
-  const morph = 0.5 + 0.5 * Math.sin(t * 0.28);
-
-  for (let i = 0; i < leftCount; i++) {
-    const ang = (i / leftCount) * Math.PI * 2 + t * 0.10;
-
-    const ringX = cx + ringRx * Math.cos(ang);
-    const ringY = cy + ringRy * Math.sin(ang);
-
-    const lineX = lineStartX + i * lineSpacing;
-    const targetX = lineX;
-    const targetY = lineY;
-
-    const x = ringX * (1 - morph) + targetX * morph;
-    const y = ringY * (1 - morph) + targetY * morph;
-
-    nodes.push({ x, y });
-  }
-
-  for (let i = 0; i < nodes.length - 1; i++) {
-    const a = nodes[i];
-    const b = nodes[i + 1];
-
-    ctx.beginPath();
-    ctx.moveTo(a.x, a.y);
-    ctx.lineTo(b.x, b.y);
-    ctx.strokeStyle = 'rgba(103,77,85,0.22)';
-    ctx.lineWidth = 1.7;
-    ctx.setLineDash([5, 6]);
-    ctx.stroke();
-  }
-
-  if (!mobileMode && morph < 0.7) {
-    const hubX = cx + 8 * Math.sin(t * 0.9);
-    const hubY = cy + 6 * Math.cos(t * 0.8);
-
-    for (let i = 0; i < nodes.length; i++) {
-      const n = nodes[i];
-      const weak = i === weakLeft;
+    function drawNode(x, y, r, colorA, colorB) {
+      const grad = ctx.createRadialGradient(
+        x - r * 0.35, y - r * 0.35, r * 0.18,
+        x, y, r
+      );
+      grad.addColorStop(0, colorA);
+      grad.addColorStop(1, colorB);
 
       ctx.beginPath();
-      ctx.moveTo(hubX, hubY);
-      ctx.lineTo(n.x, n.y);
-      ctx.strokeStyle = weak
-        ? 'rgba(195,150,55,0.30)'
-        : 'rgba(103,77,85,0.18)';
-      ctx.lineWidth = weak ? 1.8 : 1.2;
-      ctx.setLineDash(weak ? [3, 5] : [2, 3]);
-      ctx.stroke();
-    }
-
-    drawNode(hubX, hubY, 9 * scale, 'rgba(255,130,130,0.95)', 'rgba(220,35,35,0.95)');
-  }
-
-  ctx.setLineDash([]);
-
-  for (let i = 0; i < nodes.length; i++) {
-    const n = nodes[i];
-    const weak = i === weakLeft;
-    const r = (mobileMode ? 6.8 : 8.2) * scale;
-
-    if (weak) {
-      drawNode(n.x, n.y, r, 'rgba(255,220,130,0.98)', 'rgba(224,163,39,0.95)');
-    } else {
-      drawNode(n.x, n.y, r, 'rgba(145,215,175,0.98)', 'rgba(24,163,96,0.92)');
-    }
-  }
-}
-
-function drawRightSquare(cx, cy, scale, mobileMode) {
-  const cols = 4;
-  const rows = 4;
-  const spacingX = 72 * scale;
-  const spacingY = 72 * scale;
-  const nodes = [];
-
-  let k = 0;
-  for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
-      if (k >= rightCount) break;
-      const jitterX = 6 * Math.sin(t * 0.8 + k * 0.7);
-      const jitterY = 6 * Math.cos(t * 0.9 + k * 0.45);
-
-      nodes.push({
-        x: cx + (c - 1.5) * spacingX + jitterX,
-        y: cy + (r - 1.5) * spacingY + jitterY
-      });
-      k++;
-    }
-  }
-
-  for (let i = 0; i < nodes.length; i++) {
-    for (let j = i + 1; j < nodes.length; j++) {
-      const dx = nodes[j].x - nodes[i].x;
-      const dy = nodes[j].y - nodes[i].y;
-      const d = Math.sqrt(dx * dx + dy * dy);
-
-      if (d < 95 * scale) {
-        const weak = i === weakRight || j === weakRight;
-        ctx.beginPath();
-        ctx.moveTo(nodes[i].x, nodes[i].y);
-        ctx.lineTo(nodes[j].x, nodes[j].y);
-        ctx.strokeStyle = weak
-          ? 'rgba(195,150,55,0.28)'
-          : 'rgba(103,77,85,0.20)';
-        ctx.lineWidth = weak ? 1.8 : 1.5;
-        ctx.setLineDash(weak ? [4, 5] : []);
-        ctx.stroke();
-      }
-    }
-  }
-  ctx.setLineDash([]);
-
-  for (let i = 0; i < nodes.length; i++) {
-    const n = nodes[i];
-    const weak = i === weakRight;
-    const r = (mobileMode ? 7 : 8.5) * scale;
-
-    if (weak) {
-      drawNode(n.x, n.y, r, 'rgba(255,220,130,0.98)', 'rgba(224,163,39,0.95)');
-    } else {
-      drawNode(n.x, n.y, r, 'rgba(145,215,175,0.98)', 'rgba(24,163,96,0.92)');
-    }
-  }
-}
-
-function drawDispersion(cx, cy, scale) {
-  const count = 6;
-  const lineSpacing = 22 * scale;
-  const lineX0 = cx + 10 * scale;
-  const lineY = cy;
-
-  const phase = 0.5 + 0.5 * Math.sin(t * 0.42);
-
-  for (let i = 0; i < count; i++) {
-    const startX = cx - 92 * scale + i * 10 * scale;
-    const startY = cy + (i - 2.5) * 42 * scale;
-
-    const endX = lineX0 + i * lineSpacing;
-    const endY = lineY;
-
-    const x = startX * (1 - phase) + endX * phase + 3 * Math.sin(t * 0.9 + i * 0.4);
-    const y = startY * (1 - phase) + endY * phase + 2 * Math.cos(t * 0.8 + i * 0.5);
-
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.rotate(0);
-
-    ctx.fillStyle = 'rgba(138, 138, 220, 0.88)';
-    ctx.fillRect(-8 * scale, -4 * scale, 16 * scale, 8 * scale);
-
-    ctx.fillStyle = 'rgba(46, 185, 70, 0.92)';
-    ctx.fillRect(5 * scale, -3 * scale, 5 * scale, 6 * scale);
-
-    ctx.restore();
-  }
-
-  // faint guide line
-  ctx.beginPath();
-  ctx.moveTo(lineX0 - 16 * scale, lineY);
-  ctx.lineTo(lineX0 + (count - 1) * lineSpacing + 18 * scale, lineY);
-  ctx.strokeStyle = 'rgba(103,77,85,0.12)';
-  ctx.lineWidth = 1.2;
-  ctx.stroke();
-}
-
-function drawFlocking(cx, cy, scale) {
-  const groups = [
-    { x: cx - 26 * scale, y: cy + 14 * scale },
-    { x: cx + 24 * scale, y: cy - 6 * scale },
-    { x: cx + 62 * scale, y: cy + 28 * scale }
-  ];
-
-  for (let g = 0; g < groups.length; g++) {
-    const c = groups[g];
-    const gx = c.x + 9 * Math.sin(t * 0.95 + g);
-    const gy = c.y + 9 * Math.cos(t * 0.88 + g * 0.7);
-
-    drawNode(
-      gx,
-      gy,
-      5.2 * scale,
-      'rgba(205,205,255,0.98)',
-      'rgba(138,138,220,0.93)'
-    );
-
-    for (let i = 0; i < 10; i++) {
-      const ang = (i / 10) * Math.PI * 2 + t * 0.45 + g * 0.35;
-      const rr = 14 * scale + 2 * Math.sin(t * 1.1 + i);
-      const x = gx + rr * Math.cos(ang);
-      const y = gy + rr * Math.sin(ang);
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fillStyle = grad;
+      ctx.fill();
 
       ctx.beginPath();
-      ctx.moveTo(gx, gy);
-      ctx.lineTo(x, y);
-      ctx.strokeStyle = 'rgba(85,85,85,0.28)';
-      ctx.lineWidth = 1.0;
-      ctx.setLineDash([2, 3]);
-      ctx.stroke();
-      ctx.setLineDash([]);
-
-      ctx.beginPath();
-      ctx.arc(x, y, 1.6 * scale, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(70,70,70,0.78)';
+      ctx.arc(x - r * 0.28, y - r * 0.28, r * 0.22, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,255,255,0.18)';
       ctx.fill();
     }
-  }
 
-  drawNode(
-    cx + 3 * Math.sin(t * 0.95),
-    cy + 3 * Math.cos(t * 0.90),
-    3.6 * scale,
-    'rgba(140, 235, 150, 0.98)',
-    'rgba(46, 185, 70, 0.92)'
-  );
+    function drawLeftRing(cx, cy, scale, mobileMode) {
+      const nodes = [];
+      const ringRx = 120 * scale;
+      const ringRy = 170 * scale;
 
-  const reds = [
-    { x: cx - 88 * scale, y: cy - 52 * scale },
-    { x: cx + 102 * scale, y: cy - 46 * scale },
-    { x: cx + 92 * scale, y: cy + 18 * scale },
-    { x: cx + 94 * scale, y: cy + 54 * scale },
-    { x: cx - 6 * scale,  y: cy + 96 * scale }
-  ];
+      const lineSpacing = 24 * scale;
+      const lineStartX = cx - 70 * scale;
+      const lineY = cy + 10 * scale;
 
-  for (const p of reds) {
-    drawNode(
-      p.x,
-      p.y,
-      8.8 * scale,
-      'rgba(255, 150, 150, 0.98)',
-      'rgba(205, 60, 60, 0.94)'
-    );
-  }
-}
-    
-function drawBackground() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const morph = 0.5 + 0.5 * Math.sin(t * 0.28);
 
-  const mobileMode = canvas.width < 900;
-  const scale = mobileMode ? 0.60 : 1.0;
+      for (let i = 0; i < leftCount; i++) {
+        const ang = (i / leftCount) * Math.PI * 2 + t * 0.10;
 
-  if (mobileMode) {
-    drawLeftRing(canvas.width * 0.12, canvas.height * 0.62, scale, true);
-    drawDispersion(canvas.width * 0.16, canvas.height * 0.90, scale * 1.28);
+        const ringX = cx + ringRx * Math.cos(ang);
+        const ringY = cy + ringRy * Math.sin(ang);
 
-    drawRightSquare(canvas.width * 0.86, canvas.height * 0.40, scale, true);
-    drawFlocking(canvas.width * 0.80, canvas.height * 0.08, scale * 1.08);
-  } else {
-    drawLeftRing(canvas.width * 0.10, canvas.height * 0.50, scale, false);
-    drawDispersion(canvas.width * 0.16, canvas.height * 0.88, scale * 1.42);
+        const lineX = lineStartX + i * lineSpacing;
+        const targetX = lineX;
+        const targetY = lineY;
 
-    drawRightSquare(canvas.width * 0.87, canvas.height * 0.48, scale, false);
-    drawFlocking(canvas.width * 0.83, canvas.height * 0.08, scale * 1.18);
-  }
-}
+        const x = ringX * (1 - morph) + targetX * morph;
+        const y = ringY * (1 - morph) + targetY * morph;
 
-function animateBackground() {
-  t += 0.01;
+        nodes.push({ x, y });
+      }
 
-  if (Math.floor(t * 20) % 260 === 0) {
-    weakLeft = Math.floor(Math.random() * leftCount);
-    weakRight = Math.floor(Math.random() * rightCount);
-  }
+      for (let i = 0; i < nodes.length - 1; i++) {
+        const a = nodes[i];
+        const b = nodes[i + 1];
 
-  drawBackground();
-  requestAnimationFrame(animateBackground);
-}
-const revealItems = document.querySelectorAll('.reveal');
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.strokeStyle = 'rgba(103,77,85,0.22)';
+        ctx.lineWidth = 1.7;
+        ctx.setLineDash([5, 6]);
+        ctx.stroke();
+      }
 
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
+      if (!mobileMode && morph < 0.7) {
+        const hubX = cx + 8 * Math.sin(t * 0.9);
+        const hubY = cy + 6 * Math.cos(t * 0.8);
+
+        for (let i = 0; i < nodes.length; i++) {
+          const n = nodes[i];
+          const weak = i === weakLeft;
+
+          ctx.beginPath();
+          ctx.moveTo(hubX, hubY);
+          ctx.lineTo(n.x, n.y);
+          ctx.strokeStyle = weak
+            ? 'rgba(195,150,55,0.30)'
+            : 'rgba(103,77,85,0.18)';
+          ctx.lineWidth = weak ? 1.8 : 1.2;
+          ctx.setLineDash(weak ? [3, 5] : [2, 3]);
+          ctx.stroke();
+        }
+
+        drawNode(hubX, hubY, 9 * scale, 'rgba(255,130,130,0.95)', 'rgba(220,35,35,0.95)');
+      }
+
+      ctx.setLineDash([]);
+
+      for (let i = 0; i < nodes.length; i++) {
+        const n = nodes[i];
+        const weak = i === weakLeft;
+        const r = (mobileMode ? 6.8 : 8.2) * scale;
+
+        if (weak) {
+          drawNode(n.x, n.y, r, 'rgba(255,220,130,0.98)', 'rgba(224,163,39,0.95)');
+        } else {
+          drawNode(n.x, n.y, r, 'rgba(145,215,175,0.98)', 'rgba(24,163,96,0.92)');
+        }
+      }
     }
-  });
-}, {
-  threshold: 0.15
-});
 
-revealItems.forEach(item => {
-  revealObserver.observe(item);
-});
-resizeCanvas();
-animateBackground();
-window.addEventListener('resize', resizeCanvas);
+    function drawRightSquare(cx, cy, scale, mobileMode) {
+      const cols = 4;
+      const rows = 4;
+      const spacingX = 72 * scale;
+      const spacingY = 72 * scale;
+      const nodes = [];
+
+      let k = 0;
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          if (k >= rightCount) break;
+          const jitterX = 6 * Math.sin(t * 0.8 + k * 0.7);
+          const jitterY = 6 * Math.cos(t * 0.9 + k * 0.45);
+
+          nodes.push({
+            x: cx + (c - 1.5) * spacingX + jitterX,
+            y: cy + (r - 1.5) * spacingY + jitterY
+          });
+          k++;
+        }
+      }
+
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const dx = nodes[j].x - nodes[i].x;
+          const dy = nodes[j].y - nodes[i].y;
+          const d = Math.sqrt(dx * dx + dy * dy);
+
+          if (d < 95 * scale) {
+            const weak = i === weakRight || j === weakRight;
+            ctx.beginPath();
+            ctx.moveTo(nodes[i].x, nodes[i].y);
+            ctx.lineTo(nodes[j].x, nodes[j].y);
+            ctx.strokeStyle = weak
+              ? 'rgba(195,150,55,0.28)'
+              : 'rgba(103,77,85,0.20)';
+            ctx.lineWidth = weak ? 1.8 : 1.5;
+            ctx.setLineDash(weak ? [4, 5] : []);
+            ctx.stroke();
+          }
+        }
+      }
+      ctx.setLineDash([]);
+
+      for (let i = 0; i < nodes.length; i++) {
+        const n = nodes[i];
+        const weak = i === weakRight;
+        const r = (mobileMode ? 7 : 8.5) * scale;
+
+        if (weak) {
+          drawNode(n.x, n.y, r, 'rgba(255,220,130,0.98)', 'rgba(224,163,39,0.95)');
+        } else {
+          drawNode(n.x, n.y, r, 'rgba(145,215,175,0.98)', 'rgba(24,163,96,0.92)');
+        }
+      }
+    }
+
+    function drawDispersion(cx, cy, scale) {
+      const count = 6;
+      const lineSpacing = 22 * scale;
+      const lineX0 = cx + 10 * scale;
+      const lineY = cy;
+
+      const phase = 0.5 + 0.5 * Math.sin(t * 0.42);
+
+      for (let i = 0; i < count; i++) {
+        const startX = cx - 92 * scale + i * 10 * scale;
+        const startY = cy + (i - 2.5) * 42 * scale;
+
+        const endX = lineX0 + i * lineSpacing;
+        const endY = lineY;
+
+        const x = startX * (1 - phase) + endX * phase + 3 * Math.sin(t * 0.9 + i * 0.4);
+        const y = startY * (1 - phase) + endY * phase + 2 * Math.cos(t * 0.8 + i * 0.5);
+
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(0);
+
+        ctx.fillStyle = 'rgba(138, 138, 220, 0.88)';
+        ctx.fillRect(-8 * scale, -4 * scale, 16 * scale, 8 * scale);
+
+        ctx.fillStyle = 'rgba(46, 185, 70, 0.92)';
+        ctx.fillRect(5 * scale, -3 * scale, 5 * scale, 6 * scale);
+
+        ctx.restore();
+      }
+
+      ctx.beginPath();
+      ctx.moveTo(lineX0 - 16 * scale, lineY);
+      ctx.lineTo(lineX0 + (count - 1) * lineSpacing + 18 * scale, lineY);
+      ctx.strokeStyle = 'rgba(103,77,85,0.12)';
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+    }
+
+    function drawFlocking(cx, cy, scale) {
+      const groups = [
+        { x: cx - 26 * scale, y: cy + 14 * scale },
+        { x: cx + 24 * scale, y: cy - 6 * scale },
+        { x: cx + 62 * scale, y: cy + 28 * scale }
+      ];
+
+      for (let g = 0; g < groups.length; g++) {
+        const c = groups[g];
+        const gx = c.x + 9 * Math.sin(t * 0.95 + g);
+        const gy = c.y + 9 * Math.cos(t * 0.88 + g * 0.7);
+
+        drawNode(
+          gx,
+          gy,
+          5.2 * scale,
+          'rgba(205,205,255,0.98)',
+          'rgba(138,138,220,0.93)'
+        );
+
+        for (let i = 0; i < 10; i++) {
+          const ang = (i / 10) * Math.PI * 2 + t * 0.45 + g * 0.35;
+          const rr = 14 * scale + 2 * Math.sin(t * 1.1 + i);
+          const x = gx + rr * Math.cos(ang);
+          const y = gy + rr * Math.sin(ang);
+
+          ctx.beginPath();
+          ctx.moveTo(gx, gy);
+          ctx.lineTo(x, y);
+          ctx.strokeStyle = 'rgba(85,85,85,0.28)';
+          ctx.lineWidth = 1.0;
+          ctx.setLineDash([2, 3]);
+          ctx.stroke();
+          ctx.setLineDash([]);
+
+          ctx.beginPath();
+          ctx.arc(x, y, 1.6 * scale, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(70,70,70,0.78)';
+          ctx.fill();
+        }
+      }
+
+      drawNode(
+        cx + 3 * Math.sin(t * 0.95),
+        cy + 3 * Math.cos(t * 0.90),
+        3.6 * scale,
+        'rgba(140, 235, 150, 0.98)',
+        'rgba(46, 185, 70, 0.92)'
+      );
+
+      const reds = [
+        { x: cx - 88 * scale, y: cy - 52 * scale },
+        { x: cx + 102 * scale, y: cy - 46 * scale },
+        { x: cx + 92 * scale, y: cy + 18 * scale },
+        { x: cx + 94 * scale, y: cy + 54 * scale },
+        { x: cx - 6 * scale,  y: cy + 96 * scale }
+      ];
+
+      for (const p of reds) {
+        drawNode(
+          p.x,
+          p.y,
+          8.8 * scale,
+          'rgba(255, 150, 150, 0.98)',
+          'rgba(205, 60, 60, 0.94)'
+        );
+      }
+    }
+
+    function drawBackground() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const mobileMode = canvas.width < 900;
+      const scale = mobileMode ? 0.60 : 1.0;
+
+      if (mobileMode) {
+        drawLeftRing(canvas.width * 0.12, canvas.height * 0.62, scale, true);
+        drawDispersion(canvas.width * 0.16, canvas.height * 0.90, scale * 1.28);
+
+        drawRightSquare(canvas.width * 0.86, canvas.height * 0.40, scale, true);
+        drawFlocking(canvas.width * 0.80, canvas.height * 0.08, scale * 1.08);
+      } else {
+        drawLeftRing(canvas.width * 0.10, canvas.height * 0.50, scale, false);
+        drawDispersion(canvas.width * 0.16, canvas.height * 0.88, scale * 1.42);
+
+        drawRightSquare(canvas.width * 0.87, canvas.height * 0.48, scale, false);
+        drawFlocking(canvas.width * 0.83, canvas.height * 0.08, scale * 1.18);
+      }
+    }
+
+    function animateBackground() {
+      t += 0.01;
+
+      if (Math.floor(t * 20) % 260 === 0) {
+        weakLeft = Math.floor(Math.random() * leftCount);
+        weakRight = Math.floor(Math.random() * rightCount);
+      }
+
+      drawBackground();
+      requestAnimationFrame(animateBackground);
+    }
+
     const revealItems = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.15
+    });
 
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
+    revealItems.forEach(item => {
+      revealObserver.observe(item);
+    });
+
+    const themeToggle = document.getElementById('themeToggle');
+
+    if (localStorage.getItem('lacits-theme') === 'dark') {
+      document.body.classList.add('dark-mode');
+      themeToggle.textContent = '☀';
     }
-  });
-}, {
-  threshold: 0.15
-});
 
-revealItems.forEach(item => {
-  revealObserver.observe(item);
-});
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      const isDark = document.body.classList.contains('dark-mode');
+      themeToggle.textContent = isDark ? '☀' : '☾';
+      localStorage.setItem('lacits-theme', isDark ? 'dark' : 'light');
+    });
+
+    resizeCanvas();
+    animateBackground();
+    window.addEventListener('resize', resizeCanvas);
   </script>
-  const themeToggle = document.getElementById('themeToggle');
-
-if (localStorage.getItem('lacits-theme') === 'dark') {
-  document.body.classList.add('dark-mode');
-  themeToggle.textContent = '☀';
-}
-
-themeToggle.addEventListener('click', () => {
-  document.body.classList.toggle('dark-mode');
-  const isDark = document.body.classList.contains('dark-mode');
-  themeToggle.textContent = isDark ? '☀' : '☾';
-  localStorage.setItem('lacits-theme', isDark ? 'dark' : 'light');
-});
 </body>
 </html>
