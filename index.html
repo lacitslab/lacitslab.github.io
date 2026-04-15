@@ -37,7 +37,7 @@
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  opacity: 0.52;
+  opacity: 0.34;
   width: 100%;
   height: 100%;
 }
@@ -877,173 +877,166 @@ const canvas = document.getElementById('bgNetwork');
 const ctx = canvas.getContext('2d');
 
 let t = 0;
-const nodeCount = 18;
-let unreliableIndex = 6;
+const leftCount = 14;
+const rightCount = 16;
+let weakLeft = 4;
+let weakRight = 10;
 
 function resizeCanvas() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 }
 
-function lerp(a, b, s) {
-  return a + (b - a) * s;
+function drawNode(x, y, r, colorA, colorB) {
+  const grad = ctx.createRadialGradient(
+    x - r * 0.35, y - r * 0.35, r * 0.18,
+    x, y, r
+  );
+  grad.addColorStop(0, colorA);
+  grad.addColorStop(1, colorB);
+
+  ctx.beginPath();
+  ctx.arc(x, y, r, 0, Math.PI * 2);
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.arc(x - r * 0.28, y - r * 0.28, r * 0.22, 0, Math.PI * 2);
+  ctx.fillStyle = 'rgba(255,255,255,0.18)';
+  ctx.fill();
 }
 
-function getRingPositions(cx, cy, radiusX, radiusY) {
-  const pts = [];
-  for (let i = 0; i < nodeCount; i++) {
-    const ang = (-Math.PI / 6) + (i / nodeCount) * Math.PI * 2;
-    pts.push({
-      x: cx + radiusX * Math.cos(ang),
-      y: cy + radiusY * Math.sin(ang),
-      z: 0.55 + 0.45 * (1 + Math.sin(ang)) / 2
-    });
+function drawLeftRing(cx, cy, scale, mobileMode) {
+  const nodes = [];
+  const rx = 120 * scale;
+  const ry = 170 * scale;
+
+  for (let i = 0; i < leftCount; i++) {
+    const ang = (i / leftCount) * Math.PI * 2 + t * 0.10;
+    const x = cx + rx * Math.cos(ang);
+    const y = cy + ry * Math.sin(ang);
+    nodes.push({ x, y });
   }
-  return pts;
+
+  for (let i = 0; i < nodes.length; i++) {
+    const a = nodes[i];
+    const b = nodes[(i + 1) % nodes.length];
+
+    ctx.beginPath();
+    ctx.moveTo(a.x, a.y);
+    ctx.lineTo(b.x, b.y);
+    ctx.strokeStyle = 'rgba(103,77,85,0.18)';
+    ctx.lineWidth = 1.6;
+    ctx.setLineDash([6, 7]);
+    ctx.stroke();
+  }
+
+  if (!mobileMode) {
+    const hubX = cx + 8 * Math.sin(t * 0.9);
+    const hubY = cy + 6 * Math.cos(t * 0.8);
+
+    for (let i = 0; i < nodes.length; i++) {
+      const n = nodes[i];
+      const weak = i === weakLeft;
+
+      ctx.beginPath();
+      ctx.moveTo(hubX, hubY);
+      ctx.lineTo(n.x, n.y);
+      ctx.strokeStyle = weak
+        ? 'rgba(195,150,55,0.34)'
+        : 'rgba(103,77,85,0.24)';
+      ctx.lineWidth = weak ? 1.9 : 1.4;
+      ctx.setLineDash(weak ? [3, 5] : [2, 3]);
+      ctx.stroke();
+    }
+
+    drawNode(hubX, hubY, 10 * scale, 'rgba(255,130,130,0.95)', 'rgba(220,35,35,0.95)');
+  }
+
+  ctx.setLineDash([]);
+
+  for (let i = 0; i < nodes.length; i++) {
+    const n = nodes[i];
+    const weak = i === weakLeft;
+    const r = (mobileMode ? 7 : 8.5) * scale;
+
+    if (weak) {
+      drawNode(n.x, n.y, r, 'rgba(255,220,130,0.98)', 'rgba(224,163,39,0.95)');
+    } else {
+      drawNode(n.x, n.y, r, 'rgba(145,215,175,0.98)', 'rgba(24,163,96,0.92)');
+    }
+  }
 }
 
-function getPlatoonPositions(cx, cy, spacingX, spacingY) {
-  const pts = [];
-  const rows = 3;
-  const cols = 6;
-  let k = 0;
+function drawRightSquare(cx, cy, scale, mobileMode) {
+  const cols = 4;
+  const rows = 4;
+  const spacingX = 72 * scale;
+  const spacingY = 72 * scale;
+  const nodes = [];
 
+  let k = 0;
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
-      if (k >= nodeCount) break;
-      const offset = (r % 2 === 0 ? 0 : spacingX * 0.4);
-      pts.push({
-        x: cx + (c - 2.5) * spacingX + offset,
-        y: cy + (r - 1) * spacingY,
-        z: 0.7 + 0.3 * (1 - r / (rows - 1))
+      if (k >= rightCount) break;
+      const jitterX = 6 * Math.sin(t * 0.8 + k * 0.7);
+      const jitterY = 6 * Math.cos(t * 0.9 + k * 0.45);
+
+      nodes.push({
+        x: cx + (c - 1.5) * spacingX + jitterX,
+        y: cy + (r - 1.5) * spacingY + jitterY
       });
       k++;
     }
   }
-  return pts;
-}
 
-function drawHybridBackground() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  const cx = canvas.width * 0.52;
-  const cy = canvas.height * 0.42;
-
-  const morph = 0.5 + 0.5 * Math.sin(t * 0.35);
-
-  const ring = getRingPositions(cx, cy, 270, 180);
-  const platoon = getPlatoonPositions(cx, cy, 95, 95);
-
-  const nodes = [];
-  for (let i = 0; i < nodeCount; i++) {
-    const x = lerp(ring[i].x, platoon[i].x, morph);
-    const y = lerp(ring[i].y, platoon[i].y, morph);
-    const z = lerp(ring[i].z, platoon[i].z, morph);
-
-    nodes.push({
-      x: x + 6 * Math.sin(t * 0.8 + i * 0.7),
-      y: y + 5 * Math.cos(t * 0.7 + i * 0.45),
-      z
-    });
-  }
-
-  // subtle trajectory traces
-  for (let i = 0; i < nodes.length; i++) {
-    const n = nodes[i];
-    ctx.beginPath();
-    ctx.arc(n.x, n.y, 18 + 10 * n.z, 0, Math.PI * 2);
-    ctx.strokeStyle = 'rgba(125, 98, 106, 0.05)';
-    ctx.lineWidth = 1;
-    ctx.stroke();
-  }
-
-  // dynamic neighbor links
   for (let i = 0; i < nodes.length; i++) {
     for (let j = i + 1; j < nodes.length; j++) {
       const dx = nodes[j].x - nodes[i].x;
       const dy = nodes[j].y - nodes[i].y;
       const d = Math.sqrt(dx * dx + dy * dy);
 
-      if (d < 170) {
-        const weak = (i === unreliableIndex || j === unreliableIndex);
-        const alpha = (1 - d / 170) * (weak ? 0.22 : 0.36);
-
+      if (d < 95 * scale) {
+        const weak = i === weakRight || j === weakRight;
         ctx.beginPath();
         ctx.moveTo(nodes[i].x, nodes[i].y);
         ctx.lineTo(nodes[j].x, nodes[j].y);
         ctx.strokeStyle = weak
-          ? `rgba(190, 145, 55, ${alpha})`
-          : `rgba(103, 77, 85, ${alpha})`;
-        ctx.lineWidth = weak ? 1.6 : 2.1;
-        ctx.setLineDash(weak ? [5, 6] : []);
+          ? 'rgba(195,150,55,0.28)'
+          : 'rgba(103,77,85,0.20)';
+        ctx.lineWidth = weak ? 1.8 : 1.5;
+        ctx.setLineDash(weak ? [4, 5] : []);
         ctx.stroke();
       }
     }
   }
   ctx.setLineDash([]);
 
-  // nodes with pseudo-3D shading
   for (let i = 0; i < nodes.length; i++) {
     const n = nodes[i];
-    const r = 8 + 6 * n.z;
-    const weak = i === unreliableIndex;
-
-    const grad = ctx.createRadialGradient(
-      n.x - r * 0.35, n.y - r * 0.35, r * 0.2,
-      n.x, n.y, r
-    );
+    const weak = i === weakRight;
+    const r = (mobileMode ? 7 : 8.5) * scale;
 
     if (weak) {
-      grad.addColorStop(0, 'rgba(255, 215, 120, 0.98)');
-      grad.addColorStop(1, 'rgba(224, 163, 39, 0.96)');
+      drawNode(n.x, n.y, r, 'rgba(255,220,130,0.98)', 'rgba(224,163,39,0.95)');
     } else {
-      grad.addColorStop(0, 'rgba(145, 215, 175, 0.98)');
-      grad.addColorStop(1, 'rgba(24, 163, 96, 0.94)');
+      drawNode(n.x, n.y, r, 'rgba(145,215,175,0.98)', 'rgba(24,163,96,0.92)');
     }
-
-    ctx.beginPath();
-    ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
-    ctx.fillStyle = grad;
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.arc(n.x - r * 0.28, n.y - r * 0.30, r * 0.22, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(255,255,255,0.22)';
-    ctx.fill();
   }
+}
 
-  // central hub appears stronger in ring-like phases
-  const hubStrength = 1 - morph;
-  if (hubStrength > 0.12) {
-    const hubX = cx + 8 * Math.sin(t * 0.9);
-    const hubY = cy + 8 * Math.cos(t * 0.7);
-    const hubR = 12 + 7 * hubStrength;
+function drawBackground() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    for (let i = 0; i < nodes.length; i++) {
-      const n = nodes[i];
-      const weak = i === unreliableIndex;
-      const alpha = 0.08 + 0.24 * hubStrength;
+  const mobileMode = canvas.width < 900;
+  const scale = mobileMode ? 0.72 : 1.0;
 
-      ctx.beginPath();
-      ctx.moveTo(hubX, hubY);
-      ctx.lineTo(n.x, n.y);
-      ctx.strokeStyle = weak
-        ? `rgba(190,145,55,${alpha * 0.7})`
-        : `rgba(95,74,82,${alpha})`;
-      ctx.lineWidth = weak ? 1.4 : 1.7;
-      ctx.setLineDash(weak ? [3, 5] : [2, 3]);
-      ctx.stroke();
-    }
-    ctx.setLineDash([]);
-
-    const hubGrad = ctx.createRadialGradient(hubX - 4, hubY - 4, 2, hubX, hubY, hubR);
-    hubGrad.addColorStop(0, 'rgba(255, 120, 120, 0.98)');
-    hubGrad.addColorStop(1, 'rgba(220, 35, 35, 0.96)');
-
-    ctx.beginPath();
-    ctx.arc(hubX, hubY, hubR, 0, Math.PI * 2);
-    ctx.fillStyle = hubGrad;
-    ctx.fill();
+  if (mobileMode) {
+    drawLeftRing(canvas.width * 0.14, canvas.height * 0.74, scale, true);
+    drawRightSquare(canvas.width * 0.86, canvas.height * 0.28, scale, true);
+  } else {
+    drawLeftRing(canvas.width * 0.10, canvas.height * 0.58, scale, false);
+    drawRightSquare(canvas.width * 0.87, canvas.height * 0.40, scale, false);
   }
 }
 
@@ -1051,10 +1044,11 @@ function animateBackground() {
   t += 0.01;
 
   if (Math.floor(t * 20) % 260 === 0) {
-    unreliableIndex = Math.floor(Math.random() * nodeCount);
+    weakLeft = Math.floor(Math.random() * leftCount);
+    weakRight = Math.floor(Math.random() * rightCount);
   }
 
-  drawHybridBackground();
+  drawBackground();
   requestAnimationFrame(animateBackground);
 }
 
