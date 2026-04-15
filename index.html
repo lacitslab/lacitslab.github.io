@@ -1155,19 +1155,19 @@ function drawBackground() {
   const mobileMode = canvas.width < 900;
   const scale = mobileMode ? 0.60 : 1.0;
 
-if (mobileMode) {
-  drawLeftRing(canvas.width * 0.12, canvas.height * 0.62, scale, true);
-  drawDispersion(canvas.width * 0.16, canvas.height * 0.90, scale * 1.02);
+  if (mobileMode) {
+    drawLeftRing(canvas.width * 0.12, canvas.height * 0.62, scale, true);
+    drawDispersion(canvas.width * 0.16, canvas.height * 0.90, scale * 1.28);
 
-  drawRightSquare(canvas.width * 0.86, canvas.height * 0.40, scale, true);
-  drawFlocking(canvas.width * 0.80, canvas.height * 0.08, scale * 0.84);
-} else {
-  drawLeftRing(canvas.width * 0.10, canvas.height * 0.50, scale, false);
-  drawDispersion(canvas.width * 0.16, canvas.height * 0.88, scale * 1.08);
+    drawRightSquare(canvas.width * 0.86, canvas.height * 0.40, scale, true);
+    drawFlocking(canvas.width * 0.80, canvas.height * 0.08, scale * 1.08);
+  } else {
+    drawLeftRing(canvas.width * 0.10, canvas.height * 0.50, scale, false);
+    drawDispersion(canvas.width * 0.16, canvas.height * 0.88, scale * 1.42);
 
-  drawRightSquare(canvas.width * 0.87, canvas.height * 0.48, scale, false);
-  drawFlocking(canvas.width * 0.83, canvas.height * 0.08, scale * 0.92);
-}
+    drawRightSquare(canvas.width * 0.87, canvas.height * 0.48, scale, false);
+    drawFlocking(canvas.width * 0.83, canvas.height * 0.08, scale * 1.18);
+  }
 }
 
 function animateBackground() {
