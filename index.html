@@ -15,7 +15,85 @@
       --pill: #eef4ff;
       --maxw: 1100px;
     }
+body.dark-mode {
+  --bg: #07111f;
+  --text: #eaf1ff;
+  --muted: #aebbd6;
+  --line: #1d2b42;
+  --accent: #66b3ff;
+  --accent-dark: #8ac5ff;
+  --pill: #10233d;
+}
 
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+body.dark-mode .topbar {
+  background: rgba(7, 17, 31, 0.92);
+}
+
+body.dark-mode .news,
+body.dark-mode .team-card,
+body.dark-mode .gallery-item,
+body.dark-mode .thumb,
+body.dark-mode .tagline,
+body.dark-mode .portrait {
+  background: rgba(12, 24, 42, 0.92);
+  border-color: #23344f;
+  color: var(--text);
+}
+
+body.dark-mode .team-photo {
+  background: linear-gradient(135deg, #16253c, #1b2f4d);
+  border-color: #2b3f60;
+  color: #dbe7ff;
+}
+
+body.dark-mode .small-links,
+body.dark-mode .muted,
+body.dark-mode .team-role,
+body.dark-mode .gallery-caption,
+body.dark-mode .footer {
+  color: var(--muted);
+}
+
+body.dark-mode h2,
+body.dark-mode .team-group-title,
+body.dark-mode .hero-eyebrow {
+  color: #b9ccf0;
+}
+
+body.dark-mode nav a {
+  color: #c7d6f2;
+}
+
+body.dark-mode nav a:hover,
+body.dark-mode nav a.active {
+  color: var(--accent);
+}
+
+.theme-toggle {
+  position: fixed;
+  right: 22px;
+  top: 76px;
+  z-index: 60;
+  width: 46px;
+  height: 46px;
+  border: 1px solid #d9dfe8;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.95);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  cursor: pointer;
+  font-size: 20px;
+}
+
+body.dark-mode .theme-toggle {
+  background: rgba(16, 30, 50, 0.96);
+  border-color: #334866;
+  color: #ffd35f;
+}
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
 
@@ -479,7 +557,7 @@
 </head>
 <body>
   <canvas class="bg-network" id="bgNetwork"></canvas>
-
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☾</button>
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand">LACITS</div>
@@ -1200,5 +1278,18 @@ resizeCanvas();
 animateBackground();
 window.addEventListener('resize', resizeCanvas);
   </script>
+  const themeToggle = document.getElementById('themeToggle');
+
+if (localStorage.getItem('lacits-theme') === 'dark') {
+  document.body.classList.add('dark-mode');
+  themeToggle.textContent = '☀';
+}
+
+themeToggle.addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+  const isDark = document.body.classList.contains('dark-mode');
+  themeToggle.textContent = isDark ? '☀' : '☾';
+  localStorage.setItem('lacits-theme', isDark ? 'dark' : 'light');
+});
 </body>
 </html>
