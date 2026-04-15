@@ -18,20 +18,28 @@
       --maxw: 1100px;
     }
 
-    body.dark-mode {
-      --bg: #07111f;
-      --text: #eaf1ff;
-      --muted: #aebbd6;
-      --line: #1d2b42;
-      --accent: #66b3ff;
-      --accent-dark: #8ac5ff;
-      --pill: #10233d;
-      --card-bg: rgba(12, 24, 42, 0.92);
-      --shadow: 0 12px 26px rgba(0,0,0,0.22);
-    }
+body.dark-mode {
+  --bg: #07111f;
+  --text: #eaf1ff;
+  --muted: #aebbd6;
+  --line: #1d2b42;
+  --accent: #66b3ff;
+  --accent-dark: #8ac5ff;
+  --pill: #10233d;
+  --card-bg: rgba(12, 24, 42, 0.92);
+  --shadow: 0 12px 26px rgba(0,0,0,0.22);
+}
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 78px;
+}
+
+section[id] {
+  scroll-margin-top: 78px;
+}
 
     body {
       margin: 0;
@@ -575,6 +583,9 @@
   </style>
 </head>
 <body>
+  <div id="top"></div>
+  <canvas class="bg-network" id="bgNetwork"></canvas>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☾</button>
   <canvas class="bg-network" id="bgNetwork"></canvas>
   <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☾</button>
 
@@ -583,7 +594,7 @@
       <div class="brand">LACITS</div>
       <nav>
         <ul>
-          <li><a class="active" href="#home">Home</a></li>
+          <li><a class="active" href="#top">Home</a></li>
           <li><a href="#news">News</a></li>
           <li><a href="#projects">Projects</a></li>
           <li><a href="#publications">Publications</a></li>
@@ -967,18 +978,31 @@
       });
     });
 
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('nav a');
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('nav a');
 
-    window.addEventListener('scroll', () => {
-      let current = 'home';
-      sections.forEach(section => {
-        if (window.scrollY >= section.offsetTop - 100) current = section.id;
-      });
-      navLinks.forEach(link => {
-        link.classList.toggle('active', link.getAttribute('href') === '#' + current);
-      });
-    });
+function updateActiveNav() {
+  const scrollPos = window.scrollY + 110;
+  let current = 'home';
+
+  sections.forEach(section => {
+    if (scrollPos >= section.offsetTop) {
+      current = section.id;
+    }
+  });
+
+  // ensure bottom sections work properly
+  if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
+    current = 'contact';
+  }
+
+  navLinks.forEach(link => {
+    link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+  });
+}
+
+window.addEventListener('scroll', updateActiveNav);
+window.addEventListener('load', updateActiveNav);
 
     const canvas = document.getElementById('bgNetwork');
     const ctx = canvas.getContext('2d');
