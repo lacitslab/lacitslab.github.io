@@ -983,26 +983,16 @@ function updateActiveNav() {
   const scrollPos = window.scrollY + 140;
   let current = 'top';
 
-  if (window.scrollY > 120) {
-    current = 'home';
-  }
-
-  sections.forEach(section => {
-    const top = section.offsetTop;
-    const bottom = top + section.offsetHeight;
-
-    if (scrollPos >= top && scrollPos < bottom) {
-      current = section.id;
-    }
-  });
-
-  if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
-    current = 'contact';
-  }
+  if (scrollPos >= document.getElementById('news').offsetTop) current = 'news';
+  if (scrollPos >= document.getElementById('projects').offsetTop) current = 'projects';
+  if (scrollPos >= document.getElementById('publications').offsetTop) current = 'publications';
+  if (scrollPos >= document.getElementById('teaching').offsetTop) current = 'teaching';
+  if (scrollPos >= document.getElementById('team').offsetTop) current = 'team';
+  if (scrollPos >= document.getElementById('gallery').offsetTop) current = 'gallery';
+  if (scrollPos >= document.getElementById('contact').offsetTop) current = 'contact';
 
   navLinks.forEach(link => {
-    const href = link.getAttribute('href');
-    link.classList.toggle('active', href === '#' + current);
+    link.classList.toggle('active', link.getAttribute('href') === '#' + current);
   });
 }
 
