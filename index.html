@@ -980,16 +980,19 @@ const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('nav a');
 
 function updateActiveNav() {
-  const scrollPos = window.scrollY + 140;
+  const headerOffset = 90;
+  const probeY = window.scrollY + headerOffset + 10;
   let current = 'top';
 
-  if (scrollPos >= document.getElementById('news').offsetTop) current = 'news';
-  if (scrollPos >= document.getElementById('projects').offsetTop) current = 'projects';
-  if (scrollPos >= document.getElementById('publications').offsetTop) current = 'publications';
-  if (scrollPos >= document.getElementById('teaching').offsetTop) current = 'teaching';
-  if (scrollPos >= document.getElementById('team').offsetTop) current = 'team';
-  if (scrollPos >= document.getElementById('gallery').offsetTop) current = 'gallery';
-  if (scrollPos >= document.getElementById('contact').offsetTop) current = 'contact';
+  sections.forEach(section => {
+    if (probeY >= section.offsetTop) {
+      current = section.id;
+    }
+  });
+
+  if (window.scrollY < 80) {
+    current = 'top';
+  }
 
   navLinks.forEach(link => {
     link.classList.toggle('active', link.getAttribute('href') === '#' + current);
