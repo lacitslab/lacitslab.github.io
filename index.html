@@ -908,30 +908,45 @@ function drawNode(x, y, r, colorA, colorB) {
 
 function drawLeftRing(cx, cy, scale, mobileMode) {
   const nodes = [];
-  const rx = 120 * scale;
-  const ry = 170 * scale;
+  const ringRx = 120 * scale;
+  const ringRy = 170 * scale;
+
+  const lineSpacing = 24 * scale;
+  const lineStartX = cx - 70 * scale;
+  const lineY = cy + 10 * scale;
+
+  const morph = 0.5 + 0.5 * Math.sin(t * 0.28);
 
   for (let i = 0; i < leftCount; i++) {
     const ang = (i / leftCount) * Math.PI * 2 + t * 0.10;
-    const x = cx + rx * Math.cos(ang);
-    const y = cy + ry * Math.sin(ang);
+
+    const ringX = cx + ringRx * Math.cos(ang);
+    const ringY = cy + ringRy * Math.sin(ang);
+
+    const lineX = lineStartX + i * lineSpacing;
+    const targetX = lineX;
+    const targetY = lineY;
+
+    const x = ringX * (1 - morph) + targetX * morph;
+    const y = ringY * (1 - morph) + targetY * morph;
+
     nodes.push({ x, y });
   }
 
-  for (let i = 0; i < nodes.length; i++) {
+  for (let i = 0; i < nodes.length - 1; i++) {
     const a = nodes[i];
-    const b = nodes[(i + 1) % nodes.length];
+    const b = nodes[i + 1];
 
     ctx.beginPath();
     ctx.moveTo(a.x, a.y);
     ctx.lineTo(b.x, b.y);
-    ctx.strokeStyle = 'rgba(103,77,85,0.18)';
-    ctx.lineWidth = 1.6;
-    ctx.setLineDash([6, 7]);
+    ctx.strokeStyle = 'rgba(103,77,85,0.22)';
+    ctx.lineWidth = 1.7;
+    ctx.setLineDash([5, 6]);
     ctx.stroke();
   }
 
-  if (!mobileMode) {
+  if (!mobileMode && morph < 0.7) {
     const hubX = cx + 8 * Math.sin(t * 0.9);
     const hubY = cy + 6 * Math.cos(t * 0.8);
 
@@ -943,14 +958,14 @@ function drawLeftRing(cx, cy, scale, mobileMode) {
       ctx.moveTo(hubX, hubY);
       ctx.lineTo(n.x, n.y);
       ctx.strokeStyle = weak
-        ? 'rgba(195,150,55,0.34)'
-        : 'rgba(103,77,85,0.24)';
-      ctx.lineWidth = weak ? 1.9 : 1.4;
+        ? 'rgba(195,150,55,0.30)'
+        : 'rgba(103,77,85,0.18)';
+      ctx.lineWidth = weak ? 1.8 : 1.2;
       ctx.setLineDash(weak ? [3, 5] : [2, 3]);
       ctx.stroke();
     }
 
-    drawNode(hubX, hubY, 10 * scale, 'rgba(255,130,130,0.95)', 'rgba(220,35,35,0.95)');
+    drawNode(hubX, hubY, 9 * scale, 'rgba(255,130,130,0.95)', 'rgba(220,35,35,0.95)');
   }
 
   ctx.setLineDash([]);
@@ -958,7 +973,7 @@ function drawLeftRing(cx, cy, scale, mobileMode) {
   for (let i = 0; i < nodes.length; i++) {
     const n = nodes[i];
     const weak = i === weakLeft;
-    const r = (mobileMode ? 7 : 8.5) * scale;
+    const r = (mobileMode ? 6.8 : 8.2) * scale;
 
     if (weak) {
       drawNode(n.x, n.y, r, 'rgba(255,220,130,0.98)', 'rgba(224,163,39,0.95)');
@@ -1026,50 +1041,43 @@ function drawRightSquare(cx, cy, scale, mobileMode) {
 }
 
 function drawDispersion(cx, cy, scale) {
-  const trucks = [
-    { x: cx - 78 * scale, y: cy + 56 * scale },
-    { x: cx - 42 * scale, y: cy + 26 * scale },
-    { x: cx - 6 * scale,  y: cy - 2 * scale },
-    { x: cx + 30 * scale, y: cy - 30 * scale },
-    { x: cx + 66 * scale, y: cy - 58 * scale }
-  ];
+  const count = 6;
+  const lineSpacing = 22 * scale;
+  const lineX0 = cx + 10 * scale;
+  const lineY = cy;
 
-  for (let i = 0; i < trucks.length; i++) {
-    const p = trucks[i];
+  const phase = 0.5 + 0.5 * Math.sin(t * 0.42);
 
-    const x = p.x + 4 * Math.sin(t * 0.55 + i * 0.35);
-    const y = p.y + 4 * Math.cos(t * 0.50 + i * 0.28);
+  for (let i = 0; i < count; i++) {
+    const startX = cx - 92 * scale + i * 10 * scale;
+    const startY = cy + (i - 2.5) * 42 * scale;
 
-    // trailer/body
+    const endX = lineX0 + i * lineSpacing;
+    const endY = lineY;
+
+    const x = startX * (1 - phase) + endX * phase + 3 * Math.sin(t * 0.9 + i * 0.4);
+    const y = startY * (1 - phase) + endY * phase + 2 * Math.cos(t * 0.8 + i * 0.5);
+
     ctx.save();
     ctx.translate(x, y);
-    ctx.rotate(-0.72);
+    ctx.rotate(0);
 
     ctx.fillStyle = 'rgba(138, 138, 220, 0.88)';
-    ctx.fillRect(-9 * scale, -4 * scale, 18 * scale, 8 * scale);
+    ctx.fillRect(-8 * scale, -4 * scale, 16 * scale, 8 * scale);
 
-    // cabin
-    ctx.fillStyle = 'rgba(72, 168, 78, 0.92)';
-    ctx.fillRect(6 * scale, -3.2 * scale, 6 * scale, 6.4 * scale);
+    ctx.fillStyle = 'rgba(46, 185, 70, 0.92)';
+    ctx.fillRect(5 * scale, -3 * scale, 5 * scale, 6 * scale);
 
     ctx.restore();
   }
 
-  // tiny motion guide dots
-  const guides = [
-    { x: cx - 102 * scale, y: cy + 78 * scale },
-    { x: cx + 92 * scale,  y: cy - 78 * scale }
-  ];
-
-  for (const g of guides) {
-    drawNode(
-      g.x,
-      g.y,
-      2.8 * scale,
-      'rgba(140, 235, 150, 0.90)',
-      'rgba(46, 185, 70, 0.86)'
-    );
-  }
+  // faint guide line
+  ctx.beginPath();
+  ctx.moveTo(lineX0 - 16 * scale, lineY);
+  ctx.lineTo(lineX0 + (count - 1) * lineSpacing + 18 * scale, lineY);
+  ctx.strokeStyle = 'rgba(103,77,85,0.12)';
+  ctx.lineWidth = 1.2;
+  ctx.stroke();
 }
 
 function drawFlocking(cx, cy, scale) {
@@ -1081,8 +1089,8 @@ function drawFlocking(cx, cy, scale) {
 
   for (let g = 0; g < groups.length; g++) {
     const c = groups[g];
-    const gx = c.x + 6 * Math.sin(t * 0.55 + g);
-    const gy = c.y + 6 * Math.cos(t * 0.48 + g * 0.7);
+    const gx = c.x + 9 * Math.sin(t * 0.95 + g);
+    const gy = c.y + 9 * Math.cos(t * 0.88 + g * 0.7);
 
     drawNode(
       gx,
@@ -1093,8 +1101,8 @@ function drawFlocking(cx, cy, scale) {
     );
 
     for (let i = 0; i < 10; i++) {
-      const ang = (i / 10) * Math.PI * 2 + t * 0.20 + g * 0.35;
-      const rr = 14 * scale + 2 * Math.sin(t * 0.9 + i);
+      const ang = (i / 10) * Math.PI * 2 + t * 0.45 + g * 0.35;
+      const rr = 14 * scale + 2 * Math.sin(t * 1.1 + i);
       const x = gx + rr * Math.cos(ang);
       const y = gy + rr * Math.sin(ang);
 
@@ -1114,16 +1122,14 @@ function drawFlocking(cx, cy, scale) {
     }
   }
 
-  // central green point
   drawNode(
-    cx + 2 * Math.sin(t * 0.8),
-    cy + 2 * Math.cos(t * 0.75),
+    cx + 3 * Math.sin(t * 0.95),
+    cy + 3 * Math.cos(t * 0.90),
     3.6 * scale,
     'rgba(140, 235, 150, 0.98)',
     'rgba(46, 185, 70, 0.92)'
   );
 
-  // red obstacles
   const reds = [
     { x: cx - 88 * scale, y: cy - 52 * scale },
     { x: cx + 102 * scale, y: cy - 46 * scale },
@@ -1151,7 +1157,7 @@ function drawBackground() {
 
   if (mobileMode) {
     drawLeftRing(canvas.width * 0.12, canvas.height * 0.62, scale, true);
-    drawDispersion(canvas.width * 0.17, canvas.height * 0.92, scale * 0.82);
+    drawDispersion(canvas.width * 0.16, canvas.height * 0.90, scale * 0.82);
 
     drawRightSquare(canvas.width * 0.86, canvas.height * 0.40, scale, true);
     drawFlocking(canvas.width * 0.80, canvas.height * 0.08, scale * 0.68);
@@ -1160,7 +1166,7 @@ function drawBackground() {
     drawDispersion(canvas.width * 0.16, canvas.height * 0.88, scale * 0.92);
 
     drawRightSquare(canvas.width * 0.87, canvas.height * 0.48, scale, false);
-    drawFlocking(canvas.width * 0.83, canvas.height * 0.08, scale * 0.64);
+    drawFlocking(canvas.width * 0.83, canvas.height * 0.08, scale * 0.74);
   }
 }
 
