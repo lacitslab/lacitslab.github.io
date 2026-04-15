@@ -586,8 +586,6 @@ section[id] {
   <div id="top"></div>
   <canvas class="bg-network" id="bgNetwork"></canvas>
   <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☾</button>
-  <canvas class="bg-network" id="bgNetwork"></canvas>
-  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☾</button>
 
   <header class="topbar">
     <div class="topbar-inner">
@@ -982,22 +980,29 @@ const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('nav a');
 
 function updateActiveNav() {
-  const scrollPos = window.scrollY + 110;
-  let current = 'home';
+  const scrollPos = window.scrollY + 140;
+  let current = 'top';
+
+  if (window.scrollY > 120) {
+    current = 'home';
+  }
 
   sections.forEach(section => {
-    if (scrollPos >= section.offsetTop) {
+    const top = section.offsetTop;
+    const bottom = top + section.offsetHeight;
+
+    if (scrollPos >= top && scrollPos < bottom) {
       current = section.id;
     }
   });
 
-  // ensure bottom sections work properly
   if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
     current = 'contact';
   }
 
   navLinks.forEach(link => {
-    link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+    const href = link.getAttribute('href');
+    link.classList.toggle('active', href === '#' + current);
   });
 }
 
