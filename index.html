@@ -37,7 +37,7 @@
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  opacity: 0.34;
+  opacity: 0.42;
   width: 100%;
   height: 100%;
 }
@@ -873,97 +873,115 @@
       });
     });
 
-    const canvas = document.getElementById('bgNetwork');
-    const ctx = canvas.getContext('2d');
-    let points = [];
-    const pointCount = 72;
-    const maxDist = 170;
+const canvas = document.getElementById('bgNetwork');
+const ctx = canvas.getContext('2d');
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      if (!points.length) initPoints();
+let agents = [];
+let trails = [];
+const agentCount = 22;
+const linkDist = 185;
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  if (!agents.length) initAgents();
+}
+
+function initAgents() {
+  agents = [];
+  trails = [];
+  for (let i = 0; i < agentCount; i++) {
+    agents.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.55,
+      vy: (Math.random() - 0.5) * 0.55,
+      r: Math.random() * 2.2 + 2.2,
+      history: []
+    });
+  }
+}
+
+function updateAgents() {
+  for (const a of agents) {
+    a.x += a.vx;
+    a.y += a.vy;
+
+    if (a.x < 20 || a.x > canvas.width - 20) a.vx *= -1;
+    if (a.y < 20 || a.y > canvas.height - 20) a.vy *= -1;
+
+    a.history.push({ x: a.x, y: a.y });
+    if (a.history.length > 18) a.history.shift();
+  }
+}
+
+function drawTrails() {
+  for (const a of agents) {
+    if (a.history.length < 2) continue;
+    ctx.beginPath();
+    ctx.moveTo(a.history[0].x, a.history[0].y);
+    for (let i = 1; i < a.history.length; i++) {
+      ctx.lineTo(a.history[i].x, a.history[i].y);
     }
+    ctx.strokeStyle = 'rgba(130, 102, 110, 0.10)';
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+  }
+}
 
-    function initPoints() {
-      points = [];
-      for (let i = 0; i < pointCount; i++) {
-        points.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 0.38,
-          vy: (Math.random() - 0.5) * 0.38,
-          r: Math.random() * 2.4 + 1.8
-        });
-      }
-    }
+function drawLinks() {
+  for (let i = 0; i < agents.length; i++) {
+    for (let j = i + 1; j < agents.length; j++) {
+      const a = agents[i];
+      const b = agents[j];
+      const dx = b.x - a.x;
+      const dy = b.y - a.y;
+      const d = Math.sqrt(dx * dx + dy * dy);
 
-    function animateNetwork() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      for (let i = 0; i < points.length; i++) {
-        const p = points[i];
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.x < -30 || p.x > canvas.width + 30) p.vx *= -1;
-        if (p.y < -30 || p.y > canvas.height + 30) p.vy *= -1;
-      }
-
-      for (let i = 0; i < points.length; i++) {
-        for (let j = i + 1; j < points.length; j++) {
-          const p1 = points[i];
-          const p2 = points[j];
-          const dx = p2.x - p1.x;
-          const dy = p2.y - p1.y;
-          const d = Math.sqrt(dx * dx + dy * dy);
-
-          if (d < maxDist) {
-            const alpha = (1 - d / maxDist) * 0.48;
-            ctx.beginPath();
-            ctx.moveTo(p1.x, p1.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(105,80,88,${alpha})`;
-            ctx.lineWidth = 1.6;
-            ctx.stroke();
-          }
-        }
-      }
-
-      for (const p of points) {
+      if (d < linkDist) {
+        const alpha = (1 - d / linkDist) * 0.42;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(98,72,80,0.55)';
-        ctx.fill();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.strokeStyle = `rgba(103, 77, 85, ${alpha})`;
+        ctx.lineWidth = 1.8;
+        ctx.stroke();
       }
-
-      requestAnimationFrame(animateNetwork);
     }
+  }
+}
 
-    const revealItems = document.querySelectorAll('.reveal');
+function drawAgents() {
+  for (const a of agents) {
+    ctx.beginPath();
+    ctx.arc(a.x, a.y, a.r + 3.5, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(122, 95, 102, 0.10)';
+    ctx.fill();
 
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, {
-      threshold: 0.15
-    });
+    ctx.beginPath();
+    ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(98, 72, 80, 0.72)';
+    ctx.fill();
+  }
+}
 
-    revealItems.forEach(item => {
-      revealObserver.observe(item);
-    });
+function animateNetwork() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  updateAgents();
+  drawTrails();
+  drawLinks();
+  drawAgents();
+  requestAnimationFrame(animateNetwork);
+}
 
-    resizeCanvas();
-    initPoints();
-    animateNetwork();
+resizeCanvas();
+initAgents();
+animateNetwork();
 
-    window.addEventListener('resize', () => {
-      resizeCanvas();
-      initPoints();
-    });
+window.addEventListener('resize', () => {
+  resizeCanvas();
+  initAgents();
+});
   </script>
 </body>
 </html>
