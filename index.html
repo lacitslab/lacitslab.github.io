@@ -976,31 +976,51 @@ section[id] {
       });
     });
 
-const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('nav a');
+const observedSections = document.querySelectorAll('section[id]');
+let currentSection = 'top';
 
-function updateActiveNav() {
-  const headerOffset = 90;
-  const probeY = window.scrollY + headerOffset + 10;
-  let current = 'top';
-
-  sections.forEach(section => {
-    if (probeY >= section.offsetTop) {
-      current = section.id;
-    }
-  });
-
-  if (window.scrollY < 80) {
-    current = 'top';
-  }
-
+function setActiveNav(id) {
   navLinks.forEach(link => {
-    link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+    link.classList.toggle('active', link.getAttribute('href') === '#' + id);
   });
 }
 
-window.addEventListener('scroll', updateActiveNav);
-window.addEventListener('load', updateActiveNav);
+const navObserver = new IntersectionObserver((entries) => {
+  let bestEntry = null;
+
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      if (!bestEntry || entry.intersectionRatio > bestEntry.intersectionRatio) {
+        bestEntry = entry;
+      }
+    }
+  });
+
+  if (bestEntry) {
+    currentSection = bestEntry.target.id;
+    setActiveNav(currentSection);
+  }
+}, {
+  root: null,
+  rootMargin: '-90px 0px -55% 0px',
+  threshold: [0.05, 0.15, 0.3, 0.5, 0.7]
+});
+
+observedSections.forEach(section => navObserver.observe(section));
+
+window.addEventListener('scroll', () => {
+  if (window.scrollY < 80) {
+    currentSection = 'top';
+    setActiveNav('top');
+  }
+});
+
+window.addEventListener('load', () => {
+  if (window.scrollY < 80) {
+    setActiveNav('top');
+  }
+});
 
     const canvas = document.getElementById('bgNetwork');
     const ctx = canvas.getContext('2d');
