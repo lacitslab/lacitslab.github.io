@@ -1026,40 +1026,48 @@ function drawRightSquare(cx, cy, scale, mobileMode) {
 }
 
 function drawDispersion(cx, cy, scale) {
-  const pts = [
-    { x: cx - 62 * scale, y: cy + 52 * scale, s: 0.2 },
-    { x: cx - 38 * scale, y: cy + 22 * scale, s: 0.5 },
-    { x: cx - 18 * scale, y: cy + 6 * scale,  s: 0.8 },
-    { x: cx + 4 * scale,  y: cy - 14 * scale, s: 1.0 },
-    { x: cx + 22 * scale, y: cy - 34 * scale, s: 1.2 },
-    { x: cx + 42 * scale, y: cy - 54 * scale, s: 1.4 }
+  const trucks = [
+    { x: cx - 78 * scale, y: cy + 56 * scale },
+    { x: cx - 42 * scale, y: cy + 26 * scale },
+    { x: cx - 6 * scale,  y: cy - 2 * scale },
+    { x: cx + 30 * scale, y: cy - 30 * scale },
+    { x: cx + 66 * scale, y: cy - 58 * scale }
   ];
 
-  const greens = [
-    { x: cx - 78 * scale, y: cy + 58 * scale, s: 0.1 },
-    { x: cx - 10 * scale, y: cy - 6 * scale,  s: 0.9 },
-    { x: cx + 34 * scale, y: cy - 74 * scale, s: 1.3 }
-  ];
+  for (let i = 0; i < trucks.length; i++) {
+    const p = trucks[i];
 
-  for (let i = 0; i < pts.length; i++) {
-    const p = pts[i];
-    drawNode(
-      p.x + 4 * Math.sin(t * 0.7 + p.s),
-      p.y + 4 * Math.cos(t * 0.6 + p.s),
-      5.6 * scale,
-      'rgba(205, 205, 255, 0.97)',
-      'rgba(138, 138, 220, 0.92)'
-    );
+    const x = p.x + 4 * Math.sin(t * 0.55 + i * 0.35);
+    const y = p.y + 4 * Math.cos(t * 0.50 + i * 0.28);
+
+    // trailer/body
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(-0.72);
+
+    ctx.fillStyle = 'rgba(138, 138, 220, 0.88)';
+    ctx.fillRect(-9 * scale, -4 * scale, 18 * scale, 8 * scale);
+
+    // cabin
+    ctx.fillStyle = 'rgba(72, 168, 78, 0.92)';
+    ctx.fillRect(6 * scale, -3.2 * scale, 6 * scale, 6.4 * scale);
+
+    ctx.restore();
   }
 
-  for (let i = 0; i < greens.length; i++) {
-    const p = greens[i];
+  // tiny motion guide dots
+  const guides = [
+    { x: cx - 102 * scale, y: cy + 78 * scale },
+    { x: cx + 92 * scale,  y: cy - 78 * scale }
+  ];
+
+  for (const g of guides) {
     drawNode(
-      p.x + 3 * Math.sin(t * 0.8 + p.s),
-      p.y + 3 * Math.cos(t * 0.7 + p.s),
-      3.2 * scale,
-      'rgba(140, 235, 150, 0.98)',
-      'rgba(46, 185, 70, 0.92)'
+      g.x,
+      g.y,
+      2.8 * scale,
+      'rgba(140, 235, 150, 0.90)',
+      'rgba(46, 185, 70, 0.86)'
     );
   }
 }
@@ -1142,17 +1150,17 @@ function drawBackground() {
   const scale = mobileMode ? 0.60 : 1.0;
 
   if (mobileMode) {
-    drawLeftRing(canvas.width * 0.12, canvas.height * 0.68, scale, true);
-    drawDispersion(canvas.width * 0.16, canvas.height * 0.87, scale * 0.90);
+    drawLeftRing(canvas.width * 0.12, canvas.height * 0.62, scale, true);
+    drawDispersion(canvas.width * 0.17, canvas.height * 0.92, scale * 0.82);
 
-    drawRightSquare(canvas.width * 0.86, canvas.height * 0.34, scale, true);
-    drawFlocking(canvas.width * 0.80, canvas.height * 0.14, scale * 0.72);
+    drawRightSquare(canvas.width * 0.86, canvas.height * 0.40, scale, true);
+    drawFlocking(canvas.width * 0.80, canvas.height * 0.08, scale * 0.68);
   } else {
-    drawLeftRing(canvas.width * 0.10, canvas.height * 0.56, scale, false);
-    drawDispersion(canvas.width * 0.15, canvas.height * 0.84, scale * 0.95);
+    drawLeftRing(canvas.width * 0.10, canvas.height * 0.50, scale, false);
+    drawDispersion(canvas.width * 0.16, canvas.height * 0.88, scale * 0.92);
 
-    drawRightSquare(canvas.width * 0.87, canvas.height * 0.42, scale, false);
-    drawFlocking(canvas.width * 0.83, canvas.height * 0.14, scale * 0.78);
+    drawRightSquare(canvas.width * 0.87, canvas.height * 0.48, scale, false);
+    drawFlocking(canvas.width * 0.83, canvas.height * 0.08, scale * 0.64);
   }
 }
 
