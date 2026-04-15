@@ -10,9 +10,9 @@
       --text: #222222;
       --muted: #66605c;
       --line: #e8e0dd;
-      --accent: #7a1f2b;
-      --accent-dark: #5f1721;
-      --pill: #f5efed;
+      --accent: #2b78e4;
+      --accent-dark: #1d5fc4;
+      --pill: #eef4ff;
       --maxw: 1100px;
     }
 
@@ -69,7 +69,7 @@
       font-size: 0.88rem;
       font-weight: 700;
       color: white;
-      background: linear-gradient(135deg, var(--accent), #a34758);
+      background: linear-gradient(135deg, var(--accent), #5a9cff);
       padding: 8px 13px;
       border-radius: 999px;
       letter-spacing: 0.5px;
@@ -117,7 +117,7 @@
       font-size: 0.8rem;
       text-transform: uppercase;
       letter-spacing: 1.8px;
-      color: #8a6d74;
+      color: #6b7ea6;
       margin-bottom: 8px;
     }
 
@@ -1155,19 +1155,19 @@ function drawBackground() {
   const mobileMode = canvas.width < 900;
   const scale = mobileMode ? 0.60 : 1.0;
 
-  if (mobileMode) {
-    drawLeftRing(canvas.width * 0.12, canvas.height * 0.62, scale, true);
-    drawDispersion(canvas.width * 0.16, canvas.height * 0.90, scale * 0.82);
+if (mobileMode) {
+  drawLeftRing(canvas.width * 0.12, canvas.height * 0.62, scale, true);
+  drawDispersion(canvas.width * 0.16, canvas.height * 0.90, scale * 1.02);
 
-    drawRightSquare(canvas.width * 0.86, canvas.height * 0.40, scale, true);
-    drawFlocking(canvas.width * 0.80, canvas.height * 0.08, scale * 0.68);
-  } else {
-    drawLeftRing(canvas.width * 0.10, canvas.height * 0.50, scale, false);
-    drawDispersion(canvas.width * 0.16, canvas.height * 0.88, scale * 0.92);
+  drawRightSquare(canvas.width * 0.86, canvas.height * 0.40, scale, true);
+  drawFlocking(canvas.width * 0.80, canvas.height * 0.08, scale * 0.84);
+} else {
+  drawLeftRing(canvas.width * 0.10, canvas.height * 0.50, scale, false);
+  drawDispersion(canvas.width * 0.16, canvas.height * 0.88, scale * 1.08);
 
-    drawRightSquare(canvas.width * 0.87, canvas.height * 0.48, scale, false);
-    drawFlocking(canvas.width * 0.83, canvas.height * 0.08, scale * 0.74);
-  }
+  drawRightSquare(canvas.width * 0.87, canvas.height * 0.48, scale, false);
+  drawFlocking(canvas.width * 0.83, canvas.height * 0.08, scale * 0.92);
+}
 }
 
 function animateBackground() {
