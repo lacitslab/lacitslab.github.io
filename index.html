@@ -1025,18 +1025,105 @@ function drawRightSquare(cx, cy, scale, mobileMode) {
   }
 }
 
+function drawDispersion(cx, cy, scale) {
+  const pts = [
+    { x: cx - 26 * scale, y: cy - 8 * scale },
+    { x: cx + 24 * scale, y: cy - 18 * scale },
+    { x: cx - 8 * scale,  y: cy + 22 * scale },
+    { x: cx + 38 * scale, y: cy + 10 * scale },
+    { x: cx - 42 * scale, y: cy + 26 * scale }
+  ];
+
+  for (let i = 0; i < pts.length; i++) {
+    const p = pts[i];
+    drawNode(
+      p.x + 3 * Math.sin(t * 0.9 + i),
+      p.y + 3 * Math.cos(t * 0.8 + i * 0.7),
+      6.6 * scale,
+      'rgba(170, 210, 255, 0.96)',
+      'rgba(95, 135, 235, 0.92)'
+    );
+  }
+}
+
+function drawFlocking(cx, cy, scale) {
+  const centers = [
+    { x: cx - 34 * scale, y: cy - 6 * scale },
+    { x: cx + 32 * scale, y: cy + 10 * scale },
+    { x: cx + 2 * scale,  y: cy - 34 * scale }
+  ];
+
+  for (let k = 0; k < centers.length; k++) {
+    const c = centers[k];
+
+    drawNode(
+      c.x + 2 * Math.sin(t + k),
+      c.y + 2 * Math.cos(t * 0.8 + k),
+      5.8 * scale,
+      'rgba(195, 190, 255, 0.98)',
+      'rgba(118, 110, 210, 0.94)'
+    );
+
+    for (let i = 0; i < 8; i++) {
+      const ang = (i / 8) * Math.PI * 2 + t * 0.18;
+      const r = 16 * scale;
+      const x = c.x + r * Math.cos(ang);
+      const y = c.y + r * Math.sin(ang);
+
+      ctx.beginPath();
+      ctx.moveTo(c.x, c.y);
+      ctx.lineTo(x, y);
+      ctx.strokeStyle = 'rgba(103,77,85,0.20)';
+      ctx.lineWidth = 1.1;
+      ctx.setLineDash([2, 3]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      drawNode(
+        x,
+        y,
+        2.5 * scale,
+        'rgba(210, 205, 255, 0.95)',
+        'rgba(122, 114, 215, 0.90)'
+      );
+    }
+  }
+
+  const reds = [
+    { x: cx - 78 * scale, y: cy - 18 * scale },
+    { x: cx + 88 * scale, y: cy + 12 * scale },
+    { x: cx + 58 * scale, y: cy - 56 * scale }
+  ];
+
+  for (const p of reds) {
+    drawNode(
+      p.x,
+      p.y,
+      8.5 * scale,
+      'rgba(255, 150, 150, 0.98)',
+      'rgba(210, 55, 55, 0.94)'
+    );
+  }
+}
+    
 function drawBackground() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   const mobileMode = canvas.width < 900;
-  const scale = mobileMode ? 0.72 : 1.0;
+  const scale = mobileMode ? 0.62 : 1.0;
 
   if (mobileMode) {
-    drawLeftRing(canvas.width * 0.14, canvas.height * 0.74, scale, true);
-    drawRightSquare(canvas.width * 0.86, canvas.height * 0.28, scale, true);
+    drawLeftRing(canvas.width * 0.12, canvas.height * 0.70, scale, true);
+    drawDispersion(canvas.width * 0.18, canvas.height * 0.88, scale * 0.85);
+
+    drawRightSquare(canvas.width * 0.86, canvas.height * 0.34, scale, true);
+    drawFlocking(canvas.width * 0.80, canvas.height * 0.12, scale * 0.82);
   } else {
-    drawLeftRing(canvas.width * 0.10, canvas.height * 0.58, scale, false);
-    drawRightSquare(canvas.width * 0.87, canvas.height * 0.40, scale, false);
+    drawLeftRing(canvas.width * 0.10, canvas.height * 0.56, scale, false);
+    drawDispersion(canvas.width * 0.14, canvas.height * 0.83, scale * 0.95);
+
+    drawRightSquare(canvas.width * 0.87, canvas.height * 0.42, scale, false);
+    drawFlocking(canvas.width * 0.83, canvas.height * 0.15, scale * 0.95);
   }
 }
 
