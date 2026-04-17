@@ -1056,6 +1056,8 @@ section[id] {
 
   const canvas = document.getElementById('bgNetwork');
   const ctx = canvas.getContext('2d');
+    const go2Img = new Image();
+go2Img.src = 'go2-wheel.png';   // change to your exact uploaded filename
 
   let t = 0;
   const leftCount = 14;
@@ -1260,6 +1262,19 @@ section[id] {
 
     ctx.restore();
   }
+    function drawGo2Image(x, y, scale, angle = 0) {
+  if (!go2Img.complete) return;
+
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate(angle);
+
+  const w = 54 * scale;
+  const h = 54 * scale;
+
+  ctx.drawImage(go2Img, -w / 2, -h / 2, w, h);
+  ctx.restore();
+}
 
   function drawLeftRing(cx, cy, scale, mobileMode) {
     const nodes = [];
@@ -1340,24 +1355,21 @@ section[id] {
 
 function drawRightSquare(cx, cy, scale, mobileMode) {
   const s = scale;
-
-  // repeating forward march
-  const marchLen = 220 * s;
-  const speed = 28 * s;
-  const base = ((t * speed) % marchLen);
+  const marchLen = 240 * s;
+  const speed = 22 * s;
+  const base = (t * speed) % marchLen;
 
   const bots = [
-    { x: cx - 70 * s + base, y: cy - 34 * s, a: 0.08 },
-    { x: cx - 105 * s + base, y: cy - 8 * s, a: 0.04 },
-    { x: cx - 140 * s + base, y: cy + 18 * s, a: 0.02 },
-    { x: cx - 175 * s + base, y: cy + 44 * s, a: 0.00 }
+    { x: cx - 170 * s + base, y: cy - 36 * s, a: 0 },
+    { x: cx - 205 * s + base, y: cy - 8 * s,  a: 0 },
+    { x: cx - 240 * s + base, y: cy + 20 * s, a: 0 },
+    { x: cx - 275 * s + base, y: cy + 48 * s, a: 0 }
   ];
 
-  // faint path guides
   for (let i = 0; i < bots.length; i++) {
     ctx.beginPath();
-    ctx.moveTo(cx - 190 * s, bots[i].y);
-    ctx.lineTo(cx + 70 * s, bots[i].y);
+    ctx.moveTo(cx - 285 * s, bots[i].y);
+    ctx.lineTo(cx + 85 * s, bots[i].y);
     ctx.strokeStyle = 'rgba(103,77,85,0.10)';
     ctx.lineWidth = 1.0;
     ctx.setLineDash([4, 6]);
@@ -1365,7 +1377,6 @@ function drawRightSquare(cx, cy, scale, mobileMode) {
   }
   ctx.setLineDash([]);
 
-  // light communication links
   for (let i = 0; i < bots.length - 1; i++) {
     ctx.beginPath();
     ctx.moveTo(bots[i].x, bots[i].y);
@@ -1377,18 +1388,8 @@ function drawRightSquare(cx, cy, scale, mobileMode) {
   }
   ctx.setLineDash([]);
 
-  // draw quadrupeds
-  bots.forEach((b, idx) => {
-    const isLeader = idx === 0;
-
-    drawGo2(
-      b.x,
-      b.y,
-      0.95 * s,
-      b.a,
-      isLeader ? 'rgba(255,220,130,0.98)' : 'rgba(145,215,175,0.98)',
-      isLeader ? 'rgba(224,163,39,0.95)' : 'rgba(24,163,96,0.92)'
-    );
+  bots.forEach((b) => {
+    drawGo2Image(b.x, b.y, 1.0 * s, b.a);
   });
 }
 
