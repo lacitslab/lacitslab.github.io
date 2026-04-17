@@ -1280,10 +1280,10 @@ function drawCar(x, y, scale, bodyColor = 'rgba(55,55,60,0.96)') {
     }
 function drawDispersion(cx, cy, scale) {
   const roadHalfLen = 120 * scale;
-  const roadWidth = 42 * scale;
-  const laneOffset = 11 * scale;
+  const laneOffset = 10 * scale;
+  const turnR = 20 * scale;
 
-  // roads
+  // road background
   ctx.beginPath();
   ctx.moveTo(cx - roadHalfLen, cy);
   ctx.lineTo(cx + roadHalfLen, cy);
@@ -1293,9 +1293,9 @@ function drawDispersion(cx, cy, scale) {
   ctx.lineWidth = 18 * scale;
   ctx.stroke();
 
-  // center conflict box
+  // intersection box
   ctx.beginPath();
-  ctx.rect(cx - roadWidth * 0.55, cy - roadWidth * 0.55, roadWidth * 1.1, roadWidth * 1.1);
+  ctx.rect(cx - 24 * scale, cy - 24 * scale, 48 * scale, 48 * scale);
   ctx.strokeStyle = 'rgba(103,77,85,0.12)';
   ctx.lineWidth = 1;
   ctx.setLineDash([4, 4]);
@@ -1318,72 +1318,69 @@ function drawDispersion(cx, cy, scale) {
     ctx.restore();
   }
 
-  // repeating cycle
   const cycle = 10.0;
   const tt = t % cycle;
 
-  // Car 1: left -> right straight (goes first)
+  // Car 1: left -> right straight
   {
-    const s = clamp01((tt - 0.2) / 2.2);
-    if (s > 0 && s < 1.02) {
+    const s = clamp01((tt - 0.3) / 2.0);
+    if (s > 0 && s < 1) {
       const x = lerp(cx - 150 * scale, cx + 150 * scale, s);
       const y = cy - laneOffset;
       drawOrientedCar(x, y, Math.PI / 2, 0.58 * scale);
     }
   }
 
-  // Car 2: top -> right (waits, then right turn)
+  // Car 2: top -> right turn
   {
-    const s = clamp01((tt - 2.6) / 2.3);
-    if (s > 0 && s < 1.02) {
+    const s = clamp01((tt - 2.7) / 2.2);
+    if (s > 0 && s < 1) {
       let x, y, ang;
 
-      if (s < 0.48) {
-        const u = s / 0.48;
+      if (s < 0.45) {
+        const u = s / 0.45;
         x = cx + laneOffset;
-        y = lerp(cy - 150 * scale, cy - 8 * scale, u);
+        y = lerp(cy - 150 * scale, cy - turnR, u);
         ang = Math.PI;
       } else {
-        const u = (s - 0.48) / 0.52;
-        const th = -Math.PI/2 + u * (Math.PI/2);
-        const r = 22 * scale;
-        x = cx + laneOffset + r * Math.cos(th);
-        y = cy - laneOffset + r * Math.sin(th);
-        ang = Math.PI + u * (Math.PI/2);
+        const u = (s - 0.45) / 0.55;
+        const th = Math.PI + u * (Math.PI / 2); // from top lane to right lane
+        x = cx + turnR * Math.cos(th);
+        y = cy + turnR * Math.sin(th);
+        ang = Math.PI + u * (Math.PI / 2);
       }
 
       drawOrientedCar(x, y, ang, 0.58 * scale);
     }
   }
 
-  // Car 3: right -> left straight (waits longer)
+  // Car 3: right -> left straight
   {
-    const s = clamp01((tt - 5.1) / 2.0);
-    if (s > 0 && s < 1.02) {
+    const s = clamp01((tt - 5.2) / 2.0);
+    if (s > 0 && s < 1) {
       const x = lerp(cx + 150 * scale, cx - 150 * scale, s);
       const y = cy + laneOffset;
       drawOrientedCar(x, y, -Math.PI / 2, 0.58 * scale);
     }
   }
 
-  // Car 4: bottom -> left (waits, then left turn)
+  // Car 4: bottom -> left turn
   {
-    const s = clamp01((tt - 7.1) / 2.4);
-    if (s > 0 && s < 1.02) {
+    const s = clamp01((tt - 7.3) / 2.2);
+    if (s > 0 && s < 1) {
       let x, y, ang;
 
-      if (s < 0.50) {
-        const u = s / 0.50;
+      if (s < 0.45) {
+        const u = s / 0.45;
         x = cx - laneOffset;
-        y = lerp(cy + 150 * scale, cy + 8 * scale, u);
+        y = lerp(cy + 150 * scale, cy + turnR, u);
         ang = 0;
       } else {
-        const u = (s - 0.50) / 0.50;
-        const th = Math.PI/2 + u * (Math.PI/2);
-        const r = 22 * scale;
-        x = cx - laneOffset + r * Math.cos(th);
-        y = cy + laneOffset + r * Math.sin(th);
-        ang = 0 + u * (Math.PI/2);
+        const u = (s - 0.45) / 0.55;
+        const th = 0 + u * (Math.PI / 2); // from bottom lane to left lane
+        x = cx - turnR * Math.cos(th);
+        y = cy + turnR * Math.sin(th);
+        ang = 0 + u * (Math.PI / 2);
       }
 
       drawOrientedCar(x, y, ang, 0.58 * scale);
