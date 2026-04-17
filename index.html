@@ -1194,6 +1194,66 @@ function drawCar(x, y, scale, bodyColor = 'rgba(55,55,60,0.96)') {
 
   ctx.restore();
 }
+
+    function drawGo2(x, y, scale, angle = 0, bodyColor = 'rgba(145,215,175,0.98)', accentColor = 'rgba(24,163,96,0.92)') {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate(angle);
+
+  // body
+  const grad = ctx.createLinearGradient(-12 * scale, -6 * scale, 12 * scale, 6 * scale);
+  grad.addColorStop(0, bodyColor);
+  grad.addColorStop(1, accentColor);
+
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.roundRect(-12 * scale, -6 * scale, 24 * scale, 12 * scale, 4 * scale);
+  ctx.fill();
+
+  // head/front marker
+  ctx.fillStyle = 'rgba(60,60,60,0.88)';
+  ctx.beginPath();
+  ctx.roundRect(9 * scale, -3 * scale, 6 * scale, 6 * scale, 2 * scale);
+  ctx.fill();
+
+  // top panel
+  ctx.fillStyle = 'rgba(240,248,245,0.85)';
+  ctx.fillRect(-5.5 * scale, -3 * scale, 11 * scale, 6 * scale);
+
+  // legs
+  ctx.strokeStyle = 'rgba(70,70,70,0.88)';
+  ctx.lineWidth = 2.0 * scale;
+  ctx.lineCap = 'round';
+
+  const legSwing = 3 * scale;
+
+  // front-left
+  ctx.beginPath();
+  ctx.moveTo(-7 * scale, -5 * scale);
+  ctx.lineTo(-10 * scale, -11 * scale + legSwing * Math.sin(t * 2.2));
+  ctx.stroke();
+
+  // rear-left
+  ctx.beginPath();
+  ctx.moveTo(5 * scale, -5 * scale);
+  ctx.lineTo(8 * scale, -11 * scale - legSwing * Math.sin(t * 2.2));
+  ctx.stroke();
+
+  // front-right
+  ctx.beginPath();
+  ctx.moveTo(-7 * scale, 5 * scale);
+  ctx.lineTo(-10 * scale, 11 * scale - legSwing * Math.sin(t * 2.2));
+  ctx.stroke();
+
+  // rear-right
+  ctx.beginPath();
+  ctx.moveTo(5 * scale, 5 * scale);
+  ctx.lineTo(8 * scale, 11 * scale + legSwing * Math.sin(t * 2.2));
+  ctx.stroke();
+
+  ctx.restore();
+}
+    
     
     function drawLeftRing(cx, cy, scale, mobileMode) {
       const nodes = [];
@@ -1272,62 +1332,64 @@ function drawCar(x, y, scale, bodyColor = 'rgba(55,55,60,0.96)') {
       }
     }
 
-    function drawRightSquare(cx, cy, scale, mobileMode) {
-      const cols = 4;
-      const rows = 4;
-      const spacingX = 72 * scale;
-      const spacingY = 72 * scale;
-      const nodes = [];
+function drawRightSquare(cx, cy, scale, mobileMode) {
+  const bots = [
+    {
+      x: cx - 56 * scale + 16 * scale * Math.cos(t * 0.85),
+      y: cy - 52 * scale + 10 * scale * Math.sin(t * 0.70),
+      a: 0.18 * Math.sin(t * 0.9)
+    },
+    {
+      x: cx + 10 * scale + 15 * scale * Math.cos(t * 0.75 + 0.9),
+      y: cy - 20 * scale + 9 * scale * Math.sin(t * 0.82 + 0.5),
+      a: 0.2 * Math.sin(t * 0.8 + 0.5)
+    },
+    {
+      x: cx - 18 * scale + 14 * scale * Math.cos(t * 0.92 + 1.8),
+      y: cy + 34 * scale + 10 * scale * Math.sin(t * 0.74 + 1.2),
+      a: 0.18 * Math.sin(t * 0.85 + 1.2)
+    },
+    {
+      x: cx + 62 * scale + 13 * scale * Math.cos(t * 0.80 + 2.4),
+      y: cy + 10 * scale + 9 * scale * Math.sin(t * 0.78 + 2.1),
+      a: 0.2 * Math.sin(t * 0.88 + 2.0)
+    }
+  ];
 
-      let k = 0;
-      for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-          if (k >= rightCount) break;
-          const jitterX = 6 * Math.sin(t * 0.8 + k * 0.7);
-          const jitterY = 6 * Math.cos(t * 0.9 + k * 0.45);
+  // faint links between nearby quadrupeds
+  for (let i = 0; i < bots.length; i++) {
+    for (let j = i + 1; j < bots.length; j++) {
+      const dx = bots[j].x - bots[i].x;
+      const dy = bots[j].y - bots[i].y;
+      const d = Math.sqrt(dx * dx + dy * dy);
 
-          nodes.push({
-            x: cx + (c - 1.5) * spacingX + jitterX,
-            y: cy + (r - 1.5) * spacingY + jitterY
-          });
-          k++;
-        }
-      }
-
-      for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-          const dx = nodes[j].x - nodes[i].x;
-          const dy = nodes[j].y - nodes[i].y;
-          const d = Math.sqrt(dx * dx + dy * dy);
-
-          if (d < 95 * scale) {
-            const weak = i === weakRight || j === weakRight;
-            ctx.beginPath();
-            ctx.moveTo(nodes[i].x, nodes[i].y);
-            ctx.lineTo(nodes[j].x, nodes[j].y);
-            ctx.strokeStyle = weak
-              ? 'rgba(195,150,55,0.28)'
-              : 'rgba(103,77,85,0.20)';
-            ctx.lineWidth = weak ? 1.8 : 1.5;
-            ctx.setLineDash(weak ? [4, 5] : []);
-            ctx.stroke();
-          }
-        }
-      }
-      ctx.setLineDash([]);
-
-      for (let i = 0; i < nodes.length; i++) {
-        const n = nodes[i];
-        const weak = i === weakRight;
-        const r = (mobileMode ? 7 : 8.5) * scale;
-
-        if (weak) {
-          drawNode(n.x, n.y, r, 'rgba(255,220,130,0.98)', 'rgba(224,163,39,0.95)');
-        } else {
-          drawNode(n.x, n.y, r, 'rgba(145,215,175,0.98)', 'rgba(24,163,96,0.92)');
-        }
+      if (d < 92 * scale) {
+        ctx.beginPath();
+        ctx.moveTo(bots[i].x, bots[i].y);
+        ctx.lineTo(bots[j].x, bots[j].y);
+        ctx.strokeStyle = 'rgba(103,77,85,0.18)';
+        ctx.lineWidth = 1.2;
+        ctx.setLineDash([3, 5]);
+        ctx.stroke();
       }
     }
+  }
+  ctx.setLineDash([]);
+
+  // draw the robots
+  bots.forEach((b, idx) => {
+    const isLeader = idx === 1;
+
+    drawGo2(
+      b.x,
+      b.y,
+      0.82 * scale,
+      b.a,
+      isLeader ? 'rgba(255,220,130,0.98)' : 'rgba(145,215,175,0.98)',
+      isLeader ? 'rgba(224,163,39,0.95)' : 'rgba(24,163,96,0.92)'
+    );
+  });
+}
 function drawDispersion(cx, cy, scale) {
   const roadHalfLen = 120 * scale;
 
