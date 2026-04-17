@@ -992,7 +992,8 @@ section[id] {
     </div>
   </main>
 
-  <script>
+<script>
+  // Publications filter
   const filterButtons = document.querySelectorAll('.filters button');
   const pubs = document.querySelectorAll('.pub');
 
@@ -1001,13 +1002,15 @@ section[id] {
       filterButtons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       const filter = btn.dataset.filter;
+
       pubs.forEach(pub => {
         const cats = pub.dataset.category || '';
-        pub.style.display = filter === 'all' || cats.includes(filter) ? 'grid' : 'none';
+        pub.style.display = (filter === 'all' || cats.includes(filter)) ? 'grid' : 'none';
       });
     });
   });
 
+  // Navigation highlight
   const navLinks = document.querySelectorAll('nav a');
   const observedSections = document.querySelectorAll('section[id]');
   let currentSection = 'top';
@@ -1054,98 +1057,99 @@ section[id] {
     }
   });
 
+  // Background geometric network
   const canvas = document.getElementById('bgNetwork');
   const ctx = canvas.getContext('2d');
 
-  const canvas = document.getElementById('bgNetwork');
-const ctx = canvas.getContext('2d');
-
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-
-function drawNetworkBackground() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  const isDark = document.body.classList.contains('dark-mode');
-
-  const lineColor = isDark ? 'rgba(160, 185, 230, 0.16)' : 'rgba(120, 125, 140, 0.16)';
-  const nodeColor = isDark ? 'rgba(180, 205, 255, 0.28)' : 'rgba(130, 130, 145, 0.22)';
-
-  const points = [];
-  const spacingX = 220;
-  const spacingY = 170;
-
-  for (let y = -40; y < canvas.height + 80; y += spacingY) {
-    for (let x = -40; x < canvas.width + 80; x += spacingX) {
-      const px = x + 30 * Math.sin((x + y) * 0.01);
-      const py = y + 24 * Math.cos((x - y) * 0.01);
-      points.push({ x: px, y: py });
-    }
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
   }
 
-  for (let i = 0; i < points.length; i++) {
-    for (let j = i + 1; j < points.length; j++) {
-      const dx = points[j].x - points[i].x;
-      const dy = points[j].y - points[i].y;
-      const d = Math.sqrt(dx * dx + dy * dy);
+  function drawNetworkBackground() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      if (d < 210) {
-        ctx.beginPath();
-        ctx.moveTo(points[i].x, points[i].y);
-        ctx.lineTo(points[j].x, points[j].y);
-        ctx.strokeStyle = lineColor;
-        ctx.lineWidth = 1.1;
-        ctx.stroke();
+    const isDark = document.body.classList.contains('dark-mode');
+    const lineColor = isDark ? 'rgba(160, 185, 230, 0.16)' : 'rgba(120, 125, 140, 0.16)';
+    const nodeColor = isDark ? 'rgba(180, 205, 255, 0.28)' : 'rgba(130, 130, 145, 0.22)';
+
+    const points = [];
+    const spacingX = 220;
+    const spacingY = 170;
+
+    for (let y = -40; y < canvas.height + 80; y += spacingY) {
+      for (let x = -40; x < canvas.width + 80; x += spacingX) {
+        const px = x + 30 * Math.sin((x + y) * 0.01);
+        const py = y + 24 * Math.cos((x - y) * 0.01);
+        points.push({ x: px, y: py });
       }
     }
-  }
 
-  for (const p of points) {
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, 2.2, 0, Math.PI * 2);
-    ctx.fillStyle = nodeColor;
-    ctx.fill();
-  }
-}
+    for (let i = 0; i < points.length; i++) {
+      for (let j = i + 1; j < points.length; j++) {
+        const dx = points[j].x - points[i].x;
+        const dy = points[j].y - points[i].y;
+        const d = Math.sqrt(dx * dx + dy * dy);
 
-const revealItems = document.querySelectorAll('.reveal');
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
+        if (d < 210) {
+          ctx.beginPath();
+          ctx.moveTo(points[i].x, points[i].y);
+          ctx.lineTo(points[j].x, points[j].y);
+          ctx.strokeStyle = lineColor;
+          ctx.lineWidth = 1.1;
+          ctx.stroke();
+        }
+      }
     }
+
+    for (const p of points) {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 2.2, 0, Math.PI * 2);
+      ctx.fillStyle = nodeColor;
+      ctx.fill();
+    }
+  }
+
+  // Reveal animation
+  const revealItems = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, {
+    threshold: 0.15
   });
-}, {
-  threshold: 0.15
-});
 
-revealItems.forEach(item => {
-  revealObserver.observe(item);
-});
+  revealItems.forEach(item => {
+    revealObserver.observe(item);
+  });
 
-const themeToggle = document.getElementById('themeToggle');
+  // Dark mode
+  const themeToggle = document.getElementById('themeToggle');
 
-if (localStorage.getItem('lacits-theme') === 'dark') {
-  document.body.classList.add('dark-mode');
-  themeToggle.textContent = '☀';
-}
+  if (localStorage.getItem('lacits-theme') === 'dark') {
+    document.body.classList.add('dark-mode');
+    themeToggle.textContent = '☀';
+  }
 
-themeToggle.addEventListener('click', () => {
-  document.body.classList.toggle('dark-mode');
-  const isDark = document.body.classList.contains('dark-mode');
-  themeToggle.textContent = isDark ? '☀' : '☾';
-  localStorage.setItem('lacits-theme', isDark ? 'dark' : 'light');
-  drawNetworkBackground();
-});
+  themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    const isDark = document.body.classList.contains('dark-mode');
+    themeToggle.textContent = isDark ? '☀' : '☾';
+    localStorage.setItem('lacits-theme', isDark ? 'dark' : 'light');
+    drawNetworkBackground();
+  });
 
-resizeCanvas();
-drawNetworkBackground();
-window.addEventListener('resize', () => {
+  // Init
   resizeCanvas();
   drawNetworkBackground();
-});
+
+  window.addEventListener('resize', () => {
+    resizeCanvas();
+    drawNetworkBackground();
+  });
 </script>
 </body>
 </html>
