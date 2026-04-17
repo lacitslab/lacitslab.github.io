@@ -1056,8 +1056,9 @@ section[id] {
 
   const canvas = document.getElementById('bgNetwork');
   const ctx = canvas.getContext('2d');
-    const go2Img = new Image();
-go2Img.src = 'go2-wheel.png';   // change to your exact uploaded filename
+
+  const go2Img = new Image();
+  go2Img.src = 'go2-wheel.png'; // change only if your actual uploaded filename is different
 
   let t = 0;
   const leftCount = 14;
@@ -1181,13 +1182,12 @@ go2Img.src = 'go2-wheel.png';   // change to your exact uploaded filename
     ctx.restore();
   }
 
-  function drawGo2(x, y, scale, angle = 0, bodyColor = 'rgba(145,215,175,0.98)', accentColor = 'rgba(24,163,96,0.92)') {
+  function drawGo2Fallback(x, y, scale, angle = 0, bodyColor = 'rgba(145,215,175,0.98)', accentColor = 'rgba(24,163,96,0.92)') {
     ctx.save();
     ctx.translate(x, y);
     ctx.rotate(angle);
 
     const s = scale;
-
     const grad = ctx.createLinearGradient(-16 * s, -5 * s, 16 * s, 5 * s);
     grad.addColorStop(0, bodyColor);
     grad.addColorStop(1, accentColor);
@@ -1249,7 +1249,6 @@ go2Img.src = 'go2-wheel.png';   // change to your exact uploaded filename
 
     ctx.strokeStyle = 'rgba(70,70,70,0.96)';
     ctx.lineWidth = 1.8 * s;
-
     leg(-9 * s, 5 * s, 0.0);
     leg(-2 * s, 5 * s, Math.PI);
     leg(6 * s, 5 * s, Math.PI);
@@ -1262,19 +1261,21 @@ go2Img.src = 'go2-wheel.png';   // change to your exact uploaded filename
 
     ctx.restore();
   }
-    function drawGo2Image(x, y, scale, angle = 0) {
-  if (!go2Img.complete) return;
 
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.rotate(angle);
+  function drawGo2Image(x, y, scale, angle = 0) {
+    if (go2Img.complete && go2Img.naturalWidth > 0) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(angle);
 
-  const w = 54 * scale;
-  const h = 54 * scale;
-
-  ctx.drawImage(go2Img, -w / 2, -h / 2, w, h);
-  ctx.restore();
-}
+      const w = 56 * scale;
+      const h = 56 * scale;
+      ctx.drawImage(go2Img, -w / 2, -h / 2, w, h);
+      ctx.restore();
+    } else {
+      drawGo2Fallback(x, y, 0.95 * scale, angle);
+    }
+  }
 
   function drawLeftRing(cx, cy, scale, mobileMode) {
     const nodes = [];
@@ -1353,45 +1354,45 @@ go2Img.src = 'go2-wheel.png';   // change to your exact uploaded filename
     }
   }
 
-function drawRightSquare(cx, cy, scale, mobileMode) {
-  const s = scale;
-  const marchLen = 240 * s;
-  const speed = 22 * s;
-  const base = (t * speed) % marchLen;
+  function drawRightSquare(cx, cy, scale, mobileMode) {
+    const s = scale;
+    const marchLen = 240 * s;
+    const speed = 22 * s;
+    const base = (t * speed) % marchLen;
 
-  const bots = [
-    { x: cx - 170 * s + base, y: cy - 36 * s, a: 0 },
-    { x: cx - 205 * s + base, y: cy - 8 * s,  a: 0 },
-    { x: cx - 240 * s + base, y: cy + 20 * s, a: 0 },
-    { x: cx - 275 * s + base, y: cy + 48 * s, a: 0 }
-  ];
+    const bots = [
+      { x: cx - 170 * s + base, y: cy - 36 * s, a: 0 },
+      { x: cx - 205 * s + base, y: cy - 8 * s,  a: 0 },
+      { x: cx - 240 * s + base, y: cy + 20 * s, a: 0 },
+      { x: cx - 275 * s + base, y: cy + 48 * s, a: 0 }
+    ];
 
-  for (let i = 0; i < bots.length; i++) {
-    ctx.beginPath();
-    ctx.moveTo(cx - 285 * s, bots[i].y);
-    ctx.lineTo(cx + 85 * s, bots[i].y);
-    ctx.strokeStyle = 'rgba(103,77,85,0.10)';
-    ctx.lineWidth = 1.0;
-    ctx.setLineDash([4, 6]);
-    ctx.stroke();
+    for (let i = 0; i < bots.length; i++) {
+      ctx.beginPath();
+      ctx.moveTo(cx - 285 * s, bots[i].y);
+      ctx.lineTo(cx + 85 * s, bots[i].y);
+      ctx.strokeStyle = 'rgba(103,77,85,0.10)';
+      ctx.lineWidth = 1.0;
+      ctx.setLineDash([4, 6]);
+      ctx.stroke();
+    }
+    ctx.setLineDash([]);
+
+    for (let i = 0; i < bots.length - 1; i++) {
+      ctx.beginPath();
+      ctx.moveTo(bots[i].x, bots[i].y);
+      ctx.lineTo(bots[i + 1].x, bots[i + 1].y);
+      ctx.strokeStyle = 'rgba(103,77,85,0.14)';
+      ctx.lineWidth = 1.0;
+      ctx.setLineDash([3, 5]);
+      ctx.stroke();
+    }
+    ctx.setLineDash([]);
+
+    bots.forEach((b) => {
+      drawGo2Image(b.x, b.y, 1.0 * s, b.a);
+    });
   }
-  ctx.setLineDash([]);
-
-  for (let i = 0; i < bots.length - 1; i++) {
-    ctx.beginPath();
-    ctx.moveTo(bots[i].x, bots[i].y);
-    ctx.lineTo(bots[i + 1].x, bots[i + 1].y);
-    ctx.strokeStyle = 'rgba(103,77,85,0.14)';
-    ctx.lineWidth = 1.0;
-    ctx.setLineDash([3, 5]);
-    ctx.stroke();
-  }
-  ctx.setLineDash([]);
-
-  bots.forEach((b) => {
-    drawGo2Image(b.x, b.y, 1.0 * s, b.a);
-  });
-}
 
   function drawDispersion(cx, cy, scale) {
     const roadHalfLen = 120 * scale;
@@ -1601,3 +1602,4 @@ function drawRightSquare(cx, cy, scale, mobileMode) {
 </script>
 </body>
 </html>
+
