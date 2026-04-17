@@ -1279,75 +1279,116 @@ function drawCar(x, y, scale, bodyColor = 'rgba(55,55,60,0.96)') {
       }
     }
 function drawDispersion(cx, cy, scale) {
-  const cycle = 8.0;
-  const phase = (t % cycle) / cycle;
-
-  const road = 44 * scale;
-  const cross = 120 * scale;
+  const roadHalfLen = 120 * scale;
+  const roadWidth = 42 * scale;
+  const laneOffset = 11 * scale;
 
   // roads
   ctx.beginPath();
-  ctx.moveTo(cx - cross, cy);
-  ctx.lineTo(cx + cross, cy);
-  ctx.moveTo(cx, cy - cross);
-  ctx.lineTo(cx, cy + cross);
+  ctx.moveTo(cx - roadHalfLen, cy);
+  ctx.lineTo(cx + roadHalfLen, cy);
+  ctx.moveTo(cx, cy - roadHalfLen);
+  ctx.lineTo(cx, cy + roadHalfLen);
   ctx.strokeStyle = 'rgba(103,77,85,0.10)';
   ctx.lineWidth = 18 * scale;
   ctx.stroke();
 
-  // center guide box
+  // center conflict box
   ctx.beginPath();
-  ctx.rect(cx - road * 0.55, cy - road * 0.55, road * 1.1, road * 1.1);
+  ctx.rect(cx - roadWidth * 0.55, cy - roadWidth * 0.55, roadWidth * 1.1, roadWidth * 1.1);
   ctx.strokeStyle = 'rgba(103,77,85,0.12)';
-  ctx.lineWidth = 1.0;
+  ctx.lineWidth = 1;
   ctx.setLineDash([4, 4]);
   ctx.stroke();
   ctx.setLineDash([]);
+
+  function clamp01(v) {
+    return Math.max(0, Math.min(1, v));
+  }
 
   function lerp(a, b, s) {
     return a + (b - a) * s;
   }
 
-  // 4 cars with safe time offsets
-  const cars = [
-    // left to right
-    {
-      start: 0.00, end: 0.42,
-      pos: () => ({ x: lerp(cx - 120 * scale, cx + 120 * scale, Math.min(Math.max((phase - 0.00) / 0.42, 0), 1)), y: cy - 10 * scale }),
-      angle: 0
-    },
-    // top to bottom
-    {
-      start: 0.18, end: 0.60,
-      pos: () => ({ x: cx + 10 * scale, y: lerp(cy - 120 * scale, cy + 120 * scale, Math.min(Math.max((phase - 0.18) / 0.42, 0), 1)) }),
-      angle: Math.PI / 2
-    },
-    // right to left
-    {
-      start: 0.46, end: 0.88,
-      pos: () => ({ x: lerp(cx + 120 * scale, cx - 120 * scale, Math.min(Math.max((phase - 0.46) / 0.42, 0), 1)), y: cy + 10 * scale }),
-      angle: Math.PI
-    },
-    // bottom to top
-    {
-      start: 0.64, end: 0.99,
-      pos: () => ({ x: cx - 10 * scale, y: lerp(cy + 120 * scale, cy - 120 * scale, Math.min(Math.max((phase - 0.64) / 0.35, 0), 1)) }),
-      angle: -Math.PI / 2
+  function drawOrientedCar(x, y, ang, s, color='rgba(55,55,60,0.96)') {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(ang);
+    drawCar(0, 0, s, color);
+    ctx.restore();
+  }
+
+  // repeating cycle
+  const cycle = 10.0;
+  const tt = t % cycle;
+
+  // Car 1: left -> right straight (goes first)
+  {
+    const s = clamp01((tt - 0.2) / 2.2);
+    if (s > 0 && s < 1.02) {
+      const x = lerp(cx - 150 * scale, cx + 150 * scale, s);
+      const y = cy - laneOffset;
+      drawOrientedCar(x, y, Math.PI / 2, 0.58 * scale);
     }
-  ];
+  }
 
-  cars.forEach(car => {
-    if (phase >= car.start && phase <= car.end) {
-      const p = car.pos();
-      ctx.save();
-      ctx.translate(p.x, p.y);
-      ctx.rotate(car.angle);
+  // Car 2: top -> right (waits, then right turn)
+  {
+    const s = clamp01((tt - 2.6) / 2.3);
+    if (s > 0 && s < 1.02) {
+      let x, y, ang;
 
-      drawCar(0, 0, 0.58 * scale, 'rgba(55,55,60,0.96)');
+      if (s < 0.48) {
+        const u = s / 0.48;
+        x = cx + laneOffset;
+        y = lerp(cy - 150 * scale, cy - 8 * scale, u);
+        ang = Math.PI;
+      } else {
+        const u = (s - 0.48) / 0.52;
+        const th = -Math.PI/2 + u * (Math.PI/2);
+        const r = 22 * scale;
+        x = cx + laneOffset + r * Math.cos(th);
+        y = cy - laneOffset + r * Math.sin(th);
+        ang = Math.PI + u * (Math.PI/2);
+      }
 
-      ctx.restore();
+      drawOrientedCar(x, y, ang, 0.58 * scale);
     }
-  });
+  }
+
+  // Car 3: right -> left straight (waits longer)
+  {
+    const s = clamp01((tt - 5.1) / 2.0);
+    if (s > 0 && s < 1.02) {
+      const x = lerp(cx + 150 * scale, cx - 150 * scale, s);
+      const y = cy + laneOffset;
+      drawOrientedCar(x, y, -Math.PI / 2, 0.58 * scale);
+    }
+  }
+
+  // Car 4: bottom -> left (waits, then left turn)
+  {
+    const s = clamp01((tt - 7.1) / 2.4);
+    if (s > 0 && s < 1.02) {
+      let x, y, ang;
+
+      if (s < 0.50) {
+        const u = s / 0.50;
+        x = cx - laneOffset;
+        y = lerp(cy + 150 * scale, cy + 8 * scale, u);
+        ang = 0;
+      } else {
+        const u = (s - 0.50) / 0.50;
+        const th = Math.PI/2 + u * (Math.PI/2);
+        const r = 22 * scale;
+        x = cx - laneOffset + r * Math.cos(th);
+        y = cy + laneOffset + r * Math.sin(th);
+        ang = 0 + u * (Math.PI/2);
+      }
+
+      drawOrientedCar(x, y, ang, 0.58 * scale);
+    }
+  }
 }
 
     function drawFlocking(cx, cy, scale) {
