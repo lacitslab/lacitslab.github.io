@@ -57,15 +57,15 @@
     a { color: var(--accent); text-decoration: none; }
     a:hover { color: var(--accent-dark); }
 
-    .bg-network {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      opacity: 0.28;
-      width: 100%;
-      height: 100%;
-    }
+.bg-network {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.34;
+  width: 100%;
+  height: 100%;
+}
 
     .topbar {
       position: sticky;
@@ -1015,7 +1015,7 @@
     </section>
 
     <div class="footer">
-      © 2026 LACITS Lab. Ready for GitHub Pages deployment.
+      © 2026 LACITS Lab. Concordia University
     </div>
   </main>
 
@@ -1096,47 +1096,54 @@ function resizeCanvas() {
 }
 
 function buildPoints() {
-  const points = [];
-  const spacingX = 210;
-  const spacingY = 155;
+  const pts = [];
+  const approxCount = Math.max(22, Math.floor((canvas.width * canvas.height) / 70000));
 
-  for (let y = -80; y < canvas.height + 100; y += spacingY) {
-    for (let x = -80; x < canvas.width + 100; x += spacingX) {
-      points.push({
-        baseX: x,
-        baseY: y,
-        phaseX: Math.random() * Math.PI * 2,
-        phaseY: Math.random() * Math.PI * 2
-      });
-    }
+  for (let i = 0; i < approxCount; i++) {
+    pts.push({
+      x0: Math.random() * canvas.width,
+      y0: Math.random() * canvas.height,
+      phase: Math.random() * Math.PI * 2,
+      amp: 6 + Math.random() * 8
+    });
   }
-  return points;
+  return pts;
 }
 
 function drawNetworkBackground() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   const isDark = document.body.classList.contains('dark-mode');
-  const lineColor = isDark ? 'rgba(160, 185, 230, 0.20)' : 'rgba(135, 140, 150, 0.20)';
-  const nodeColor = isDark ? 'rgba(180, 205, 255, 0.34)' : 'rgba(135, 140, 150, 0.30)';
+  const lineColor = isDark ? 'rgba(170, 190, 230, 0.18)' : 'rgba(160, 165, 175, 0.20)';
+  const nodeColor = isDark ? 'rgba(185, 205, 245, 0.36)' : 'rgba(155, 160, 170, 0.34)';
 
   const pts = networkPoints.map(p => ({
-    x: p.baseX + 10 * Math.sin(bgTime * 0.45 + p.phaseX),
-    y: p.baseY + 9 * Math.cos(bgTime * 0.40 + p.phaseY)
+    x: p.x0 + p.amp * Math.sin(bgTime * 0.22 + p.phase),
+    y: p.y0 + p.amp * Math.cos(bgTime * 0.18 + p.phase)
   }));
 
+  // connect only a few nearest neighbors to avoid grid look
   for (let i = 0; i < pts.length; i++) {
-    for (let j = i + 1; j < pts.length; j++) {
+    const dists = [];
+
+    for (let j = 0; j < pts.length; j++) {
+      if (i === j) continue;
       const dx = pts[j].x - pts[i].x;
       const dy = pts[j].y - pts[i].y;
       const d = Math.sqrt(dx * dx + dy * dy);
+      if (d < 260) dists.push({ j, d });
+    }
 
-      if (d < 185) {
+    dists.sort((a, b) => a.d - b.d);
+
+    const neighbors = dists.slice(0, 3);
+    for (const n of neighbors) {
+      if (n.j > i) {
         ctx.beginPath();
         ctx.moveTo(pts[i].x, pts[i].y);
-        ctx.lineTo(pts[j].x, pts[j].y);
+        ctx.lineTo(pts[n.j].x, pts[n.j].y);
         ctx.strokeStyle = lineColor;
-        ctx.lineWidth = 1.35;
+        ctx.lineWidth = 1.45;
         ctx.stroke();
       }
     }
@@ -1144,7 +1151,7 @@ function drawNetworkBackground() {
 
   for (const p of pts) {
     ctx.beginPath();
-    ctx.arc(p.x, p.y, 2.7, 0, Math.PI * 2);
+    ctx.arc(p.x, p.y, 3.1, 0, Math.PI * 2);
     ctx.fillStyle = nodeColor;
     ctx.fill();
   }
