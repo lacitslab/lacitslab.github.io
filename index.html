@@ -1074,39 +1074,29 @@ body.dark-mode .news::-webkit-scrollbar-thumb:hover {
       });
     });
 
-// Nav highlight
+// Nav highlight based on URL hash
 const navLinks = document.querySelectorAll('nav a');
-const sections = document.querySelectorAll('section[id]');
 
-function setActiveNav(id) {
+function setActiveNavFromHash() {
+  const hash = window.location.hash || '#home';
+
   navLinks.forEach(link => {
-    link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+    link.classList.toggle('active', link.getAttribute('href') === hash);
   });
 }
 
-function updateActiveNav() {
-  const scrollPos = window.scrollY + 100; // offset for sticky header
-
-  let currentId = 'home';
-
-  sections.forEach(section => {
-    if (scrollPos >= section.offsetTop) {
-      currentId = section.id;
-    }
-  });
-
-  setActiveNav(currentId);
-}
-
-window.addEventListener('scroll', updateActiveNav);
-window.addEventListener('load', updateActiveNav);
-
+// update after clicking a nav item
 navLinks.forEach(link => {
   link.addEventListener('click', () => {
-    const targetId = link.getAttribute('href').replace('#', '');
-    setActiveNav(targetId);
+    setTimeout(setActiveNavFromHash, 0);
   });
 });
+
+// update when hash changes
+window.addEventListener('hashchange', setActiveNavFromHash);
+
+// set correct active item on first load
+window.addEventListener('load', setActiveNavFromHash);
 
 // Moving geometric background
 const canvas = document.getElementById('bgNetwork');
