@@ -1199,74 +1199,88 @@ function drawGo2(x, y, scale, angle = 0, bodyColor = 'rgba(145,215,175,0.98)', a
   ctx.rotate(angle);
 
   const s = scale;
-  const gait = Math.sin(t * 2.4);
+  const gait = Math.sin(t * 3.0);
 
   // body
-  const grad = ctx.createLinearGradient(-18 * s, -6 * s, 18 * s, 6 * s);
+  const grad = ctx.createLinearGradient(-16 * s, -5 * s, 16 * s, 5 * s);
   grad.addColorStop(0, bodyColor);
   grad.addColorStop(1, accentColor);
 
   ctx.fillStyle = grad;
   ctx.beginPath();
-  ctx.roundRect(-16 * s, -7 * s, 32 * s, 14 * s, 4 * s);
+  ctx.roundRect(-15 * s, -5.5 * s, 30 * s, 11 * s, 3.5 * s);
   ctx.fill();
 
-  // top/back detail
-  ctx.fillStyle = 'rgba(235,245,240,0.55)';
+  // top panel
+  ctx.fillStyle = 'rgba(235,245,240,0.65)';
   ctx.beginPath();
-  ctx.roundRect(-6 * s, -4.5 * s, 12 * s, 5 * s, 2 * s);
+  ctx.roundRect(-6 * s, -3.5 * s, 12 * s, 4 * s, 1.8 * s);
   ctx.fill();
 
   // neck
-  ctx.strokeStyle = 'rgba(65,65,65,0.92)';
-  ctx.lineWidth = 2.2 * s;
+  ctx.strokeStyle = 'rgba(70,70,70,0.95)';
+  ctx.lineWidth = 1.8 * s;
   ctx.lineCap = 'round';
   ctx.beginPath();
-  ctx.moveTo(13 * s, -4 * s);
-  ctx.lineTo(18 * s, -10 * s);
+  ctx.moveTo(13.5 * s, -2.5 * s);
+  ctx.lineTo(18 * s, -7 * s);
   ctx.stroke();
 
   // head
-  ctx.fillStyle = 'rgba(70,70,70,0.95)';
+  ctx.fillStyle = 'rgba(78,78,78,0.96)';
   ctx.beginPath();
-  ctx.roundRect(17 * s, -13 * s, 9 * s, 6.5 * s, 2.2 * s);
+  ctx.roundRect(17 * s, -9 * s, 8 * s, 5.8 * s, 2 * s);
   ctx.fill();
 
   // ear
   ctx.beginPath();
-  ctx.moveTo(21 * s, -13 * s);
-  ctx.lineTo(23.5 * s, -17 * s);
-  ctx.lineTo(24.5 * s, -12.5 * s);
+  ctx.moveTo(21 * s, -9 * s);
+  ctx.lineTo(22.8 * s, -12.5 * s);
+  ctx.lineTo(24 * s, -8.8 * s);
   ctx.closePath();
   ctx.fill();
 
   // tail
   ctx.beginPath();
-  ctx.moveTo(-15 * s, -4 * s);
-  ctx.lineTo(-21 * s, -10 * s);
+  ctx.moveTo(-14 * s, -2.5 * s);
+  ctx.lineTo(-19 * s, -7.5 * s);
   ctx.stroke();
 
-  function drawLeg(x0, y0, phaseShift, front = true) {
-    const hipX = x0;
-    const hipY = y0;
-
-    const swing = 4.2 * s * Math.sin(t * 2.4 + phaseShift);
-    const kneeX = hipX + (front ? 2.8 * s : -2.8 * s) + 0.35 * swing;
-    const kneeY = hipY + 8 * s;
-    const footX = kneeX + 0.55 * swing;
-    const footY = kneeY + 8.5 * s;
+  function leg(baseX, baseY, phase) {
+    const swing = 2.8 * s * Math.sin(t * 3.0 + phase);
+    const kneeX = baseX + 0.7 * swing;
+    const kneeY = baseY + 6.5 * s;
+    const footX = kneeX + 0.5 * swing;
+    const footY = kneeY + 6.5 * s;
 
     ctx.beginPath();
-    ctx.moveTo(hipX, hipY);
+    ctx.moveTo(baseX, baseY);
     ctx.lineTo(kneeX, kneeY);
     ctx.lineTo(footX, footY);
     ctx.stroke();
 
     ctx.beginPath();
-    ctx.moveTo(footX - 2.3 * s, footY);
-    ctx.lineTo(footX + 2.3 * s, footY);
+    ctx.moveTo(footX - 1.7 * s, footY);
+    ctx.lineTo(footX + 1.7 * s, footY);
     ctx.stroke();
   }
+
+  ctx.strokeStyle = 'rgba(70,70,70,0.96)';
+  ctx.lineWidth = 1.8 * s;
+
+  leg(-9 * s, 5 * s, 0.0);
+  leg(-2 * s, 5 * s, Math.PI);
+  leg(6 * s, 5 * s, Math.PI);
+  leg(12 * s, 5 * s, 0.0);
+
+  // eye
+  ctx.fillStyle = 'rgba(255,255,255,0.92)';
+  ctx.beginPath();
+  ctx.arc(23 * s, -6.3 * s, 0.7 * s, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.restore();
+}
 
   // legs
   ctx.strokeStyle = 'rgba(65,65,65,0.95)';
@@ -1364,57 +1378,69 @@ function drawGo2(x, y, scale, angle = 0, bodyColor = 'rgba(145,215,175,0.98)', a
     }
 
 function drawRightSquare(cx, cy, scale, mobileMode) {
-  const bots = [
-    {
-      x: cx - 56 * scale + 16 * scale * Math.cos(t * 0.85),
-      y: cy - 52 * scale + 10 * scale * Math.sin(t * 0.70),
-      a: 0.18 * Math.sin(t * 0.9)
-    },
-    {
-      x: cx + 10 * scale + 15 * scale * Math.cos(t * 0.75 + 0.9),
-      y: cy - 20 * scale + 9 * scale * Math.sin(t * 0.82 + 0.5),
-      a: 0.2 * Math.sin(t * 0.8 + 0.5)
-    },
-    {
-      x: cx - 18 * scale + 14 * scale * Math.cos(t * 0.92 + 1.8),
-      y: cy + 34 * scale + 10 * scale * Math.sin(t * 0.74 + 1.2),
-      a: 0.18 * Math.sin(t * 0.85 + 1.2)
-    },
-    {
-      x: cx + 62 * scale + 13 * scale * Math.cos(t * 0.80 + 2.4),
-      y: cy + 10 * scale + 9 * scale * Math.sin(t * 0.78 + 2.1),
-      a: 0.2 * Math.sin(t * 0.88 + 2.0)
-    }
+  const s = scale;
+  const patrolRx = 62 * s;
+  const patrolRy = 44 * s;
+
+  // leader path
+  const leader = {
+    x: cx + patrolRx * Math.cos(t * 0.42),
+    y: cy + patrolRy * Math.sin(t * 0.42),
+    a: Math.atan2(
+      patrolRy * 0.42 * Math.cos(t * 0.42),
+      -patrolRx * 0.42 * Math.sin(t * 0.42)
+    )
+  };
+
+  // followers trail behind the leader
+  const trail = [
+    { dt: 0.55, offY:  0 },
+    { dt: 1.10, offY: 16 * s },
+    { dt: 1.65, offY: -16 * s }
   ];
 
-  // faint links between nearby quadrupeds
-  for (let i = 0; i < bots.length; i++) {
-    for (let j = i + 1; j < bots.length; j++) {
-      const dx = bots[j].x - bots[i].x;
-      const dy = bots[j].y - bots[i].y;
-      const d = Math.sqrt(dx * dx + dy * dy);
+  const bots = [leader];
 
-      if (d < 92 * scale) {
-        ctx.beginPath();
-        ctx.moveTo(bots[i].x, bots[i].y);
-        ctx.lineTo(bots[j].x, bots[j].y);
-        ctx.strokeStyle = 'rgba(103,77,85,0.18)';
-        ctx.lineWidth = 1.2;
-        ctx.setLineDash([3, 5]);
-        ctx.stroke();
-      }
-    }
+  trail.forEach(item => {
+    const tt = t * 0.42 - item.dt;
+    const x = cx + patrolRx * Math.cos(tt);
+    const y = cy + patrolRy * Math.sin(tt) + item.offY * 0.25;
+    const a = Math.atan2(
+      patrolRy * 0.42 * Math.cos(tt),
+      -patrolRx * 0.42 * Math.sin(tt)
+    );
+    bots.push({ x, y, a });
+  });
+
+  // faint patrol path
+  ctx.beginPath();
+  ctx.ellipse(cx, cy, patrolRx, patrolRy, 0, 0, Math.PI * 2);
+  ctx.strokeStyle = 'rgba(103,77,85,0.10)';
+  ctx.lineWidth = 1.2;
+  ctx.setLineDash([4, 6]);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // links
+  for (let i = 0; i < bots.length - 1; i++) {
+    ctx.beginPath();
+    ctx.moveTo(bots[i].x, bots[i].y);
+    ctx.lineTo(bots[i + 1].x, bots[i + 1].y);
+    ctx.strokeStyle = 'rgba(103,77,85,0.16)';
+    ctx.lineWidth = 1.1;
+    ctx.setLineDash([3, 5]);
+    ctx.stroke();
   }
   ctx.setLineDash([]);
 
-  // draw the robots
+  // draw robots
   bots.forEach((b, idx) => {
-    const isLeader = idx === 1;
+    const isLeader = idx === 0;
 
     drawGo2(
       b.x,
       b.y,
-      0.95 * scale,
+      0.95 * s,
       b.a,
       isLeader ? 'rgba(255,220,130,0.98)' : 'rgba(145,215,175,0.98)',
       isLeader ? 'rgba(224,163,39,0.95)' : 'rgba(24,163,96,0.92)'
