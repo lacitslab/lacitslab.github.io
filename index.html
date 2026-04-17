@@ -1338,71 +1338,59 @@ section[id] {
     }
   }
 
-  function drawRightSquare(cx, cy, scale, mobileMode) {
-    const s = scale;
-    const patrolRx = 62 * s;
-    const patrolRy = 44 * s;
+function drawRightSquare(cx, cy, scale, mobileMode) {
+  const s = scale;
 
-    const leader = {
-      x: cx + patrolRx * Math.cos(t * 0.42),
-      y: cy + patrolRy * Math.sin(t * 0.42),
-      a: Math.atan2(
-        patrolRy * 0.42 * Math.cos(t * 0.42),
-        -patrolRx * 0.42 * Math.sin(t * 0.42)
-      )
-    };
+  // repeating forward march
+  const marchLen = 220 * s;
+  const speed = 28 * s;
+  const base = ((t * speed) % marchLen);
 
-    const trail = [
-      { dt: 0.55, offY: 0 },
-      { dt: 1.10, offY: 16 * s },
-      { dt: 1.65, offY: -16 * s }
-    ];
+  const bots = [
+    { x: cx - 70 * s + base, y: cy - 34 * s, a: 0.08 },
+    { x: cx - 105 * s + base, y: cy - 8 * s, a: 0.04 },
+    { x: cx - 140 * s + base, y: cy + 18 * s, a: 0.02 },
+    { x: cx - 175 * s + base, y: cy + 44 * s, a: 0.00 }
+  ];
 
-    const bots = [leader];
-
-    trail.forEach(item => {
-      const tt = t * 0.42 - item.dt;
-      const x = cx + patrolRx * Math.cos(tt);
-      const y = cy + patrolRy * Math.sin(tt) + item.offY * 0.25;
-      const a = Math.atan2(
-        patrolRy * 0.42 * Math.cos(tt),
-        -patrolRx * 0.42 * Math.sin(tt)
-      );
-      bots.push({ x, y, a });
-    });
-
+  // faint path guides
+  for (let i = 0; i < bots.length; i++) {
     ctx.beginPath();
-    ctx.ellipse(cx, cy, patrolRx, patrolRy, 0, 0, Math.PI * 2);
+    ctx.moveTo(cx - 190 * s, bots[i].y);
+    ctx.lineTo(cx + 70 * s, bots[i].y);
     ctx.strokeStyle = 'rgba(103,77,85,0.10)';
-    ctx.lineWidth = 1.2;
+    ctx.lineWidth = 1.0;
     ctx.setLineDash([4, 6]);
     ctx.stroke();
-    ctx.setLineDash([]);
-
-    for (let i = 0; i < bots.length - 1; i++) {
-      ctx.beginPath();
-      ctx.moveTo(bots[i].x, bots[i].y);
-      ctx.lineTo(bots[i + 1].x, bots[i + 1].y);
-      ctx.strokeStyle = 'rgba(103,77,85,0.16)';
-      ctx.lineWidth = 1.1;
-      ctx.setLineDash([3, 5]);
-      ctx.stroke();
-    }
-    ctx.setLineDash([]);
-
-    bots.forEach((b, idx) => {
-      const isLeader = idx === 0;
-
-      drawGo2(
-        b.x,
-        b.y,
-        0.95 * s,
-        b.a,
-        isLeader ? 'rgba(255,220,130,0.98)' : 'rgba(145,215,175,0.98)',
-        isLeader ? 'rgba(224,163,39,0.95)' : 'rgba(24,163,96,0.92)'
-      );
-    });
   }
+  ctx.setLineDash([]);
+
+  // light communication links
+  for (let i = 0; i < bots.length - 1; i++) {
+    ctx.beginPath();
+    ctx.moveTo(bots[i].x, bots[i].y);
+    ctx.lineTo(bots[i + 1].x, bots[i + 1].y);
+    ctx.strokeStyle = 'rgba(103,77,85,0.14)';
+    ctx.lineWidth = 1.0;
+    ctx.setLineDash([3, 5]);
+    ctx.stroke();
+  }
+  ctx.setLineDash([]);
+
+  // draw quadrupeds
+  bots.forEach((b, idx) => {
+    const isLeader = idx === 0;
+
+    drawGo2(
+      b.x,
+      b.y,
+      0.95 * s,
+      b.a,
+      isLeader ? 'rgba(255,220,130,0.98)' : 'rgba(145,215,175,0.98)',
+      isLeader ? 'rgba(224,163,39,0.95)' : 'rgba(24,163,96,0.92)'
+    );
+  });
+}
 
   function drawDispersion(cx, cy, scale) {
     const roadHalfLen = 120 * scale;
