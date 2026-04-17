@@ -15,31 +15,33 @@
       --pill: #eef4ff;
       --card-bg: rgba(255,255,255,0.96);
       --shadow: 0 10px 24px rgba(0,0,0,0.04);
+      --hover-shadow: 0 18px 34px rgba(0,0,0,0.10);
       --maxw: 1100px;
     }
 
-body.dark-mode {
-  --bg: #07111f;
-  --text: #eaf1ff;
-  --muted: #aebbd6;
-  --line: #1d2b42;
-  --accent: #66b3ff;
-  --accent-dark: #8ac5ff;
-  --pill: #10233d;
-  --card-bg: rgba(12, 24, 42, 0.92);
-  --shadow: 0 12px 26px rgba(0,0,0,0.22);
-}
+    body.dark-mode {
+      --bg: #07111f;
+      --text: #eaf1ff;
+      --muted: #aebbd6;
+      --line: #1d2b42;
+      --accent: #66b3ff;
+      --accent-dark: #8ac5ff;
+      --pill: #10233d;
+      --card-bg: rgba(12, 24, 42, 0.92);
+      --shadow: 0 12px 26px rgba(0,0,0,0.22);
+      --hover-shadow: 0 18px 38px rgba(0,0,0,0.30);
+    }
 
-* { box-sizing: border-box; }
+    * { box-sizing: border-box; }
 
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 78px;
-}
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 78px;
+    }
 
-section[id] {
-  scroll-margin-top: 78px;
-}
+    section[id] {
+      scroll-margin-top: 78px;
+    }
 
     body {
       margin: 0;
@@ -55,15 +57,15 @@ section[id] {
     a { color: var(--accent); text-decoration: none; }
     a:hover { color: var(--accent-dark); }
 
-.bg-network {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  opacity: 0.28;
-  width: 100%;
-  height: 100%;
-}
+    .bg-network {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.30;
+      width: 100%;
+      height: 100%;
+    }
 
     .topbar {
       position: sticky;
@@ -207,36 +209,37 @@ section[id] {
       padding-top: 4px;
     }
 
-.portrait {
-  width: 320px;
-  height: 320px;
-  border-radius: 26px;
-  overflow: hidden;
-  background: var(--card-bg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #6d4a52;
-  font-weight: 700;
-  text-align: center;
-  border: 1px solid #e5d6d9;
-  box-shadow: 0 18px 38px rgba(0,0,0,0.06);
-  transform: rotate(0deg);
-  padding: 4px;
-  transition: background 0.25s ease, border-color 0.25s ease;
-}
+    .portrait {
+      width: 300px;
+      height: 285px;
+      border-radius: 24px;
+      overflow: hidden;
+      background: var(--card-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #e5d6d9;
+      box-shadow: 0 18px 38px rgba(0,0,0,0.06);
+      padding: 2px;
+      transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .portrait:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--hover-shadow);
+    }
 
     body.dark-mode .portrait {
       border-color: #23344f;
       box-shadow: 0 18px 38px rgba(0,0,0,0.20);
     }
 
-.portrait img {
-  width: 98%;
-  height: 98%;
-  object-fit: contain;
-  display: block;
-}
+    .portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
 
     .icon-links {
       margin-top: 14px;
@@ -286,7 +289,12 @@ section[id] {
       background: var(--card-bg);
       border: 1px solid #ece3e1;
       border-radius: 16px;
-      transition: background 0.25s ease, border-color 0.25s ease;
+      transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .news:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--hover-shadow);
     }
 
     body.dark-mode .news {
@@ -321,6 +329,24 @@ section[id] {
       gap: 24px;
       align-items: start;
       margin-bottom: 28px;
+      padding: 18px;
+      border: 1px solid #eadfdd;
+      border-radius: 18px;
+      background: var(--card-bg);
+      box-shadow: var(--shadow);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    }
+
+    .project:hover,
+    .pub:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--hover-shadow);
+      border-color: #bfd4f5;
+    }
+
+    body.dark-mode .project,
+    body.dark-mode .pub {
+      border-color: #23344f;
     }
 
     .thumb {
@@ -335,7 +361,12 @@ section[id] {
       overflow: hidden;
       border-radius: 18px;
       box-shadow: var(--shadow);
-      transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+      transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+    }
+
+    .project:hover .thumb,
+    .pub:hover .thumb {
+      transform: scale(1.01);
     }
 
     body.dark-mode .thumb {
@@ -403,6 +434,7 @@ section[id] {
       background: var(--accent);
       border-color: var(--accent);
       color: white;
+      transform: translateY(-1px);
     }
 
     .team-group {
@@ -429,7 +461,13 @@ section[id] {
       border: 1px solid #eadfdd;
       border-radius: 18px;
       box-shadow: var(--shadow);
-      transition: background 0.25s ease, border-color 0.25s ease;
+      transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .team-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--hover-shadow);
+      border-color: #bfd4f5;
     }
 
     body.dark-mode .team-card {
@@ -440,38 +478,43 @@ section[id] {
       grid-template-columns: 1fr;
     }
 
-.team-photo {
-  width: 120px;
-  height: 120px;
-  border-radius: 18px;
-  background: linear-gradient(135deg, #efe3e6, #f8f4f5);
-  border: 1px solid #e5d8db;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  padding: 2px;
-  color: #8a6d74;
-  font-size: 0.92rem;
-  font-weight: 700;
-  text-align: center;
-  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
-}
+    .team-photo {
+      width: 120px;
+      height: 120px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #efe3e6, #f8f4f5);
+      border: 1px solid #e5d8db;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 2px;
+      color: #8a6d74;
+      font-size: 0.92rem;
+      font-weight: 700;
+      text-align: center;
+      transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+    }
+
+    .team-card:hover .team-photo {
+      transform: scale(1.03);
+    }
 
     body.dark-mode .team-photo {
       background: linear-gradient(135deg, #16253c, #1b2f4d);
       border-color: #2b3f60;
       color: #dbe7ff;
     }
-.team-photo img {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  display: block;
-  border-radius: 14px;
-}
+
+    .team-photo img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      border-radius: 14px;
+    }
 
     .team-info h3 {
       margin: 0 0 8px;
@@ -504,7 +547,13 @@ section[id] {
       border-radius: 18px;
       overflow: hidden;
       box-shadow: var(--shadow);
-      transition: background 0.25s ease, border-color 0.25s ease;
+      transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--hover-shadow);
+      border-color: #bfd4f5;
     }
 
     body.dark-mode .gallery-item {
@@ -516,6 +565,11 @@ section[id] {
       height: 320px;
       object-fit: cover;
       display: block;
+      transition: transform 0.35s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.02);
     }
 
     .gallery-caption {
@@ -558,8 +612,8 @@ section[id] {
       }
 
       .portrait {
-        width: 240px;
-        height: 285px;
+        width: 250px;
+        height: 235px;
         transform: none;
       }
 
@@ -600,7 +654,7 @@ section[id] {
           <li><a class="active" href="#top">Home</a></li>
           <li><a href="#news">News</a></li>
           <li><a href="#projects">Projects</a></li>
-          <li><a href="#publications">Publications</a></li>
+          <li><a href="#research">Research</a></li>
           <li><a href="#teaching">Teaching</a></li>
           <li><a href="#team">Team</a></li>
           <li><a href="#gallery">Gallery</a></li>
@@ -687,8 +741,8 @@ section[id] {
       </article>
     </section>
 
-    <section id="publications">
-      <h2>Selected Publications</h2>
+    <section id="research">
+      <h2>Research</h2>
       <div class="filters">
         <button class="active" data-filter="all">All</button>
         <button data-filter="autonomy">Autonomy</button>
@@ -698,9 +752,9 @@ section[id] {
       </div>
 
       <article class="pub" data-category="autonomy control">
-        <div class="thumb">Paper teaser figure</div>
+        <div class="thumb">Research teaser figure</div>
         <div>
-          <h3>Publication Title 1</h3>
+          <h3>Research Activity 1</h3>
           <div class="muted">Author 1, Author 2, <strong>Your Name</strong><br>Journal / Conference, Year</div>
           <div class="small-links">[ <a href="#">Paper</a> / <a href="#">Code</a> / <a href="#">Project</a> ]</div>
           <p>Replace this with a short summary of the contribution.</p>
@@ -708,9 +762,9 @@ section[id] {
       </article>
 
       <article class="pub" data-category="rl robotics">
-        <div class="thumb">Paper teaser figure</div>
+        <div class="thumb">Research teaser figure</div>
         <div>
-          <h3>Publication Title 2</h3>
+          <h3>Research Activity 2</h3>
           <div class="muted">Author 1, Author 2, <strong>Your Name</strong><br>Journal / Conference, Year</div>
           <div class="small-links">[ <a href="#">Paper</a> / <a href="#">Code</a> / <a href="#">Project</a> ]</div>
           <p>Replace this with a short summary of the contribution.</p>
@@ -718,9 +772,9 @@ section[id] {
       </article>
 
       <article class="pub" data-category="robotics control">
-        <div class="thumb">Paper teaser figure</div>
+        <div class="thumb">Research teaser figure</div>
         <div>
-          <h3>Publication Title 3</h3>
+          <h3>Research Activity 3</h3>
           <div class="muted">Author 1, Author 2, <strong>Your Name</strong><br>Journal / Conference, Year</div>
           <div class="small-links">[ <a href="#">Paper</a> / <a href="#">Code</a> / <a href="#">Project</a> ]</div>
           <p>Replace this with a short summary of the contribution.</p>
@@ -790,172 +844,143 @@ section[id] {
       <div class="team-group">
         <div class="team-group-title">Graduate Students – Ph.D.</div>
 
-<div class="team-card reveal">
-  <div class="team-photo">
-    <img src="woman.png" alt="Neda Shamaeian">
-  </div>
-  <div class="team-info">
-    <h3>Neda Shamaeian</h3>
-    <p><strong>Background:</strong> M.Sc. from KNTU University</p>
-    <p><strong>Co-supervisor:</strong> Prof. Youmin Zhang</p>
-    <p><strong>Project:</strong> TBD</p>
-  </div>
-</div>
+        <div class="team-card reveal">
+          <div class="team-photo"><img src="woman.png" alt="Neda Shamaeian"></div>
+          <div class="team-info">
+            <h3>Neda Shamaeian</h3>
+            <p><strong>Background:</strong> M.Sc. from KNTU University</p>
+            <p><strong>Co-supervisor:</strong> Prof. Youmin Zhang</p>
+            <p><strong>Project:</strong> TBD</p>
+          </div>
+        </div>
 
-<div class="team-card reveal">
-  <div class="team-photo">
-    <img src="man.png" alt="Zhizhong Guo">
-  </div>
-  <div class="team-info">
-    <h3>Zhizhong Guo</h3>
-    <p><strong>Background:</strong> M.Sc. from Shanghai University of Engineering Science</p>
-    <p><strong>Co-supervisor:</strong> Prof. Wen-Fang Xie</p>
-    <p><strong>Project:</strong> Integrative Human-Centric Predictive Control and Motion Planning of Autonomous Vehicles</p>
-  </div>
-</div>
+        <div class="team-card reveal">
+          <div class="team-photo"><img src="man.png" alt="Zhizhong Guo"></div>
+          <div class="team-info">
+            <h3>Zhizhong Guo</h3>
+            <p><strong>Background:</strong> M.Sc. from Shanghai University of Engineering Science</p>
+            <p><strong>Co-supervisor:</strong> Prof. Wen-Fang Xie</p>
+            <p><strong>Project:</strong> Integrative Human-Centric Predictive Control and Motion Planning of Autonomous Vehicles</p>
+          </div>
+        </div>
 
-<div class="team-card reveal">
-  <div class="team-photo">
-    <img src="man.png" alt="Jules Karangwa">
-  </div>
-  <div class="team-info">
-    <h3>Jules Karangwa</h3>
-    <p><strong>Background:</strong> M.Sc. from Fujian University of Technology</p>
-    <p><strong>Co-supervisor:</strong> Prof. Subhash Rakheja</p>
-    <p><strong>Project:</strong> TBD</p>
-  </div>
-</div>
+        <div class="team-card reveal">
+          <div class="team-photo"><img src="man.png" alt="Jules Karangwa"></div>
+          <div class="team-info">
+            <h3>Jules Karangwa</h3>
+            <p><strong>Background:</strong> M.Sc. from Fujian University of Technology</p>
+            <p><strong>Co-supervisor:</strong> Prof. Subhash Rakheja</p>
+            <p><strong>Project:</strong> TBD</p>
+          </div>
+        </div>
 
-<div class="team-card reveal">
-  <div class="team-photo">
-    <img src="man.png" alt="Brian Delgado Aguilar">
-  </div>
-  <div class="team-info">
-    <h3>Brian Delgado Aguilar</h3>
-    <p><strong>Background:</strong> M.Sc. from Morelia Institute of Technology</p>
-    <p><strong>Co-supervisor:</strong> Prof. Anh-Tu Nguyen</p>
-    <p><strong>Project:</strong> TBD</p>
-  </div>
-</div>
+        <div class="team-card reveal">
+          <div class="team-photo"><img src="man.png" alt="Brian Delgado Aguilar"></div>
+          <div class="team-info">
+            <h3>Brian Delgado Aguilar</h3>
+            <p><strong>Background:</strong> M.Sc. from Morelia Institute of Technology</p>
+            <p><strong>Co-supervisor:</strong> Prof. Anh-Tu Nguyen</p>
+            <p><strong>Project:</strong> TBD</p>
+          </div>
+        </div>
 
-<div class="team-card reveal">
-  <div class="team-photo">
-    <img src="man.png" alt="Bao Ma">
-  </div>
-  <div class="team-info">
-    <h3>Bao Ma</h3>
-    <p><strong>Background:</strong> M.Sc. from Concordia University</p>
-    <p><strong>Co-supervisor:</strong> Prof. Subhash Rakheja</p>
-    <p><strong>Project:</strong> TBD</p>
-  </div>
-</div>
+        <div class="team-card reveal">
+          <div class="team-photo"><img src="man.png" alt="Bao Ma"></div>
+          <div class="team-info">
+            <h3>Bao Ma</h3>
+            <p><strong>Background:</strong> M.Sc. from Concordia University</p>
+            <p><strong>Co-supervisor:</strong> Prof. Subhash Rakheja</p>
+            <p><strong>Project:</strong> TBD</p>
+          </div>
+        </div>
 
-<div class="team-card reveal">
-  <div class="team-photo">
-    <img src="man.png" alt="Alexander Oman">
-  </div>
-  <div class="team-info">
-    <h3>Alexander Oman</h3>
-    <p><strong>Background:</strong> B.Sc. from Concordia University</p>
-    <p><strong>Project:</strong> TBD</p>
-  </div>
-</div>
+        <div class="team-card reveal">
+          <div class="team-photo"><img src="man.png" alt="Alexander Oman"></div>
+          <div class="team-info">
+            <h3>Alexander Oman</h3>
+            <p><strong>Background:</strong> B.Sc. from Concordia University</p>
+            <p><strong>Project:</strong> TBD</p>
+          </div>
+        </div>
+      </div>
 
-<div class="team-group">
-  <div class="team-group-title">Alumni – Ph.D.</div>
+      <div class="team-group">
+        <div class="team-group-title">Alumni – Ph.D.</div>
 
-  <div class="team-card reveal">
-    <div class="team-photo">
-      <img src="man.png" alt="Felix Josef Batsch">
-    </div>
-    <div class="team-info">
-      <h3>Felix Josef Batsch</h3>
-      <p><strong>Graduated:</strong> Coventry University, May 2022</p>
-      <p><strong>Project:</strong> Active Learning with Gaussian Processes for the Investigation of Critical Scenarios in Autonomous Driving</p>
-    </div>
-  </div>
-</div>
+        <div class="team-card reveal">
+          <div class="team-photo"><img src="man.png" alt="Felix Josef Batsch"></div>
+          <div class="team-info">
+            <h3>Felix Josef Batsch</h3>
+            <p><strong>Graduated:</strong> Coventry University, May 2022</p>
+            <p><strong>Project:</strong> Active Learning with Gaussian Processes for the Investigation of Critical Scenarios in Autonomous Driving</p>
+          </div>
+        </div>
+      </div>
 
-<div class="team-group">
-  <div class="team-group-title">Alumni – MASc.</div>
+      <div class="team-group">
+        <div class="team-group-title">Alumni – MASc.</div>
 
-  <div class="team-card reveal">
-    <div class="team-photo">
-      <img src="man.png" alt="Amir Afsharinejad">
-    </div>
-    <div class="team-info">
-      <h3>Amir Afsharinejad</h3>
-      <p><strong>Co-supervisor:</strong> Prof. Anh-Tu Nguyen</p>
-      <p><strong>Graduated:</strong> October 2025</p>
-      <p><strong>Project:</strong> Robust LPV Path-Tracking Control for Autonomous Ground Vehicles</p>
-    </div>
-  </div>
+        <div class="team-card reveal">
+          <div class="team-photo"><img src="man.png" alt="Amir Afsharinejad"></div>
+          <div class="team-info">
+            <h3>Amir Afsharinejad</h3>
+            <p><strong>Co-supervisor:</strong> Prof. Anh-Tu Nguyen</p>
+            <p><strong>Graduated:</strong> October 2025</p>
+            <p><strong>Project:</strong> Robust LPV Path-Tracking Control for Autonomous Ground Vehicles</p>
+          </div>
+        </div>
 
-  <div class="team-card reveal">
-    <div class="team-photo">
-      <img src="man.png" alt="Bao Ma">
-    </div>
-    <div class="team-info">
-      <h3>Bao Ma</h3>
-      <p><strong>Co-supervisor:</strong> Prof. Subhash Rakheja</p>
-      <p><strong>Graduated:</strong> June 2025</p>
-      <p><strong>Project:</strong> Detection of Dangerous Driving Behaviors using Multi-Dimensional Data-Driven Methodology</p>
-    </div>
-  </div>
+        <div class="team-card reveal">
+          <div class="team-photo"><img src="man.png" alt="Bao Ma"></div>
+          <div class="team-info">
+            <h3>Bao Ma</h3>
+            <p><strong>Co-supervisor:</strong> Prof. Subhash Rakheja</p>
+            <p><strong>Graduated:</strong> June 2025</p>
+            <p><strong>Project:</strong> Detection of Dangerous Driving Behaviors using Multi-Dimensional Data-Driven Methodology</p>
+          </div>
+        </div>
 
-  <div class="team-card reveal">
-    <div class="team-photo">
-      <img src="man.png" alt="Erfan Doroudian">
-    </div>
-    <div class="team-info">
-      <h3>Erfan Doroudian</h3>
-      <p><strong>Graduated:</strong> December 2024</p>
-      <p><strong>Project:</strong> Integrating Vision-Language Models with Reinforcement Learning for Human-Aligned Decision-Making of Autonomous Vehicles</p>
-    </div>
-  </div>
+        <div class="team-card reveal">
+          <div class="team-photo"><img src="man.png" alt="Erfan Doroudian"></div>
+          <div class="team-info">
+            <h3>Erfan Doroudian</h3>
+            <p><strong>Graduated:</strong> December 2024</p>
+            <p><strong>Project:</strong> Integrating Vision-Language Models with Reinforcement Learning for Human-Aligned Decision-Making of Autonomous Vehicles</p>
+          </div>
+        </div>
 
-  <div class="team-card reveal">
-    <div class="team-photo">
-      <img src="man.png" alt="Victor Rasidescu">
-    </div>
-    <div class="team-info">
-      <h3>Victor Rasidescu</h3>
-      <p><strong>Graduated:</strong> July 2024</p>
-      <p><strong>Project:</strong> Socially Aware Path Planning for Autonomous Road Vehicles</p>
-      <p><strong>Project Files:</strong> 
-        <a href="https://github.com/LACITS-CONCORDIA/Victor-Rasidescu-MASC-Thesis" target="_blank">
-          GitHub Repository
-        </a>
-      </p>
-    </div>
-  </div>
-</div>
+        <div class="team-card reveal">
+          <div class="team-photo"><img src="man.png" alt="Victor Rasidescu"></div>
+          <div class="team-info">
+            <h3>Victor Rasidescu</h3>
+            <p><strong>Graduated:</strong> July 2024</p>
+            <p><strong>Project:</strong> Socially Aware Path Planning for Autonomous Road Vehicles</p>
+            <p><strong>Project Files:</strong> <a href="https://github.com/LACITS-CONCORDIA/Victor-Rasidescu-MASC-Thesis" target="_blank">GitHub Repository</a></p>
+          </div>
+        </div>
+      </div>
 
-<div class="team-group">
-  <div class="team-group-title">Visiting Students – Ph.D.</div>
+      <div class="team-group">
+        <div class="team-group-title">Visiting Students – Ph.D.</div>
 
-  <div class="team-card reveal">
-    <div class="team-photo">
-      <img src="man.png" alt="Angelo Ugenti">
-    </div>
-    <div class="team-info">
-      <h3>Angelo Ugenti</h3>
-      <p><strong>Affiliation:</strong> Polytechnic University of Bari</p>
-      <p><strong>Visit:</strong> May–August 2023</p>
-    </div>
-  </div>
+        <div class="team-card reveal">
+          <div class="team-photo"><img src="man.png" alt="Angelo Ugenti"></div>
+          <div class="team-info">
+            <h3>Angelo Ugenti</h3>
+            <p><strong>Affiliation:</strong> Polytechnic University of Bari</p>
+            <p><strong>Visit:</strong> May–August 2023</p>
+          </div>
+        </div>
 
-  <div class="team-card reveal">
-    <div class="team-photo">
-      <img src="man.png" alt="Kimlong Ngin">
-    </div>
-    <div class="team-info">
-      <h3>Kimlong Ngin</h3>
-      <p><strong>Affiliation:</strong> Institute of Technology of Cambodia</p>
-      <p><strong>Visit:</strong> September–December 2025</p>
-    </div>
-  </div>
-</div>
+        <div class="team-card reveal">
+          <div class="team-photo"><img src="man.png" alt="Kimlong Ngin"></div>
+          <div class="team-info">
+            <h3>Kimlong Ngin</h3>
+            <p><strong>Affiliation:</strong> Institute of Technology of Cambodia</p>
+            <p><strong>Visit:</strong> September–December 2025</p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section id="gallery">
@@ -992,165 +1017,180 @@ section[id] {
     </div>
   </main>
 
-<script>
-  // Publications filter
-  const filterButtons = document.querySelectorAll('.filters button');
-  const pubs = document.querySelectorAll('.pub');
+  <script>
+    // Filter buttons
+    const filterButtons = document.querySelectorAll('.filters button');
+    const pubs = document.querySelectorAll('.pub');
 
-  filterButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const filter = btn.dataset.filter;
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
 
-      pubs.forEach(pub => {
-        const cats = pub.dataset.category || '';
-        pub.style.display = (filter === 'all' || cats.includes(filter)) ? 'grid' : 'none';
+        pubs.forEach(pub => {
+          const cats = pub.dataset.category || '';
+          pub.style.display = (filter === 'all' || cats.includes(filter)) ? 'grid' : 'none';
+        });
       });
     });
-  });
 
-  // Navigation highlight
-  const navLinks = document.querySelectorAll('nav a');
-  const observedSections = document.querySelectorAll('section[id]');
-  let currentSection = 'top';
+    // Nav highlight
+    const navLinks = document.querySelectorAll('nav a');
+    const observedSections = document.querySelectorAll('section[id]');
+    let currentSection = 'top';
 
-  function setActiveNav(id) {
-    navLinks.forEach(link => {
-      link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+    function setActiveNav(id) {
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+      });
+    }
+
+    const navObserver = new IntersectionObserver((entries) => {
+      let bestEntry = null;
+
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          if (!bestEntry || entry.intersectionRatio > bestEntry.intersectionRatio) {
+            bestEntry = entry;
+          }
+        }
+      });
+
+      if (bestEntry) {
+        currentSection = bestEntry.target.id;
+        setActiveNav(currentSection);
+      }
+    }, {
+      root: null,
+      rootMargin: '-90px 0px -55% 0px',
+      threshold: [0.05, 0.15, 0.3, 0.5, 0.7]
     });
-  }
 
-  const navObserver = new IntersectionObserver((entries) => {
-    let bestEntry = null;
+    observedSections.forEach(section => navObserver.observe(section));
 
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        if (!bestEntry || entry.intersectionRatio > bestEntry.intersectionRatio) {
-          bestEntry = entry;
+    window.addEventListener('scroll', () => {
+      if (window.scrollY < 80) {
+        currentSection = 'top';
+        setActiveNav('top');
+      }
+    });
+
+    window.addEventListener('load', () => {
+      if (window.scrollY < 80) {
+        setActiveNav('top');
+      }
+    });
+
+    // Moving geometric background
+    const canvas = document.getElementById('bgNetwork');
+    const ctx = canvas.getContext('2d');
+    let bgTime = 0;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    function buildPoints() {
+      const points = [];
+      const spacingX = 210;
+      const spacingY = 165;
+
+      for (let y = -80; y < canvas.height + 120; y += spacingY) {
+        for (let x = -80; x < canvas.width + 120; x += spacingX) {
+          points.push({
+            baseX: x,
+            baseY: y,
+            offsetX: Math.random() * Math.PI * 2,
+            offsetY: Math.random() * Math.PI * 2
+          });
         }
       }
-    });
-
-    if (bestEntry) {
-      currentSection = bestEntry.target.id;
-      setActiveNav(currentSection);
-    }
-  }, {
-    root: null,
-    rootMargin: '-90px 0px -55% 0px',
-    threshold: [0.05, 0.15, 0.3, 0.5, 0.7]
-  });
-
-  observedSections.forEach(section => navObserver.observe(section));
-
-  window.addEventListener('scroll', () => {
-    if (window.scrollY < 80) {
-      currentSection = 'top';
-      setActiveNav('top');
-    }
-  });
-
-  window.addEventListener('load', () => {
-    if (window.scrollY < 80) {
-      setActiveNav('top');
-    }
-  });
-
-  // Background geometric network
-  const canvas = document.getElementById('bgNetwork');
-  const ctx = canvas.getContext('2d');
-
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-
-  function drawNetworkBackground() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    const isDark = document.body.classList.contains('dark-mode');
-const lineColor = isDark ? 'rgba(160, 185, 230, 0.24)' : 'rgba(120, 125, 140, 0.24)';
-const nodeColor = isDark ? 'rgba(180, 205, 255, 0.40)' : 'rgba(130, 130, 145, 0.34)';
-
-    const points = [];
-    const spacingX = 220;
-    const spacingY = 170;
-
-    for (let y = -40; y < canvas.height + 80; y += spacingY) {
-      for (let x = -40; x < canvas.width + 80; x += spacingX) {
-        const px = x + 30 * Math.sin((x + y) * 0.01);
-        const py = y + 24 * Math.cos((x - y) * 0.01);
-        points.push({ x: px, y: py });
-      }
+      return points;
     }
 
-    for (let i = 0; i < points.length; i++) {
-      for (let j = i + 1; j < points.length; j++) {
-        const dx = points[j].x - points[i].x;
-        const dy = points[j].y - points[i].y;
-        const d = Math.sqrt(dx * dx + dy * dy);
+    let networkPoints = [];
 
-        if (d < 210) {
-          ctx.beginPath();
-          ctx.moveTo(points[i].x, points[i].y);
-          ctx.lineTo(points[j].x, points[j].y);
-          ctx.strokeStyle = lineColor;
-          ctx.lineWidth = 1.5;
-          ctx.stroke();
+    function drawNetworkBackground() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const isDark = document.body.classList.contains('dark-mode');
+      const lineColor = isDark ? 'rgba(160, 185, 230, 0.24)' : 'rgba(120, 125, 140, 0.24)';
+      const nodeColor = isDark ? 'rgba(180, 205, 255, 0.42)' : 'rgba(130, 130, 145, 0.36)';
+
+      const animatedPoints = networkPoints.map(p => ({
+        x: p.baseX + 16 * Math.sin(bgTime * 0.5 + p.offsetX),
+        y: p.baseY + 14 * Math.cos(bgTime * 0.45 + p.offsetY)
+      }));
+
+      for (let i = 0; i < animatedPoints.length; i++) {
+        for (let j = i + 1; j < animatedPoints.length; j++) {
+          const dx = animatedPoints[j].x - animatedPoints[i].x;
+          const dy = animatedPoints[j].y - animatedPoints[i].y;
+          const d = Math.sqrt(dx * dx + dy * dy);
+
+          if (d < 205) {
+            ctx.beginPath();
+            ctx.moveTo(animatedPoints[i].x, animatedPoints[i].y);
+            ctx.lineTo(animatedPoints[j].x, animatedPoints[j].y);
+            ctx.strokeStyle = lineColor;
+            ctx.lineWidth = 1.6;
+            ctx.stroke();
+          }
         }
       }
-    }
 
-    for (const p of points) {
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, 3.2, 0, Math.PI * 2);
-      ctx.fillStyle = nodeColor;
-      ctx.fill();
-    }
-  }
-
-  // Reveal animation
-  const revealItems = document.querySelectorAll('.reveal');
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
+      for (const p of animatedPoints) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 3.3, 0, Math.PI * 2);
+        ctx.fillStyle = nodeColor;
+        ctx.fill();
       }
+    }
+
+    function animateBackground() {
+      bgTime += 0.01;
+      drawNetworkBackground();
+      requestAnimationFrame(animateBackground);
+    }
+
+    // Reveal on scroll
+    const revealItems = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    revealItems.forEach(item => revealObserver.observe(item));
+
+    // Dark mode
+    const themeToggle = document.getElementById('themeToggle');
+
+    if (localStorage.getItem('lacits-theme') === 'dark') {
+      document.body.classList.add('dark-mode');
+      themeToggle.textContent = '☀';
+    }
+
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      const isDark = document.body.classList.contains('dark-mode');
+      themeToggle.textContent = isDark ? '☀' : '☾';
+      localStorage.setItem('lacits-theme', isDark ? 'dark' : 'light');
     });
-  }, {
-    threshold: 0.15
-  });
 
-  revealItems.forEach(item => {
-    revealObserver.observe(item);
-  });
-
-  // Dark mode
-  const themeToggle = document.getElementById('themeToggle');
-
-  if (localStorage.getItem('lacits-theme') === 'dark') {
-    document.body.classList.add('dark-mode');
-    themeToggle.textContent = '☀';
-  }
-
-  themeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    const isDark = document.body.classList.contains('dark-mode');
-    themeToggle.textContent = isDark ? '☀' : '☾';
-    localStorage.setItem('lacits-theme', isDark ? 'dark' : 'light');
-    drawNetworkBackground();
-  });
-
-  // Init
-  resizeCanvas();
-  drawNetworkBackground();
-
-  window.addEventListener('resize', () => {
+    // Init
     resizeCanvas();
-    drawNetworkBackground();
-  });
-</script>
+    networkPoints = buildPoints();
+    animateBackground();
+
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+      networkPoints = buildPoints();
+    });
+  </script>
 </body>
 </html>
-
