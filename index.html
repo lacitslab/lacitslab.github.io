@@ -688,7 +688,7 @@ body.dark-mode .news::-webkit-scrollbar-thumb:hover {
       <div class="brand">LACITS</div>
       <nav>
         <ul>
-          <li><a class="active" href="#top">Home</a></li>
+          <li><a class="active" href="#home">Home</a></li>
           <li><a href="#news">News</a></li>
           <li><a href="#projects">Projects</a></li>
           <li><a href="#research">Research</a></li>
@@ -1074,52 +1074,39 @@ body.dark-mode .news::-webkit-scrollbar-thumb:hover {
       });
     });
 
-    // Nav highlight
-    const navLinks = document.querySelectorAll('nav a');
-    const observedSections = document.querySelectorAll('section[id]');
-    let currentSection = 'top';
+// Nav highlight
+const navLinks = document.querySelectorAll('nav a');
+const sections = document.querySelectorAll('section[id]');
 
-    function setActiveNav(id) {
-      navLinks.forEach(link => {
-        link.classList.toggle('active', link.getAttribute('href') === '#' + id);
-      });
+function setActiveNav(id) {
+  navLinks.forEach(link => {
+    link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+  });
+}
+
+function updateActiveNav() {
+  const scrollPos = window.scrollY + 100; // offset for sticky header
+
+  let currentId = 'home';
+
+  sections.forEach(section => {
+    if (scrollPos >= section.offsetTop) {
+      currentId = section.id;
     }
+  });
 
-    const navObserver = new IntersectionObserver((entries) => {
-      let bestEntry = null;
+  setActiveNav(currentId);
+}
 
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          if (!bestEntry || entry.intersectionRatio > bestEntry.intersectionRatio) {
-            bestEntry = entry;
-          }
-        }
-      });
+window.addEventListener('scroll', updateActiveNav);
+window.addEventListener('load', updateActiveNav);
 
-      if (bestEntry) {
-        currentSection = bestEntry.target.id;
-        setActiveNav(currentSection);
-      }
-    }, {
-      root: null,
-      rootMargin: '-90px 0px -55% 0px',
-      threshold: [0.05, 0.15, 0.3, 0.5, 0.7]
-    });
-
-    observedSections.forEach(section => navObserver.observe(section));
-
-    window.addEventListener('scroll', () => {
-      if (window.scrollY < 80) {
-        currentSection = 'top';
-        setActiveNav('top');
-      }
-    });
-
-    window.addEventListener('load', () => {
-      if (window.scrollY < 80) {
-        setActiveNav('top');
-      }
-    });
+navLinks.forEach(link => {
+  link.addEventListener('click', () => {
+    const targetId = link.getAttribute('href').replace('#', '');
+    setActiveNav(targetId);
+  });
+});
 
 // Moving geometric background
 const canvas = document.getElementById('bgNetwork');
