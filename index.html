@@ -57,15 +57,15 @@
     a { color: var(--accent); text-decoration: none; }
     a:hover { color: var(--accent-dark); }
 
-.bg-network {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  opacity: 0.40;
-  width: 100%;
-  height: 100%;
-}
+    .bg-network {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.40;
+      width: 100%;
+      height: 100%;
+    }
 
     .topbar {
       position: sticky;
@@ -284,116 +284,117 @@
       color: #5a3a42;
     }
 
-.news {
-  height: 260px;
-  overflow-y: auto;
-  padding: 16px 14px 16px 8px;
-  background: var(--card-bg);
-  border: 1px solid #ece3e1;
-  border-radius: 16px;
-  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
-}
+    .news {
+      height: 260px;
+      overflow-y: auto;
+      padding: 16px 14px 16px 8px;
+      background: var(--card-bg);
+      border: 1px solid #ece3e1;
+      border-radius: 16px;
+      transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    }
 
-.news::-webkit-scrollbar {
-  width: 10px;
-}
+    .news::-webkit-scrollbar {
+      width: 10px;
+    }
 
-.news::-webkit-scrollbar-track {
-  background: transparent;
-  border-radius: 10px;
-}
+    .news::-webkit-scrollbar-track {
+      background: transparent;
+      border-radius: 10px;
+    }
 
-.news::-webkit-scrollbar-thumb {
-  background: #b9c3d6;
-  border-radius: 10px;
-}
+    .news::-webkit-scrollbar-thumb {
+      background: #b9c3d6;
+      border-radius: 10px;
+    }
 
-.news::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
-}
+    .news::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
 
-body.dark-mode .news::-webkit-scrollbar-thumb {
-  background: #4b607f;
-}
+    body.dark-mode .news::-webkit-scrollbar-thumb {
+      background: #4b607f;
+    }
 
-body.dark-mode .news::-webkit-scrollbar-thumb:hover {
-  background: #6882aa;
-}
+    body.dark-mode .news::-webkit-scrollbar-thumb:hover {
+      background: #6882aa;
+    }
 
-.news:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--hover-shadow);
-}
+    .news:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--hover-shadow);
+    }
 
     body.dark-mode .news {
       border-color: #23344f;
     }
 
-.news ul {
-  margin: 0;
-  padding-left: 20px;
-}
+    .news ul {
+      margin: 0;
+      padding-left: 20px;
+    }
 
-.news li {
-  margin-bottom: 12px;
-  font-size: 0.98rem;
-  line-height: 1.45;
-}
+    .news li {
+      margin-bottom: 12px;
+      font-size: 0.98rem;
+      line-height: 1.45;
+    }
+
     .news li.extra-news {
-  display: none;
-}
+      display: none;
+    }
 
-.news.expanded li.extra-news {
-  display: list-item;
-}
+    .news.expanded li.extra-news {
+      display: list-item;
+    }
 
-.news-toggle-wrap {
-  margin-top: 12px;
-  text-align: center;
-}
+    .news-toggle-wrap {
+      margin-top: 12px;
+      text-align: center;
+    }
 
-.news-toggle-btn {
-  border: 1px solid #d8dfe8;
-  background: var(--card-bg);
-  color: var(--accent);
-  border-radius: 999px;
-  padding: 9px 18px;
-  font-size: 0.94rem;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: var(--shadow);
-  transition: 0.2s ease;
-}
+    .news-toggle-btn {
+      border: 1px solid #d8dfe8;
+      background: var(--card-bg);
+      color: var(--accent);
+      border-radius: 999px;
+      padding: 9px 18px;
+      font-size: 0.94rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: 0.2s ease;
+    }
 
-.news-toggle-btn:hover {
-  background: var(--accent);
-  color: white;
-  border-color: var(--accent);
-  transform: translateY(-1px);
-}
+    .news-toggle-btn:hover {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
 
-body.dark-mode .news-toggle-btn {
-  border-color: #29405e;
-}
+    body.dark-mode .news-toggle-btn {
+      border-color: #29405e;
+    }
 
-.date {
-  display: inline-block;
-  padding: 2px 8px;
-  border-radius: 6px;
-  color: white;
-  font-size: 0.76rem;
-  font-weight: 600;
-  margin-right: 8px;
-  vertical-align: 1px;
-  min-width: 68px;
-  text-align: center;
-}
+    .date {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      color: white;
+      font-size: 0.76rem;
+      font-weight: 600;
+      margin-right: 8px;
+      vertical-align: 1px;
+      min-width: 68px;
+      text-align: center;
+    }
 
-.date.award   { background: #2563eb; }  /* blue */
-.date.grant   { background: #16a34a; }  /* green */
-.date.service { background: #7c3aed; }  /* purple */
-.date.paper   { background: #ea580c; }  /* orange */
-.date.talk    { background: #0891b2; }  /* cyan */
+    .date.award   { background: #2563eb; }
+    .date.grant   { background: #16a34a; }
+    .date.service { background: #7c3aed; }
+    .date.paper   { background: #ea580c; }
+    .date.talk    { background: #0891b2; }
 
     .project,
     .pub {
@@ -592,15 +593,16 @@ body.dark-mode .news-toggle-btn {
     .team-info h3 {
       margin: 0 0 8px;
     }
-    .team-info h3 a {
-  color: inherit;
-  text-decoration: none;
-}
 
-.team-info h3 a:hover {
-  color: inherit;
-  text-decoration: none;
-}
+    .team-info h3 a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .team-info h3 a:hover {
+      color: inherit;
+      text-decoration: none;
+    }
 
     .team-info p {
       margin: 0 0 7px;
@@ -617,111 +619,111 @@ body.dark-mode .news-toggle-btn {
       transform: translateY(0);
     }
 
-.gallery-slider {
-  position: relative;
-  display: grid;
-  grid-template-columns: 58px 1fr 58px;
-  align-items: center;
-  gap: 14px;
-  background: var(--card-bg);
-  border: 1px solid #eadfdd;
-  border-radius: 22px;
-  padding: 18px;
-  box-shadow: var(--shadow);
-  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
-}
+    .gallery-slider {
+      position: relative;
+      display: grid;
+      grid-template-columns: 58px 1fr 58px;
+      align-items: center;
+      gap: 14px;
+      background: var(--card-bg);
+      border: 1px solid #eadfdd;
+      border-radius: 22px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    }
 
-.gallery-slider:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--hover-shadow);
-  border-color: #bfd4f5;
-}
+    .gallery-slider:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--hover-shadow);
+      border-color: #bfd4f5;
+    }
 
-body.dark-mode .gallery-slider {
-  border-color: #23344f;
-}
+    body.dark-mode .gallery-slider {
+      border-color: #23344f;
+    }
 
-.gallery-slide-frame {
-  overflow: hidden;
-  border-radius: 18px;
-  background: var(--card-bg);
-  border: 1px solid #e7dcda;
-  box-shadow: var(--shadow);
-}
+    .gallery-slide-frame {
+      overflow: hidden;
+      border-radius: 18px;
+      background: var(--card-bg);
+      border: 1px solid #e7dcda;
+      box-shadow: var(--shadow);
+    }
 
-body.dark-mode .gallery-slide-frame {
-  border-color: #23344f;
-}
+    body.dark-mode .gallery-slide-frame {
+      border-color: #23344f;
+    }
 
-.gallery-slide-frame img {
-  width: 100%;
-  height: 460px;
-  object-fit: cover;
-  display: block;
-  transition: opacity 0.25s ease;
-}
+    .gallery-slide-frame img {
+      width: 100%;
+      height: 460px;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.25s ease;
+    }
 
-.gallery-nav {
-  width: 48px;
-  height: 48px;
-  border: none;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.92);
-  color: var(--accent);
-  font-size: 1.4rem;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
-  transition: 0.2s ease;
-}
+    .gallery-nav {
+      width: 48px;
+      height: 48px;
+      border: none;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.92);
+      color: var(--accent);
+      font-size: 1.4rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+      transition: 0.2s ease;
+    }
 
-.gallery-nav:hover {
-  background: var(--accent);
-  color: white;
-  transform: scale(1.05);
-}
+    .gallery-nav:hover {
+      background: var(--accent);
+      color: white;
+      transform: scale(1.05);
+    }
 
-body.dark-mode .gallery-nav {
-  background: rgba(16, 30, 50, 0.95);
-  color: #dce9ff;
-}
+    body.dark-mode .gallery-nav {
+      background: rgba(16, 30, 50, 0.95);
+      color: #dce9ff;
+    }
 
-.gallery-caption {
-  padding: 14px 16px;
-  font-size: 0.97rem;
-  color: var(--muted);
-  text-align: center;
-}
+    .gallery-caption {
+      padding: 14px 16px;
+      font-size: 0.97rem;
+      color: var(--muted);
+      text-align: center;
+    }
 
-.gallery-dots {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 14px;
-}
+    .gallery-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 14px;
+    }
 
-.gallery-dot {
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-  border: none;
-  background: #c7cfdb;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
+    .gallery-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      border: none;
+      background: #c7cfdb;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
 
-.gallery-dot.active {
-  background: var(--accent);
-  transform: scale(1.15);
-}
+    .gallery-dot.active {
+      background: var(--accent);
+      transform: scale(1.15);
+    }
 
-body.dark-mode .gallery-dot {
-  background: #4d607d;
-}
+    body.dark-mode .gallery-dot {
+      background: #4d607d;
+    }
 
-body.dark-mode .gallery-dot.active {
-  background: var(--accent);
-}
+    body.dark-mode .gallery-dot.active {
+      background: var(--accent);
+    }
 
     .footer {
       margin-top: 44px;
@@ -736,63 +738,64 @@ body.dark-mode .gallery-dot.active {
       border-color: #23344f;
     }
 
- @media (max-width: 900px) {
-  .brand {
-    position: static;
-  }
+    @media (max-width: 900px) {
+      .brand {
+        position: static;
+      }
 
-  .topbar-inner {
-    flex-direction: column;
-    padding: 8px 14px;
-    gap: 6px;
-  }
+      .topbar-inner {
+        flex-direction: column;
+        padding: 8px 14px;
+        gap: 6px;
+      }
 
-  .hero,
-  .project,
-  .pub {
-    grid-template-columns: 1fr;
-  }
+      .hero,
+      .project,
+      .pub {
+        grid-template-columns: 1fr;
+      }
 
-  .hero-left {
-    max-width: none;
-  }
+      .hero-left {
+        max-width: none;
+      }
 
-  .portrait {
-    width: 250px;
-    height: 235px;
-    transform: none;
-  }
+      .portrait {
+        width: 250px;
+        height: 235px;
+        transform: none;
+      }
 
-  .team-card {
-    grid-template-columns: 1fr;
-  }
+      .team-card {
+        grid-template-columns: 1fr;
+      }
 
-  .team-photo {
-    width: 110px;
-    height: 110px;
-  }
+      .team-photo {
+        width: 110px;
+        height: 110px;
+      }
 
-  .gallery-slider {
-    grid-template-columns: 44px 1fr 44px;
-    gap: 8px;
-    padding: 12px;
-  }
+      .gallery-slider {
+        grid-template-columns: 44px 1fr 44px;
+        gap: 8px;
+        padding: 12px;
+      }
 
-  .gallery-slide-frame img {
-    height: 250px;
-  }
+      .gallery-slide-frame img {
+        height: 250px;
+      }
 
-  .gallery-nav {
-    width: 40px;
-    height: 40px;
-    font-size: 1.1rem;
-  }
+      .gallery-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+      }
 
-  .theme-toggle {
-    top: 12px;
-    right: 14px;
-  }
-}
+      .theme-toggle {
+        top: 12px;
+        right: 14px;
+      }
+    }
+  </style>
 </head>
 <body>
   <div id="top"></div>
@@ -860,34 +863,26 @@ body.dark-mode .gallery-dot.active {
     <div class="tagline">Safe, trustworthy, and human-centered autonomy for intelligent transportation and robotic systems.</div>
 
     <section id="news">
-  <h2>News</h2>
-<div class="news" id="newsBox">
-  <ul>
-  <li><span class="date award">Sep 2025</span> Dr. Taghavifar was named among the World’s Top 2% Scientists, following previous inclusion in 2024, 2023, 2022, 2021, and 2020 <a href="https://elsevier.digitalcommonsdata.com/datasets/btchxktzyw/8" target="_blank" rel="noopener noreferrer"></a>.</li>
-
-  <li><span class="date grant">Sep 2025</span> Dr. Taghavifar received external funding from the Canada-ASEAN Scholarships and Educational Exchanges for Development (SEED) Program.</li>
-
-  <li><span class="date paper">Jul 2025</span> A new book, <a href="https://link.springer.com/book/10.1007/978-3-031-75988-8" target="_blank" rel="noopener noreferrer"><em>Applied Type-3 Fuzzy Logic Systems and Controllers</em></a>, has been published.</li>
-
-  <li><span class="date award">Jul 2025</span> The paper <a href="https://ietresearch.onlinelibrary.wiley.com/doi/full/10.1049/cth2.12538" target="_blank" rel="noopener noreferrer">“A non‐linear fractional‐order type‐3 fuzzy control for enhanced path‐tracking performance of autonomous cars”</a> received <strong>Top Cited Article</strong> and <strong>Top Viewed Article</strong> recognition in <em>IET Control Theory &amp; Applications</em>.</li>
-
-  <li><span class="date service">Sep 2024</span> Dr. Taghavifar served as the Conference Co-Chair for Workshops/Tutorials at <a href="https://ieee-itsc.org/2024/index.html" target="_blank" rel="noopener noreferrer">IEEE ITSC 2024</a> in Edmonton, September 24–27, 2024. Erfan Doroudian and Victor Rasidescu also attended the conference and presented their papers.</li>
-
-  <li><span class="date award">Jul 2024</span> Dr. Taghavifar has been elevated to the IEEE Senior Member level.</li>
-
-  <li><span class="date grant">Mar 2023</span> Dr. Taghavifar was awarded the NSERC Discovery Grant for “A Resilient Framework for Intelligent Navigation and Energy Management of Future Multi-Level Electrified Autonomous Vehicles” together with the Discovery Launch Supplement. <a href="https://nserc-crsng.canada.ca/en/awards-database/808419" target="_blank" rel="noopener noreferrer">[NSERC Award Page]</a></li>
-
-  <li><span class="date service">Sep 2022</span> LACITS activities formally started at Concordia University with new research directions in autonomy, robotics, and control.</li>
-    <li class="extra-news">older news item 11</li>
-  <li class="extra-news">older news item 12</li>
-  <li class="extra-news">older news item 13</li>
-</ul>
-  </div>
-<div class="news-toggle-wrap">
-  <button class="news-toggle-btn" id="newsToggleBtn" type="button">More News</button>
-</div>
-      
-</section>
+      <h2>News</h2>
+      <div class="news" id="newsBox">
+        <ul>
+          <li><span class="date award">Sep 2025</span> Dr. Taghavifar was named among the World’s Top 2% Scientists, following previous inclusion in 2024, 2023, 2022, 2021, and 2020 <a href="https://elsevier.digitalcommonsdata.com/datasets/btchxktzyw/8" target="_blank" rel="noopener noreferrer"></a>.</li>
+          <li><span class="date grant">Sep 2025</span> Dr. Taghavifar received external funding from the Canada-ASEAN Scholarships and Educational Exchanges for Development (SEED) Program.</li>
+          <li><span class="date paper">Jul 2025</span> A new book, <a href="https://link.springer.com/book/10.1007/978-3-031-75988-8" target="_blank" rel="noopener noreferrer"><em>Applied Type-3 Fuzzy Logic Systems and Controllers</em></a>, has been published.</li>
+          <li><span class="date award">Jul 2025</span> The paper <a href="https://ietresearch.onlinelibrary.wiley.com/doi/full/10.1049/cth2.12538" target="_blank" rel="noopener noreferrer">“A non‐linear fractional‐order type‐3 fuzzy control for enhanced path‐tracking performance of autonomous cars”</a> received <strong>Top Cited Article</strong> and <strong>Top Viewed Article</strong> recognition in <em>IET Control Theory &amp; Applications</em>.</li>
+          <li><span class="date service">Sep 2024</span> Dr. Taghavifar served as the Conference Co-Chair for Workshops/Tutorials at <a href="https://ieee-itsc.org/2024/index.html" target="_blank" rel="noopener noreferrer">IEEE ITSC 2024</a> in Edmonton, September 24–27, 2024. Erfan Doroudian and Victor Rasidescu also attended the conference and presented their papers.</li>
+          <li><span class="date award">Jul 2024</span> Dr. Taghavifar has been elevated to the IEEE Senior Member level.</li>
+          <li><span class="date grant">Mar 2023</span> Dr. Taghavifar was awarded the NSERC Discovery Grant for “A Resilient Framework for Intelligent Navigation and Energy Management of Future Multi-Level Electrified Autonomous Vehicles” together with the Discovery Launch Supplement. <a href="https://nserc-crsng.canada.ca/en/awards-database/808419" target="_blank" rel="noopener noreferrer">[NSERC Award Page]</a></li>
+          <li><span class="date service">Sep 2022</span> LACITS activities formally started at Concordia University with new research directions in autonomy, robotics, and control.</li>
+          <li class="extra-news">older news item 11</li>
+          <li class="extra-news">older news item 12</li>
+          <li class="extra-news">older news item 13</li>
+        </ul>
+      </div>
+      <div class="news-toggle-wrap">
+        <button class="news-toggle-btn" id="newsToggleBtn" type="button">More News</button>
+      </div>
+    </section>
 
     <section id="projects">
       <h2>Featured Projects</h2>
@@ -1005,10 +1000,10 @@ body.dark-mode .gallery-dot.active {
           </div>
           <div class="team-info">
             <h3>
-  <a href="https://www.concordia.ca/faculty/hamid-taghavifar.html" target="_blank" rel="noopener noreferrer">
-    Dr. Hamid Taghavifar <span class="team-role">(Ph.D., P.Eng., FHEA, Senior Member IEEE)</span>
-  </a>
-</h3>
+              <a href="https://www.concordia.ca/faculty/hamid-taghavifar.html" target="_blank" rel="noopener noreferrer">
+                Dr. Hamid Taghavifar <span class="team-role">(Ph.D., P.Eng., FHEA, Senior Member IEEE)</span>
+              </a>
+            </h3>
             <p>Dr. Taghavifar is the LACITS lab director and an Assistant Professor with the Department of Mechanical, Industrial and Aerospace Engineering (MIAE) at Concordia University, Montreal, Canada.</p>
             <p><strong>Email:</strong> hamid[dot]taghavifar[at]concordia[dot]ca</p>
           </div>
@@ -1157,37 +1152,37 @@ body.dark-mode .gallery-dot.active {
       </div>
     </section>
 
-<section id="gallery">
-  <h2>Gallery</h2>
+    <section id="gallery">
+      <h2>Gallery</h2>
 
-  <div class="gallery-slider reveal">
-    <button class="gallery-nav prev" id="galleryPrev" aria-label="Previous image">&#10094;</button>
+      <div class="gallery-slider reveal">
+        <button class="gallery-nav prev" id="galleryPrev" aria-label="Previous image">&#10094;</button>
 
-    <div class="gallery-slide-frame">
-      <img id="galleryImage" src="group-lunch-1.jpg" alt="LACITS gallery image">
-      <div class="gallery-caption" id="galleryCaption">LACITS group lunch, Summer 2025.</div>
-    </div>
+        <div class="gallery-slide-frame">
+          <img id="galleryImage" src="group-lunch-1.jpg" alt="LACITS gallery image">
+          <div class="gallery-caption" id="galleryCaption">LACITS group lunch, Summer 2025.</div>
+        </div>
 
-    <button class="gallery-nav next" id="galleryNext" aria-label="Next image">&#10095;</button>
-  </div>
+        <button class="gallery-nav next" id="galleryNext" aria-label="Next image">&#10095;</button>
+      </div>
 
-  <div class="gallery-dots" id="galleryDots"></div>
-</section>
+      <div class="gallery-dots" id="galleryDots"></div>
+    </section>
 
-<section id="contact">
-  <h2>Contact</h2>
-  <p>
-    LACITS – Laboratory for Autonomy, Control, and Intelligent Transportation Systems<br>
-    EV Building, Room EV 11.170<br>
-    Engineering, Computer Science and Visual Arts Integrated Complex<br>
-    Concordia University<br>
-    1515 Ste-Catherine St. W.<br>
-    Montreal, QC H3G 2W1<br>
-    Canada
-  </p>
-  <p>Phone: <a href="tel:+15148482424">514-848-2424</a> (ext. 4261)</p>
-  <p>Email: <a href="mailto:hamid.taghavifar@concordia.ca">hamid.taghavifar@concordia.ca</a></p>
-</section>
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>
+        LACITS – Laboratory for Autonomy, Control, and Intelligent Transportation Systems<br>
+        EV Building, Room EV 11.170<br>
+        Engineering, Computer Science and Visual Arts Integrated Complex<br>
+        Concordia University<br>
+        1515 Ste-Catherine St. W.<br>
+        Montreal, QC H3G 2W1<br>
+        Canada
+      </p>
+      <p>Phone: <a href="tel:+15148482424">514-848-2424</a> (ext. 4261)</p>
+      <p>Email: <a href="mailto:hamid.taghavifar@concordia.ca">hamid.taghavifar@concordia.ca</a></p>
+    </section>
 
     <div class="footer">
       © 2026 LACITS Lab. Concordia University
@@ -1212,108 +1207,103 @@ body.dark-mode .gallery-dot.active {
       });
     });
 
-// Nav highlight based on URL hash
-const navLinks = document.querySelectorAll('nav a');
+    // Nav highlight based on URL hash
+    const navLinks = document.querySelectorAll('nav a');
 
-function setActiveNavFromHash() {
-  const hash = window.location.hash || '#home';
+    function setActiveNavFromHash() {
+      const hash = window.location.hash || '#home';
 
-  navLinks.forEach(link => {
-    link.classList.toggle('active', link.getAttribute('href') === hash);
-  });
-}
-
-// update after clicking a nav item
-navLinks.forEach(link => {
-  link.addEventListener('click', () => {
-    setTimeout(setActiveNavFromHash, 0);
-  });
-});
-
-// update when hash changes
-window.addEventListener('hashchange', setActiveNavFromHash);
-
-// set correct active item on first load
-window.addEventListener('load', setActiveNavFromHash);
-
-// Moving geometric background
-const canvas = document.getElementById('bgNetwork');
-const ctx = canvas.getContext('2d');
-let bgTime = 0;
-let networkPoints = [];
-
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-
-function buildPoints() {
-  const pts = [];
-  const approxCount = Math.max(22, Math.floor((canvas.width * canvas.height) / 70000));
-
-  for (let i = 0; i < approxCount; i++) {
-    pts.push({
-      x0: Math.random() * canvas.width,
-      y0: Math.random() * canvas.height,
-      phase: Math.random() * Math.PI * 2,
-      amp: 6 + Math.random() * 8
-    });
-  }
-  return pts;
-}
-
-function drawNetworkBackground() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  const isDark = document.body.classList.contains('dark-mode');
-  const lineColor = isDark ? 'rgba(170, 190, 230, 0.18)' : 'rgba(160, 165, 175, 0.20)';
-  const nodeColor = isDark ? 'rgba(185, 205, 245, 0.36)' : 'rgba(155, 160, 170, 0.34)';
-
- const pts = networkPoints.map(p => ({
-  x: p.x0 + 1.35 * p.amp * Math.sin(bgTime * 0.55 + p.phase),
-  y: p.y0 + 1.35 * p.amp * Math.cos(bgTime * 0.48 + p.phase)
-}));
-
-  // connect only a few nearest neighbors to avoid grid look
-  for (let i = 0; i < pts.length; i++) {
-    const dists = [];
-
-    for (let j = 0; j < pts.length; j++) {
-      if (i === j) continue;
-      const dx = pts[j].x - pts[i].x;
-      const dy = pts[j].y - pts[i].y;
-      const d = Math.sqrt(dx * dx + dy * dy);
-      if (d < 260) dists.push({ j, d });
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === hash);
+      });
     }
 
-    dists.sort((a, b) => a.d - b.d);
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        setTimeout(setActiveNavFromHash, 0);
+      });
+    });
 
-    const neighbors = dists.slice(0, 3);
-    for (const n of neighbors) {
-      if (n.j > i) {
+    window.addEventListener('hashchange', setActiveNavFromHash);
+    window.addEventListener('load', setActiveNavFromHash);
+
+    // Moving geometric background
+    const canvas = document.getElementById('bgNetwork');
+    const ctx = canvas.getContext('2d');
+    let bgTime = 0;
+    let networkPoints = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    function buildPoints() {
+      const pts = [];
+      const approxCount = Math.max(22, Math.floor((canvas.width * canvas.height) / 70000));
+
+      for (let i = 0; i < approxCount; i++) {
+        pts.push({
+          x0: Math.random() * canvas.width,
+          y0: Math.random() * canvas.height,
+          phase: Math.random() * Math.PI * 2,
+          amp: 6 + Math.random() * 8
+        });
+      }
+      return pts;
+    }
+
+    function drawNetworkBackground() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const isDark = document.body.classList.contains('dark-mode');
+      const lineColor = isDark ? 'rgba(170, 190, 230, 0.18)' : 'rgba(160, 165, 175, 0.20)';
+      const nodeColor = isDark ? 'rgba(185, 205, 245, 0.36)' : 'rgba(155, 160, 170, 0.34)';
+
+      const pts = networkPoints.map(p => ({
+        x: p.x0 + 1.35 * p.amp * Math.sin(bgTime * 0.55 + p.phase),
+        y: p.y0 + 1.35 * p.amp * Math.cos(bgTime * 0.48 + p.phase)
+      }));
+
+      for (let i = 0; i < pts.length; i++) {
+        const dists = [];
+
+        for (let j = 0; j < pts.length; j++) {
+          if (i === j) continue;
+          const dx = pts[j].x - pts[i].x;
+          const dy = pts[j].y - pts[i].y;
+          const d = Math.sqrt(dx * dx + dy * dy);
+          if (d < 260) dists.push({ j, d });
+        }
+
+        dists.sort((a, b) => a.d - b.d);
+
+        const neighbors = dists.slice(0, 3);
+        for (const n of neighbors) {
+          if (n.j > i) {
+            ctx.beginPath();
+            ctx.moveTo(pts[i].x, pts[i].y);
+            ctx.lineTo(pts[n.j].x, pts[n.j].y);
+            ctx.strokeStyle = lineColor;
+            ctx.lineWidth = 2.0;
+            ctx.stroke();
+          }
+        }
+      }
+
+      for (const p of pts) {
         ctx.beginPath();
-        ctx.moveTo(pts[i].x, pts[i].y);
-        ctx.lineTo(pts[n.j].x, pts[n.j].y);
-        ctx.strokeStyle = lineColor;
-        ctx.lineWidth = 2.0;
-        ctx.stroke();
+        ctx.arc(p.x, p.y, 5.2, 0, Math.PI * 2);
+        ctx.fillStyle = nodeColor;
+        ctx.fill();
       }
     }
-  }
 
-  for (const p of pts) {
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, 5.2, 0, Math.PI * 2);
-    ctx.fillStyle = nodeColor;
-    ctx.fill();
-  }
-}
-
-function animateBackground() {
-  bgTime += 0.022;
-  drawNetworkBackground();
-  requestAnimationFrame(animateBackground);
-}
+    function animateBackground() {
+      bgTime += 0.022;
+      drawNetworkBackground();
+      requestAnimationFrame(animateBackground);
+    }
 
     // Reveal on scroll
     const revealItems = document.querySelectorAll('.reveal');
@@ -1351,82 +1341,86 @@ function animateBackground() {
       resizeCanvas();
       networkPoints = buildPoints();
     });
+
+    // News toggle
     const newsBox = document.getElementById('newsBox');
-const newsToggleBtn = document.getElementById('newsToggleBtn');
+    const newsToggleBtn = document.getElementById('newsToggleBtn');
 
-if (newsBox && newsToggleBtn) {
-  newsToggleBtn.addEventListener('click', () => {
-    newsBox.classList.toggle('expanded');
+    if (newsBox && newsToggleBtn) {
+      newsToggleBtn.addEventListener('click', () => {
+        newsBox.classList.toggle('expanded');
 
-    if (newsBox.classList.contains('expanded')) {
-      newsToggleBtn.textContent = 'Show Less';
-    } else {
-      newsToggleBtn.textContent = 'More News';
+        if (newsBox.classList.contains('expanded')) {
+          newsToggleBtn.textContent = 'Show Less';
+        } else {
+          newsToggleBtn.textContent = 'More News';
+        }
+      });
     }
-  });
-}
-      const galleryImages = [
-  {
-    src: 'group-lunch-1.jpg',
-    alt: 'LACITS group lunch',
-    caption: 'LACITS group lunch, Summer 2025.'
-  },
-  {
-    src: 'group-lunch-2.jpg',
-    alt: 'LACITS group lunch',
-    caption: 'Another moment from the group lunch, Winter 2025.'
-  }
-];
 
-let galleryIndex = 0;
+    // Gallery slider
+    const galleryImages = [
+      {
+        src: 'group-lunch-1.jpg',
+        alt: 'LACITS group lunch',
+        caption: 'LACITS group lunch, Summer 2025.'
+      },
+      {
+        src: 'group-lunch-2.jpg',
+        alt: 'LACITS group lunch',
+        caption: 'Another moment from the group lunch, Winter 2025.'
+      }
+    ];
 
-const galleryImage = document.getElementById('galleryImage');
-const galleryCaption = document.getElementById('galleryCaption');
-const galleryPrev = document.getElementById('galleryPrev');
-const galleryNext = document.getElementById('galleryNext');
-const galleryDots = document.getElementById('galleryDots');
+    let galleryIndex = 0;
 
-function renderGallery() {
-  if (!galleryImage || !galleryCaption || !galleryDots) return;
+    const galleryImage = document.getElementById('galleryImage');
+    const galleryCaption = document.getElementById('galleryCaption');
+    const galleryPrev = document.getElementById('galleryPrev');
+    const galleryNext = document.getElementById('galleryNext');
+    const galleryDots = document.getElementById('galleryDots');
 
-  const item = galleryImages[galleryIndex];
-  galleryImage.src = item.src;
-  galleryImage.alt = item.alt;
-  galleryCaption.textContent = item.caption;
+    function renderGallery() {
+      if (!galleryImage || !galleryCaption || !galleryDots) return;
 
-  const dots = galleryDots.querySelectorAll('.gallery-dot');
-  dots.forEach((dot, i) => {
-    dot.classList.toggle('active', i === galleryIndex);
-  });
-}
+      const item = galleryImages[galleryIndex];
+      galleryImage.src = item.src;
+      galleryImage.alt = item.alt;
+      galleryCaption.textContent = item.caption;
 
-function showNextImage() {
-  galleryIndex = (galleryIndex + 1) % galleryImages.length;
-  renderGallery();
-}
+      const dots = galleryDots.querySelectorAll('.gallery-dot');
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === galleryIndex);
+      });
+    }
 
-function showPrevImage() {
-  galleryIndex = (galleryIndex - 1 + galleryImages.length) % galleryImages.length;
-  renderGallery();
-}
-
-if (galleryDots) {
-  galleryImages.forEach((_, i) => {
-    const dot = document.createElement('button');
-    dot.className = 'gallery-dot';
-    dot.setAttribute('aria-label', `Go to image ${i + 1}`);
-    dot.addEventListener('click', () => {
-      galleryIndex = i;
+    function showNextImage() {
+      galleryIndex = (galleryIndex + 1) % galleryImages.length;
       renderGallery();
-    });
-    galleryDots.appendChild(dot);
-  });
-}
+    }
 
-if (galleryNext) galleryNext.addEventListener('click', showNextImage);
-if (galleryPrev) galleryPrev.addEventListener('click', showPrevImage);
+    function showPrevImage() {
+      galleryIndex = (galleryIndex - 1 + galleryImages.length) % galleryImages.length;
+      renderGallery();
+    }
 
-renderGallery();
+    if (galleryDots) {
+      galleryImages.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'gallery-dot';
+        dot.setAttribute('aria-label', `Go to image ${i + 1}`);
+        dot.addEventListener('click', () => {
+          galleryIndex = i;
+          renderGallery();
+        });
+        galleryDots.appendChild(dot);
+      });
+    }
+
+    if (galleryNext) galleryNext.addEventListener('click', showNextImage);
+    if (galleryPrev) galleryPrev.addEventListener('click', showPrevImage);
+
+    renderGallery();
   </script>
 </body>
 </html>
