@@ -569,6 +569,14 @@
       text-align: center;
       transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
     }
+    .director-card {
+  grid-template-columns: 150px 1fr;
+}
+
+.director-photo {
+  width: 150px;
+  height: 150px;
+}
 
     .team-card:hover .team-photo {
       transform: scale(1.03);
@@ -1004,8 +1012,8 @@
 
       <div class="team-group">
         <div class="team-group-title">Director</div>
-        <div class="team-card reveal">
-          <div class="team-photo">
+        <div class="team-card director-card reveal">
+          <div class="team-photo director-photo">
             <img src="hamid.png" alt="Dr. Hamid Taghavifar">
           </div>
           <div class="team-info">
