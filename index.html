@@ -617,47 +617,111 @@ body.dark-mode .news-toggle-btn {
       transform: translateY(0);
     }
 
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
-    }
+.gallery-slider {
+  position: relative;
+  display: grid;
+  grid-template-columns: 58px 1fr 58px;
+  align-items: center;
+  gap: 14px;
+  background: var(--card-bg);
+  border: 1px solid #eadfdd;
+  border-radius: 22px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
 
-    .gallery-item {
-      background: var(--card-bg);
-      border: 1px solid #eadfdd;
-      border-radius: 18px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
-    }
+.gallery-slider:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--hover-shadow);
+  border-color: #bfd4f5;
+}
 
-    .gallery-item:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--hover-shadow);
-      border-color: #bfd4f5;
-    }
+body.dark-mode .gallery-slider {
+  border-color: #23344f;
+}
 
-    body.dark-mode .gallery-item {
-      border-color: #23344f;
-    }
+.gallery-slide-frame {
+  overflow: hidden;
+  border-radius: 18px;
+  background: var(--card-bg);
+  border: 1px solid #e7dcda;
+  box-shadow: var(--shadow);
+}
 
-    .gallery-item img {
-      width: 100%;
-      height: 320px;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.35s ease;
-    }
+body.dark-mode .gallery-slide-frame {
+  border-color: #23344f;
+}
 
-    .gallery-item:hover img {
-      transform: scale(1.02);
-    }
+.gallery-slide-frame img {
+  width: 100%;
+  height: 460px;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.25s ease;
+}
 
-    .gallery-caption {
-      padding: 12px 14px;
-      font-size: 0.95rem;
-    }
+.gallery-nav {
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.92);
+  color: var(--accent);
+  font-size: 1.4rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+  transition: 0.2s ease;
+}
+
+.gallery-nav:hover {
+  background: var(--accent);
+  color: white;
+  transform: scale(1.05);
+}
+
+body.dark-mode .gallery-nav {
+  background: rgba(16, 30, 50, 0.95);
+  color: #dce9ff;
+}
+
+.gallery-caption {
+  padding: 14px 16px;
+  font-size: 0.97rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+.gallery-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.gallery-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: none;
+  background: #c7cfdb;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.gallery-dot.active {
+  background: var(--accent);
+  transform: scale(1.15);
+}
+
+body.dark-mode .gallery-dot {
+  background: #4d607d;
+}
+
+body.dark-mode .gallery-dot.active {
+  background: var(--accent);
+}
 
     .footer {
       margin-top: 44px;
@@ -672,56 +736,63 @@ body.dark-mode .news-toggle-btn {
       border-color: #23344f;
     }
 
-    @media (max-width: 900px) {
-      .brand {
-        position: static;
-      }
+ @media (max-width: 900px) {
+  .brand {
+    position: static;
+  }
 
-      .topbar-inner {
-        flex-direction: column;
-        padding: 8px 14px;
-        gap: 6px;
-      }
+  .topbar-inner {
+    flex-direction: column;
+    padding: 8px 14px;
+    gap: 6px;
+  }
 
-      .hero,
-      .project,
-      .pub {
-        grid-template-columns: 1fr;
-      }
+  .hero,
+  .project,
+  .pub {
+    grid-template-columns: 1fr;
+  }
 
-      .hero-left {
-        max-width: none;
-      }
+  .hero-left {
+    max-width: none;
+  }
 
-      .portrait {
-        width: 250px;
-        height: 235px;
-        transform: none;
-      }
+  .portrait {
+    width: 250px;
+    height: 235px;
+    transform: none;
+  }
 
-      .team-card {
-        grid-template-columns: 1fr;
-      }
+  .team-card {
+    grid-template-columns: 1fr;
+  }
 
-      .team-photo {
-        width: 110px;
-        height: 110px;
-      }
+  .team-photo {
+    width: 110px;
+    height: 110px;
+  }
 
-      .gallery-grid {
-        grid-template-columns: 1fr;
-      }
+  .gallery-slider {
+    grid-template-columns: 44px 1fr 44px;
+    gap: 8px;
+    padding: 12px;
+  }
 
-      .gallery-item img {
-        height: 240px;
-      }
+  .gallery-slide-frame img {
+    height: 250px;
+  }
 
-      .theme-toggle {
-        top: 12px;
-        right: 14px;
-      }
-    }
-  </style>
+  .gallery-nav {
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+  }
+
+  .theme-toggle {
+    top: 12px;
+    right: 14px;
+  }
+}
 </head>
 <body>
   <div id="top"></div>
@@ -1086,20 +1157,22 @@ body.dark-mode .news-toggle-btn {
       </div>
     </section>
 
-    <section id="gallery">
-      <h2>Gallery</h2>
-      <div class="gallery-grid">
-        <div class="gallery-item reveal">
-          <img src="group-lunch-1.jpg" alt="LACITS group lunch">
-          <div class="gallery-caption">LACITS group lunch, Summer 2025.</div>
-        </div>
+<section id="gallery">
+  <h2>Gallery</h2>
 
-        <div class="gallery-item reveal">
-          <img src="group-lunch-2.jpg" alt="LACITS group lunch">
-          <div class="gallery-caption">Another moment from the group lunch, Winter 2025.</div>
-        </div>
-      </div>
-    </section>
+  <div class="gallery-slider reveal">
+    <button class="gallery-nav prev" id="galleryPrev" aria-label="Previous image">&#10094;</button>
+
+    <div class="gallery-slide-frame">
+      <img id="galleryImage" src="group-lunch-1.jpg" alt="LACITS gallery image">
+      <div class="gallery-caption" id="galleryCaption">LACITS group lunch, Summer 2025.</div>
+    </div>
+
+    <button class="gallery-nav next" id="galleryNext" aria-label="Next image">&#10095;</button>
+  </div>
+
+  <div class="gallery-dots" id="galleryDots"></div>
+</section>
 
 <section id="contact">
   <h2>Contact</h2>
@@ -1292,6 +1365,68 @@ if (newsBox && newsToggleBtn) {
     }
   });
 }
+      const galleryImages = [
+  {
+    src: 'group-lunch-1.jpg',
+    alt: 'LACITS group lunch',
+    caption: 'LACITS group lunch, Summer 2025.'
+  },
+  {
+    src: 'group-lunch-2.jpg',
+    alt: 'LACITS group lunch',
+    caption: 'Another moment from the group lunch, Winter 2025.'
+  }
+];
+
+let galleryIndex = 0;
+
+const galleryImage = document.getElementById('galleryImage');
+const galleryCaption = document.getElementById('galleryCaption');
+const galleryPrev = document.getElementById('galleryPrev');
+const galleryNext = document.getElementById('galleryNext');
+const galleryDots = document.getElementById('galleryDots');
+
+function renderGallery() {
+  if (!galleryImage || !galleryCaption || !galleryDots) return;
+
+  const item = galleryImages[galleryIndex];
+  galleryImage.src = item.src;
+  galleryImage.alt = item.alt;
+  galleryCaption.textContent = item.caption;
+
+  const dots = galleryDots.querySelectorAll('.gallery-dot');
+  dots.forEach((dot, i) => {
+    dot.classList.toggle('active', i === galleryIndex);
+  });
+}
+
+function showNextImage() {
+  galleryIndex = (galleryIndex + 1) % galleryImages.length;
+  renderGallery();
+}
+
+function showPrevImage() {
+  galleryIndex = (galleryIndex - 1 + galleryImages.length) % galleryImages.length;
+  renderGallery();
+}
+
+if (galleryDots) {
+  galleryImages.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'gallery-dot';
+    dot.setAttribute('aria-label', `Go to image ${i + 1}`);
+    dot.addEventListener('click', () => {
+      galleryIndex = i;
+      renderGallery();
+    });
+    galleryDots.appendChild(dot);
+  });
+}
+
+if (galleryNext) galleryNext.addEventListener('click', showNextImage);
+if (galleryPrev) galleryPrev.addEventListener('click', showPrevImage);
+
+renderGallery();
   </script>
 </body>
 </html>
