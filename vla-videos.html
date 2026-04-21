@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VLA Project Videos</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 30px;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #ffffff;
+      color: #222;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 28px;
+      font-size: 1.8rem;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .video-card {
+      background: #fafafa;
+      border: 1px solid #e2e2e2;
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    }
+
+    .video-card video {
+      width: 100%;
+      border-radius: 12px;
+      display: block;
+      background: #000;
+    }
+
+    .caption {
+      margin-top: 12px;
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #444;
+    }
+
+    @media (max-width: 900px) {
+      .video-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Vision-Language-Action Project Videos</h1>
+
+  <div class="video-grid">
+    <div class="video-card">
+      <video controls>
+        <source src="VLAv1.mp4" type="video/mp4">
+      </video>
+      <div class="caption">Vanilla DQN</div>
+    </div>
+
+    <div class="video-card">
+      <video controls>
+        <source src="VLAv2.mp4" type="video/mp4">
+      </video>
+      <div class="caption">CLIP-based DQN</div>
+    </div>
+  </div>
+</body>
+</html>
