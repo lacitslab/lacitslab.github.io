@@ -171,19 +171,47 @@
       align-items: start;
     }
 
-    .hero-eyebrow {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 1.8px;
-      color: #6b7ea6;
-      margin-bottom: 8px;
-    }
+ 
+    .hero-kicker {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 2.4px;
+  color: #4f5f7e;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
 
-    body.dark-mode .hero-eyebrow,
-    body.dark-mode h2,
-    body.dark-mode .team-group-title {
-      color: #b9ccf0;
-    }
+.hero-subkicker {
+  font-size: 0.88rem;
+  color: #7a7f89;
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+
+.hero-labname {
+  margin: -2px 0 18px;
+  font-size: 1.02rem;
+  color: var(--accent);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+body.dark-mode .hero-kicker {
+  color: #b9ccf0;
+}
+
+body.dark-mode .hero-subkicker {
+  color: #aebbd6;
+}
+
+body.dark-mode .hero-labname {
+  color: #8fc2ff;
+}
+
+ body.dark-mode h2,
+body.dark-mode .team-group-title {
+  color: #b9ccf0;
+}
 
     .hero h1 {
       margin: 0 0 12px;
@@ -852,8 +880,10 @@
   <main class="wrap">
     <section class="hero" id="home">
       <div class="hero-left">
-        <div class="hero-eyebrow">Concordia University Research Lab</div>
-        <h1>LACITS</h1>
+        <div class="hero-kicker">Concordia University</div>
+<div class="hero-subkicker">Gina Cody School of Engineering and Computer Science</div>
+<h1>LACITS</h1>
+<div class="hero-labname">Laboratory for Autonomy and Control in Intelligent Transportation Systems</div>
         <p>
           LACITS, the <a href="#">Laboratory for Autonomy and Control in Intelligent Transportation Systems</a>, is a research lab at Concordia University focusing on <strong>safe, trustworthy, and human-centered autonomy</strong> for autonomous vehicles, robotics, and AI-enabled mechatronic systems.
         </p>
