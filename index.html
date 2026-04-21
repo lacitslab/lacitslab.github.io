@@ -1031,13 +1031,14 @@ body.dark-mode .team-group-title {
 
     <section id="research">
       <h2>Research</h2>
-      <div class="filters">
-        <button class="active" data-filter="all">All</button>
-        <button data-filter="autonomy">Autonomy</button>
-        <button data-filter="control">Control</button>
-        <button data-filter="rl">Reinforcement Learning</button>
-        <button data-filter="robotics">Robotics</button>
-      </div>
+<div class="filters">
+  <button class="active" data-filter="all">All</button>
+  <button data-filter="autonomous-systems">Autonomous Systems</button>
+  <button data-filter="its">Intelligent Transportation Systems</button>
+  <button data-filter="control">Control</button>
+  <button data-filter="rl">Reinforcement Learning</button>
+  <button data-filter="robotics">Robotics</button>
+</div>
 
 <article class="pub" data-category="autonomy control rl robotics">
   <div class="thumb">
@@ -1062,15 +1063,28 @@ body.dark-mode .team-group-title {
   </div>
 </article>
 
-      <article class="pub" data-category="rl robotics">
-        <div class="thumb">Research teaser figure</div>
-        <div>
-          <h3>Research Activity 2</h3>
-          <div class="muted">Author 1, Author 2, <strong>Your Name</strong><br>Journal / Conference, Year</div>
-          <div class="small-links">[ <a href="#">Paper</a> / <a href="#">Code</a> / <a href="#">Project</a> ]</div>
-          <p>Replace this with a short summary of the contribution.</p>
-        </div>
-      </article>
+<article class="pub" data-category="autonomous-systems its rl">
+  <div class="thumb">
+    <img src="RA2.png" alt="Socially-aware autonomous driving with yielding intention inference for safer interactions">
+  </div>
+  <div>
+    <h3>Socially-Aware Autonomous Driving: Inferring Yielding Intentions for Safer Interactions</h3>
+    <div class="muted">
+      Jing Wang, Yan Jin, <strong>Hamid Taghavifar</strong>, Fei Ding, and Chongfeng Wei<br>
+      arXiv preprint, 2025
+    </div>
+    <div class="small-links">[ <a href="https://arxiv.org/pdf/2504.20004" target="_blank" rel="noopener noreferrer">Paper</a> ]</div>
+    <p>
+      This work develops a socially-aware decision-making framework for autonomous lane-change maneuvers by explicitly inferring the yielding and passing intentions of surrounding human-driven vehicles.
+    </p>
+    <p>
+      The approach integrates Social Value Orientation into a Bayesian Network for intention estimation and combines the resulting probabilistic social inference with a Deep Q-Network policy for autonomous driving decision-making.
+    </p>
+    <p>
+      Evaluated in simulated highway lane-change scenarios, the framework improves safety, efficiency, and interaction awareness by enabling autonomous vehicles to better interpret and respond to surrounding traffic behavior.
+    </p>
+  </div>
+</article>
 
       <article class="pub" data-category="robotics control">
         <div class="thumb">Research teaser figure</div>
