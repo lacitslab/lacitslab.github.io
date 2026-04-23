@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LACITS | Laboratory for Autonomy, Control, and Intelligent Transportation Systems</title>
+  <title>LACITS Lab | Concordia University</title>
   <link rel="icon" type="image/png" href="favicon.png">
   <style>
     :root {
@@ -213,13 +213,28 @@ body.dark-mode .team-group-title {
   color: #b9ccf0;
 }
 
-    .hero h1 {
-      margin: 0 0 12px;
-      font-size: 2.38rem;
-      font-weight: 800;
-      text-align: left;
-      letter-spacing: 0.15px;
-    }
+.hero-title-block {
+  margin: 0 0 14px;
+  display: inline-block;
+  font-size: 4.3rem;
+  line-height: 0.95;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 10px 18px 12px;
+  border-radius: 16px;
+  color: #111111;
+  background: linear-gradient(135deg, rgba(43,120,228,0.10), rgba(43,120,228,0.03));
+  border: 1px solid rgba(43,120,228,0.18);
+  box-shadow: 0 10px 24px rgba(43,120,228,0.08);
+}
+
+body.dark-mode .hero-title-block {
+  color: #f4f8ff;
+  background: linear-gradient(135deg, rgba(102,179,255,0.16), rgba(102,179,255,0.05));
+  border-color: rgba(102,179,255,0.24);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.22);
+}
 
     .hero-left {
       max-width: 600px;
@@ -789,10 +804,22 @@ body.dark-mode .team-group-title {
       border-color: #23344f;
     }
 
-    @media (max-width: 900px) {
-      .brand {
-        position: static;
-      }
+@media (max-width: 900px) {
+  .brand {
+    position: static;
+  }
+
+  .hero-title-block {
+    font-size: 3.2rem;
+    letter-spacing: 2px;
+    padding: 8px 14px 10px;
+  }
+
+  .topbar-inner {
+    flex-direction: column;
+    padding: 8px 14px;
+    gap: 6px;
+  }
 
       .topbar-inner {
         flex-direction: column;
@@ -876,7 +903,7 @@ body.dark-mode .team-group-title {
       <div class="hero-left">
         <div class="hero-kicker">Concordia University</div>
 <div class="hero-subkicker">Gina Cody School of Engineering and Computer Science</div>
-<h1>LACITS</h1>
+<h1 class="hero-title-block">LACITS</h1>
 <div class="hero-labname">Laboratory for Autonomy, Control, and Intelligent Transportation Systems</div>
         <p>
           LACITS, the <a href="#">Laboratory for Autonomy, Control, and Intelligent Transportation Systems</a>, is a research lab at Concordia University focusing on <strong>safe, trustworthy, and human-centered autonomy</strong> for autonomous vehicles, robotics, and AI-enabled mechatronic systems.
