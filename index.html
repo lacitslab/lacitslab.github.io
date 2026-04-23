@@ -164,12 +164,10 @@
       padding: 54px 24px 74px;
     }
 
-    .hero {
-      display: grid;
-      grid-template-columns: 1.12fr 0.88fr;
-      gap: 34px;
-      align-items: start;
-    }
+.hero {
+  display: block;
+  padding-top: 18px;
+}
 
  
 .hero-kicker {
@@ -229,63 +227,76 @@ body.dark-mode .team-group-title {
   box-shadow: 0 10px 24px rgba(43,120,228,0.08);
 }
 
+    .hero-top {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.hero-brand-band {
+  text-align: center;
+  margin: 0 auto 30px;
+}
+
+.hero-main {
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: 42px;
+  align-items: start;
+  margin-top: 8px;
+}
+
+.hero-copy {
+  max-width: 720px;
+}
+
+.hero-copy p {
+  margin: 0 0 18px;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.hero-logo-panel {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.hero-logo-card {
+  width: 100%;
+  max-width: 320px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--card-bg);
+  border: 1px solid #e5d6d9;
+  box-shadow: 0 18px 38px rgba(0,0,0,0.06);
+  padding: 14px;
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.hero-logo-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--hover-shadow);
+}
+
+.hero-logo-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+body.dark-mode .hero-logo-card {
+  border-color: #23344f;
+  box-shadow: 0 18px 38px rgba(0,0,0,0.20);
+}
+    
+
 body.dark-mode .hero-title-block {
   color: #f4f8ff;
   background: linear-gradient(135deg, rgba(102,179,255,0.16), rgba(102,179,255,0.05));
   border-color: rgba(102,179,255,0.24);
   box-shadow: 0 12px 26px rgba(0,0,0,0.22);
 }
-
-    .hero-left {
-      max-width: 600px;
-      margin-left: auto;
-    }
-
-    .hero-left p {
-      margin: 0 0 14px;
-      font-size: 1.03rem;
-    }
-
-    .hero-right {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding-top: 4px;
-    }
-
-    .portrait {
-      width: 292px;
-      height: 270px;
-      border-radius: 24px;
-      overflow: hidden;
-      background: var(--card-bg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #6d4a52;
-      text-align: center;
-      border: 1px solid #e5d6d9;
-      box-shadow: 0 18px 38px rgba(0,0,0,0.06);
-      padding: 0;
-      transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    .portrait:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--hover-shadow);
-    }
-
-    body.dark-mode .portrait {
-      border-color: #23344f;
-      box-shadow: 0 18px 38px rgba(0,0,0,0.20);
-    }
-
-    .portrait img {
-      width: 112%;
-      height: 112%;
-      object-fit: contain;
-      display: block;
-    }
 
     .icon-links {
       margin-top: 14px;
@@ -821,27 +832,26 @@ body.dark-mode .hero-title-block {
     gap: 6px;
   }
 
-      .topbar-inner {
-        flex-direction: column;
-        padding: 8px 14px;
-        gap: 6px;
-      }
+ 
+.project,
+.pub {
+  grid-template-columns: 1fr;
+}
 
-      .hero,
-      .project,
-      .pub {
-        grid-template-columns: 1fr;
-      }
+.hero-main {
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
 
-      .hero-left {
-        max-width: none;
-      }
+.hero-copy {
+  max-width: none;
+}
 
-      .portrait {
-        width: 250px;
-        height: 235px;
-        transform: none;
-      }
+.hero-logo-card {
+  max-width: 260px;
+  margin: 0 auto;
+}
+ 
 
       .team-card {
         grid-template-columns: 1fr;
@@ -899,47 +909,58 @@ body.dark-mode .hero-title-block {
   </header>
 
   <main class="wrap">
-    <section class="hero" id="home">
-      <div class="hero-left">
-        <div class="hero-kicker">Concordia University</div>
-<div class="hero-subkicker">Gina Cody School of Engineering and Computer Science</div>
-<h1 class="hero-title-block">LACITS</h1>
-<div class="hero-labname">Laboratory for Autonomy, Control, and Intelligent Transportation Systems</div>
-        <p>
-          LACITS, the <a href="#">Laboratory for Autonomy, Control, and Intelligent Transportation Systems</a>, is a research lab at Concordia University focusing on <strong>safe, trustworthy, and human-centered autonomy</strong> for autonomous vehicles, robotics, and AI-enabled mechatronic systems.
-        </p>
-        <p>
-          The lab develops complex and advanced frameworks that connect <strong>perception, state estimation, planning, control, decision-making and learning</strong> so that autonomous systems can perform multi-layered tasks reliably in uncertain, dynamic, and safety-critical environments. A pivotal theme of our work is that autonomy must go beyond performance alone: it must also be resilient, interpretable, and aligned with human expectations and safety requirements.
-        </p>
-        <p>
-          Our research spans <a href="#">autonomous driving</a>, <a href="#">robotics</a>, <a href="#">reinforcement learning</a>, <a href="#">advanced control</a>, <a href="#">fault-tolerant and adaptive systems</a>, and <a href="#">human-aware decision-making</a>. We combine rigorous control-theoretic foundations with modern AI methods to design algorithms that are both computationally practical and supported by strong safety and performance guarantees.
-        </p>
-        <p>
-          LACITS also emphasizes <strong>real-world validation</strong>. Our experimental ecosystem includes driving simulation, human-in-the-loop and hardware-in-the-loop platforms, and emerging robotic testbeds such as the <a href="#">Unitree Go2</a> for safety-critical legged autonomy and sim-to-real research. Through this combination of theory, computation, and experimentation, the lab aims to contribute to the next generation of intelligent systems that people can confidently trust.
-        </p>
-        <div class="icon-links">
-          [ <a href="mailto:hamid.taghavifar@concordia.ca">✉ Email</a> |
-          <a href="https://scholar.google.com/citations?user=tCYbMgsAAAAJ&hl=en&oi=ao" target="_blank" style="white-space:nowrap;">
-            <img src="google-scholar.png" alt="Google Scholar" style="width:14px; height:14px; vertical-align:-2px; margin-right:4px;">Google Scholar
-          </a> |
-          <a href="https://ca.linkedin.com/in/hamid-taghavifar-ph-d-p-eng-3b68294b" target="_blank">
-            <span style="display:inline-block; width:16px; height:16px; line-height:16px; text-align:center; font-size:12px; font-weight:700; color:white; background:#0A66C2; border-radius:3px; margin-right:4px;">in</span>LinkedIn
-          </a> |
-          <a href="https://github.com/LACITS-CONCORDIA" target="_blank" style="white-space:nowrap;">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" style="vertical-align:-2px; margin-right:4px; fill:currentColor;">
-              <path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38v-1.34c-2.23.48-2.7-.95-2.7-.95-.36-.92-.89-1.16-.89-1.16-.73-.5.06-.49.06-.49.81.06 1.23.83 1.23.83.72 1.24 1.88.88 2.34.67.07-.52.28-.88.5-1.08-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.58.82-2.14-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.6 7.6 0 0 1 8 4.77c.68 0 1.37.09 2.01.26 1.53-1.03 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.14 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.19c0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/>
-            </svg>GitHub
-          </a> ]
-        </div>
-      </div>
 
-      <div class="hero-right">
-        <div class="portrait">
-          <img src="173662816.png" alt="LACITS logo">
-        </div>
-      </div>
-    </section>
+<section class="hero" id="home">
+  <div class="hero-top">
+    <div class="hero-kicker">Concordia University</div>
+    <div class="hero-subkicker">Gina Cody School of Engineering and Computer Science</div>
+  </div>
 
+  <div class="hero-brand-band">
+    <h1 class="hero-title-block">LACITS</h1>
+    <div class="hero-labname">Laboratory for Autonomy, Control, and Intelligent Transportation Systems</div>
+  </div>
+
+  <div class="hero-main">
+    <div class="hero-copy">
+      <p>
+        LACITS, the <a href="#">Laboratory for Autonomy, Control, and Intelligent Transportation Systems</a>, is a research lab at Concordia University focusing on <strong>safe, trustworthy, and human-centered autonomy</strong> for autonomous vehicles, robotics, and AI-enabled mechatronic systems.
+      </p>
+      <p>
+        The lab develops complex and advanced frameworks that connect <strong>perception, state estimation, planning, control, decision-making and learning</strong> so that autonomous systems can perform multi-layered tasks reliably in uncertain, dynamic, and safety-critical environments. A pivotal theme of our work is that autonomy must go beyond performance alone: it must also be resilient, interpretable, and aligned with human expectations and safety requirements.
+      </p>
+      <p>
+        Our research spans <a href="#">autonomous driving</a>, <a href="#">robotics</a>, <a href="#">reinforcement learning</a>, <a href="#">advanced control</a>, <a href="#">fault-tolerant and adaptive systems</a>, and <a href="#">human-aware decision-making</a>. We combine rigorous control-theoretic foundations with modern AI methods to design algorithms that are both computationally practical and supported by strong safety and performance guarantees.
+      </p>
+      <p>
+        LACITS also emphasizes <strong>real-world validation</strong>. Our experimental ecosystem includes driving simulation, human-in-the-loop and hardware-in-the-loop platforms, and emerging robotic testbeds such as the <a href="#">Unitree Go2</a> for safety-critical legged autonomy and sim-to-real research. Through this combination of theory, computation, and experimentation, the lab aims to contribute to the next generation of intelligent systems that people can confidently trust.
+      </p>
+
+      <div class="icon-links">
+        [ <a href="mailto:hamid.taghavifar@concordia.ca">✉ Email</a> |
+        <a href="https://scholar.google.com/citations?user=tCYbMgsAAAAJ&hl=en&oi=ao" target="_blank" style="white-space:nowrap;">
+          <img src="google-scholar.png" alt="Google Scholar" style="width:14px; height:14px; vertical-align:-2px; margin-right:4px;">Google Scholar
+        </a> |
+        <a href="https://ca.linkedin.com/in/hamid-taghavifar-ph-d-p-eng-3b68294b" target="_blank">
+          <span style="display:inline-block; width:16px; height:16px; line-height:16px; text-align:center; font-size:12px; font-weight:700; color:white; background:#0A66C2; border-radius:3px; margin-right:4px;">in</span>LinkedIn
+        </a> |
+        <a href="https://github.com/LACITS-CONCORDIA" target="_blank" style="white-space:nowrap;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" style="vertical-align:-2px; margin-right:4px; fill:currentColor;">
+            <path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38v-1.34c-2.23.48-2.7-.95-2.7-.95-.36-.92-.89-1.16-.89-1.16-.73-.5.06-.49.06-.49.81.06 1.23.83 1.23.83.72 1.24 1.88.88 2.34.67.07-.52.28-.88.5-1.08-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.58.82-2.14-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.6 7.6 0 0 1 8 4.77c.68 0 1.37.09 2.01.26 1.53-1.03 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.14 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.19c0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/>
+          </svg>GitHub
+        </a> ]
+      </div>
+    </div>
+
+    <div class="hero-logo-panel">
+      <div class="hero-logo-card">
+        <img src="173662816.png" alt="LACITS logo">
+      </div>
+    </div>
+  </div>
+</section>
+
+ 
     <div class="tagline">Safe, trustworthy, and human-centered autonomy for intelligent transportation and robotic systems.</div>
 
     <section id="news">
