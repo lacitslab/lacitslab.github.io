@@ -369,13 +369,7 @@ body.dark-mode .team-group-title {
       line-height: 1.45;
     }
 
-    .news li.extra-news {
-      display: none;
-    }
-
-    .news.expanded li.extra-news {
-      display: list-item;
-    }
+ 
 
     .news-toggle-wrap {
       margin-top: 12px;
@@ -1569,36 +1563,34 @@ body.dark-mode .team-group-title {
       networkPoints = buildPoints();
     });
 
-    // News toggle
+// News toggle
 const newsBox = document.getElementById('newsBox');
 const newsToggleBtn = document.getElementById('newsToggleBtn');
 
 if (newsBox && newsToggleBtn) {
-  const newsItems = newsBox.querySelectorAll('li');
+  const newsItems = Array.from(newsBox.querySelectorAll('li'));
   const visibleNewsCount = 10;
+  let expanded = false;
 
-  newsItems.forEach((item, index) => {
-    item.classList.remove('extra-news');
-    if (index >= visibleNewsCount) {
-      item.classList.add('extra-news');
+  function updateNewsDisplay() {
+    newsItems.forEach((item, index) => {
+      item.style.display = (index < visibleNewsCount || expanded) ? 'list-item' : 'none';
+    });
+
+    if (newsItems.length <= visibleNewsCount) {
+      newsToggleBtn.style.display = 'none';
+    } else {
+      newsToggleBtn.style.display = 'inline-block';
+      newsToggleBtn.textContent = expanded ? 'Show Less' : 'More News';
     }
-  });
-
-  if (newsItems.length <= visibleNewsCount) {
-    newsToggleBtn.style.display = 'none';
-  } else {
-    newsToggleBtn.style.display = 'inline-block';
   }
 
   newsToggleBtn.addEventListener('click', () => {
-    newsBox.classList.toggle('expanded');
-
-    if (newsBox.classList.contains('expanded')) {
-      newsToggleBtn.textContent = 'Show Less';
-    } else {
-      newsToggleBtn.textContent = 'More News';
-    }
+    expanded = !expanded;
+    updateNewsDisplay();
   });
+
+  updateNewsDisplay();
 }
 
     // Gallery slider
