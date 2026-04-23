@@ -534,14 +534,31 @@ body.dark-mode .hero-title-block::after {
       margin: 0 0 10px;
       font-size: 0.97rem;
     }
-   .more-papers-note {
-  margin-top: 14px;
-  padding-top: 10px;
-  border-top: 1px dashed var(--line);
-  font-size: 0.96rem;
+
+    .more-papers-box {
+  margin: 10px 0 28px;
+  padding: 16px 20px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(43, 120, 228, 0.05);
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.more-papers-box p {
+  margin: 0;
+  font-size: 1rem;
   color: var(--muted);
-  font-style: italic;
-} 
+}
+
+.more-papers-box a {
+  font-weight: 700;
+}
+
+body.dark-mode .more-papers-box {
+  background: rgba(102, 179, 255, 0.08);
+  border-color: #23344f;
+}
 
     .small-links a {
       margin-right: 6px;
@@ -1382,18 +1399,15 @@ body.dark-mode .hero-title-block::after {
     <p>
       Extensive simulation results show reduced collision risk, improved average rewards, and more socially interpretable decision-making, supporting safe, efficient, and human-aware autonomous driving in shared urban environments.
     </p>
-    <p class="more-papers-note">
-      For a more complete list of publications, please visit
-      <a href="https://scholar.google.com/citations?user=tCYbMgsAAAAJ&hl=en&oi=ao" target="_blank" rel="noopener noreferrer">Google Scholar</a>.
-    </p>
   </div>
 </article>
 
-
-      
-      
-      
-      
+<div class="more-papers-box">
+  <p>
+    For a more complete list of publications, please visit
+    <a href="https://scholar.google.com/citations?user=tCYbMgsAAAAJ&hl=en&oi=ao" target="_blank" rel="noopener noreferrer">Google Scholar</a>.
+  </p>
+</div>
     </section>
 
     <section id="teaching">
