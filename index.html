@@ -937,7 +937,7 @@ body.dark-mode .team-group-title {
   <li><span class="date service">Jul 2024</span> Victor Rasidescu defended his MASc thesis on “Socially Aware Path Planning for Autonomous Road Vehicles.”</li>
   <li><span class="date grant">Mar 2023</span> Dr. Taghavifar was awarded the NSERC Discovery Grant for “A Resilient Framework for Intelligent Navigation and Energy Management of Future Multi-Level Electrified Autonomous Vehicles” together with the Discovery Launch Supplement. <a href="https://nserc-crsng.canada.ca/en/awards-database/808419" target="_blank" rel="noopener noreferrer">[NSERC Award Page]</a></li>
   <li><span class="date service">Sep 2022</span> LACITS activities formally started at Concordia University with new research directions in autonomy, robotics, and control.</li>
-  <li class="extra-news">Dr. Taghavifar has joined the Department of Mechanical, Industrial, and Aerospace Engineering of Concordia University</li>
+  <li>Dr. Taghavifar has joined the Department of Mechanical, Industrial, and Aerospace Engineering of Concordia University</li>
 </ul>
       </div>
       <div class="news-toggle-wrap">
@@ -1570,20 +1570,36 @@ body.dark-mode .team-group-title {
     });
 
     // News toggle
-    const newsBox = document.getElementById('newsBox');
-    const newsToggleBtn = document.getElementById('newsToggleBtn');
+const newsBox = document.getElementById('newsBox');
+const newsToggleBtn = document.getElementById('newsToggleBtn');
 
-    if (newsBox && newsToggleBtn) {
-      newsToggleBtn.addEventListener('click', () => {
-        newsBox.classList.toggle('expanded');
+if (newsBox && newsToggleBtn) {
+  const newsItems = newsBox.querySelectorAll('li');
+  const visibleNewsCount = 10;
 
-        if (newsBox.classList.contains('expanded')) {
-          newsToggleBtn.textContent = 'Show Less';
-        } else {
-          newsToggleBtn.textContent = 'More News';
-        }
-      });
+  newsItems.forEach((item, index) => {
+    item.classList.remove('extra-news');
+    if (index >= visibleNewsCount) {
+      item.classList.add('extra-news');
     }
+  });
+
+  if (newsItems.length <= visibleNewsCount) {
+    newsToggleBtn.style.display = 'none';
+  } else {
+    newsToggleBtn.style.display = 'inline-block';
+  }
+
+  newsToggleBtn.addEventListener('click', () => {
+    newsBox.classList.toggle('expanded');
+
+    if (newsBox.classList.contains('expanded')) {
+      newsToggleBtn.textContent = 'Show Less';
+    } else {
+      newsToggleBtn.textContent = 'More News';
+    }
+  });
+}
 
     // Gallery slider
     const galleryImages = [
