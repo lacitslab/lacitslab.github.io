@@ -1797,13 +1797,13 @@ at <a href="https://www.concordia.ca/" target="_blank" rel="noopener noreferrer"
 
     if (localStorage.getItem('lacits-theme') === 'dark') {
       document.body.classList.add('dark-mode');
-      themeToggle.textContent = '☀ / ☾';
+      themeToggle.textContent = isDark ? '☀' : '☾';
     }
 
     themeToggle.addEventListener('click', () => {
       document.body.classList.toggle('dark-mode');
       const isDark = document.body.classList.contains('dark-mode');
-      themeToggle.textContent = '☀ / ☾';
+      themeToggle.textContent = '☀';
       localStorage.setItem('lacits-theme', isDark ? 'dark' : 'light');
     });
 
