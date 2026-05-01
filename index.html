@@ -1792,20 +1792,26 @@ at <a href="https://www.concordia.ca/" target="_blank" rel="noopener noreferrer"
 
     revealItems.forEach(item => revealObserver.observe(item));
 
-    // Dark mode
-    const themeToggle = document.getElementById('themeToggle');
+// Dark mode
+const themeToggle = document.getElementById('themeToggle');
 
-    if (localStorage.getItem('lacits-theme') === 'dark') {
-      document.body.classList.add('dark-mode');
-      themeToggle.textContent = isDark ? '☀' : '☾';
-    }
+function updateThemeIcon() {
+  const isDark = document.body.classList.contains('dark-mode');
+  themeToggle.textContent = isDark ? '☀' : '☾';
+}
 
-    themeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('dark-mode');
-      const isDark = document.body.classList.contains('dark-mode');
-      themeToggle.textContent = '☀';
-      localStorage.setItem('lacits-theme', isDark ? 'dark' : 'light');
-    });
+if (localStorage.getItem('lacits-theme') === 'dark') {
+  document.body.classList.add('dark-mode');
+}
+
+updateThemeIcon();
+
+themeToggle.addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+  const isDark = document.body.classList.contains('dark-mode');
+  updateThemeIcon();
+  localStorage.setItem('lacits-theme', isDark ? 'dark' : 'light');
+});
 
     // Init
     resizeCanvas();
