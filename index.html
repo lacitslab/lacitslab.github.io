@@ -86,16 +86,16 @@ body {
       background: rgba(7, 17, 31, 0.92);
     }
 
-    .topbar-inner {
-      max-width: 1220px;
-      margin: 0 auto;
-      padding: 0 16px;
-      min-height: 58px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 24px;
-    }
+.topbar-inner {
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 0 16px;
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
 
     .brand {
       position: absolute;
@@ -141,27 +141,34 @@ nav a.active {
   transform: translateY(-1px);
 }
 
-    .theme-toggle {
-      position: fixed;
-      right: 22px;
-      top: 76px;
-      z-index: 60;
-      width: 46px;
-      height: 46px;
-      border: 1px solid #d9dfe8;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.95);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-      cursor: pointer;
-      font-size: 20px;
-      transition: all 0.25s ease;
-    }
+.theme-toggle {
+  width: 38px;
+  height: 38px;
+  border: 1px solid #d9dfe8;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.96);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 14px;
+  transition: all 0.25s ease;
+}
 
-    body.dark-mode .theme-toggle {
-      background: rgba(16, 30, 50, 0.96);
-      border-color: #334866;
-      color: #ffd35f;
-    }
+.theme-toggle:hover {
+  transform: translateY(-1px);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+body.dark-mode .theme-toggle {
+  background: rgba(16, 30, 50, 0.96);
+  border-color: #334866;
+  color: #ffd35f;
+}
 
 .wrap {
   max-width: 1240px;
@@ -890,35 +897,34 @@ body.dark-mode .more-papers-box {
         font-size: 1.1rem;
       }
 
-      .theme-toggle {
-        top: 12px;
-        right: 14px;
-      }
+.theme-toggle {
+  margin-left: 0;
+}
     }
   </style>
 </head>
 <body>
   <div id="top"></div>
   <canvas class="bg-network" id="bgNetwork"></canvas>
-  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☾</button>
+ 
+<header class="topbar">
+  <div class="topbar-inner">
+    <nav>
+      <ul>
+        <li><a class="active" href="#home">Home</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#teaching">Teaching</a></li>
+        <li><a href="#team">Team</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
 
-  <header class="topbar">
-    <div class="topbar-inner">
-      
-      <nav>
-        <ul>
-          <li><a class="active" href="#home">Home</a></li>
-          <li><a href="#news">News</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#research">Research</a></li>
-          <li><a href="#teaching">Teaching</a></li>
-          <li><a href="#team">Team</a></li>
-          <li><a href="#gallery">Gallery</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+    <button class="theme-toggle theme-toggle-inline" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark/light mode">☾</button>
+  </div>
+</header>
 
   <main class="wrap">
 
